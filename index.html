@@ -29,6 +29,7 @@
   <div class="nav-item" data-page="timeline" role="button" tabindex="0" onclick="go('timeline', this)"><span class="icon">◷</span> Timeline</div>
   <div class="nav-item" data-page="profile" role="button" tabindex="0" onclick="go('profile', this)"><span class="icon">◉</span> My Profile</div>
   <div class="nav-item" data-page="institutes" role="button" tabindex="0" onclick="go('institutes', this)"><span class="icon">✦</span> Institutes</div>
+  <div class="nav-item" data-page="evidencelog" role="button" tabindex="0" onclick="go('evidencelog', this)"><span class="icon">▤</span> Evidence Log</div>
 
   <div class="nav-item" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub('chat-sub', this)"><span class="icon">◈</span> Chat <span class="chev">▾</span></div>
   <div class="sub-nav" id="chat-sub">
@@ -36,16 +37,8 @@
     <div class="sub-item" id="nav-chat-history" data-page="chat" role="button" tabindex="0" onclick="go('chat', this); showChatHistoryView();">Chat History</div>
   </div>
 
-  <div class="nav-item" role="button" tabindex="0" aria-expanded="true" onclick="toggleSub('tools-sub', this)"><span class="icon">▤</span> My Tools <span class="chev">▾</span></div>
-  <div class="sub-nav open" id="tools-sub">
-    <div class="sub-item" data-page="evidencelog" role="button" tabindex="0" onclick="go('evidencelog', this)">Evidence Log</div>
-    <div class="sub-item" data-page="ledger" role="button" tabindex="0" onclick="go('ledger', this)">Activity Ledger</div>
-    <div class="sub-item" data-page="lortracker" role="button" tabindex="0" onclick="go('lortracker', this)">LOR Tracker</div>
-    <div class="sub-item" data-page="schoollist" role="button" tabindex="0" onclick="go('schoollist', this)">School List</div>
-  </div>
-
-  <div class="nav-item" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub('practice-sub', this)"><span class="icon">✎</span> Practice <span class="chev">▾</span></div>
-  <div class="sub-nav" id="practice-sub">
+  <div class="nav-item" role="button" tabindex="0" aria-expanded="true" onclick="toggleSub('practice-sub', this)"><span class="icon">✎</span> Practice <span class="chev">▾</span></div>
+  <div class="sub-nav open" id="practice-sub">
     <div class="sub-item" data-page="simulations" role="button" tabindex="0" onclick="go('simulations', this)">Simulations</div>
     <div class="sub-item" data-page="pschecker" role="button" tabindex="0" onclick="go('pschecker', this)">PS Checker</div>
     <div class="sub-item" data-page="doctorquiz" role="button" tabindex="0" onclick="go('doctorquiz', this)">Should I Be a Doctor?</div>
@@ -200,10 +193,8 @@
   <!-- SIMULATIONS -->
   <div class="page" id="page-simulations">
     <h1 class="section-heading">Practice. Reflect. Prepare.</h1>
-    <p class="section-sub">Practice tools that read your real self-assessment, evidence log, and roadmap progress — a grounded practice read, not a real admissions prediction.</p>
+    <p class="section-sub">Practice tools that read your real self-assessment, evidence log, and roadmap progress.</p>
     <div class="sim-grid">
-      <div class="sim-card" style="cursor:pointer;" role="button" tabindex="0" onclick="openInterviewSim()"><div class="sim-thumb"></div><div class="sim-body"><h4>MMI Interview</h4><p>Practice multiple mini-interview stations with realistic ethical and situational prompts, with feedback on your actual answer.</p></div></div>
-      <div class="sim-card" style="cursor:pointer;" role="button" tabindex="0" onclick="openCommittee()"><div class="sim-thumb"></div><div class="sim-body"><h4>The Committee</h4><p>Four committee members read your real progress and reach a practice verdict — Interview, Hold, or Decline.</p></div></div>
       <div class="sim-card"><div class="sim-thumb"></div><div class="sim-body"><h4>Family Conversation</h4><p>Practice explaining a gap year or long timeline to family who haven't been through it.</p></div></div>
     </div>
   </div>
@@ -241,22 +232,6 @@
     <div id="evidence-log-grid"><!-- populated by JS from evidenceLog --></div>
   </div>
 
-  <!-- ACTIVITY LEDGER -->
-  <div class="page" id="page-ledger">
-    <h1 class="section-heading">Activity Ledger</h1>
-    <p class="section-sub">Log real hours as they happen — this feeds your Evidence Log and The Committee with actual numbers instead of estimates.</p>
-    <div id="ledger-summary" class="ledger-summary-grid"></div>
-    <div class="ledger-form">
-      <select id="ledger-category" class="ledger-select" aria-label="Activity category"></select>
-      <input type="text" id="ledger-org" class="ledger-input" placeholder="Organization or activity (e.g. Good Samaritan Clinic)" aria-label="Organization or activity">
-      <input type="number" id="ledger-hours" class="ledger-input ledger-input-narrow" placeholder="Hours (optional)" min="0" step="0.5" aria-label="Hours (optional)">
-      <input type="date" id="ledger-date" class="ledger-input ledger-input-narrow" aria-label="Date">
-      <input type="text" id="ledger-note" class="ledger-input" placeholder="Brief note (optional)" aria-label="Brief note (optional)">
-      <button class="btn" onclick="addLedgerEntry()">Log Activity</button>
-    </div>
-    <div id="ledger-list" class="ledger-list"></div>
-  </div>
-
   <!-- PERSONAL STATEMENT CHECKER -->
   <div class="page" id="page-pschecker">
     <h1 class="section-heading">Personal Statement Checker</h1>
@@ -271,36 +246,48 @@
     </div>
   </div>
 
-  <!-- LOR TRACKER -->
-  <div class="page" id="page-lortracker">
-    <h1 class="section-heading">LOR Tracker</h1>
-    <p class="section-sub">Track potential letter-writers and how fresh each relationship is — Stage 10's own advice is to ask while their impression of you is still recent, not to wait until you need the letter.</p>
-    <div class="lor-form">
-      <select id="lor-role" class="ledger-select" aria-label="Letter-writer role"></select>
-      <input type="text" id="lor-name" class="ledger-input" placeholder="Name (e.g. Dr. Alvarez)" aria-label="Name">
-      <input type="date" id="lor-last-contact" class="ledger-input ledger-input-narrow" title="Last real conversation with them" aria-label="Last real conversation with them">
-      <select id="lor-status" class="ledger-select" aria-label="Relationship status"></select>
-      <button class="btn" onclick="addLorEntry()">Add / Log Contact</button>
-    </div>
-    <div id="lor-list" class="lor-list"></div>
-  </div>
-
-  <!-- SCHOOL LIST -->
-  <div class="page" id="page-schoollist">
-    <h1 class="section-heading">School List</h1>
-    <p class="section-sub">Detailed, school-by-school comparisons live in the full AesculaMD platform, not the bootcamp — here's why, and what to focus on instead.</p>
-    <div class="apply-card" style="max-width:640px;">
-      <h3>This lives in the full AesculaMD platform</h3>
-      <p>Real Reach/Target/Safety comparisons against the full, current school database — not an illustrative sample — are part of AesculaMD's full application-cycle platform. Once you're deep enough into your cycle to need that level of detail, that's where it lives.</p>
-      <p class="fine">Bootcamp stays focused on the earlier part of the journey: building your case, not managing your application list. Ask the School Fit agent in Chat if you want to talk through list-building strategy in the meantime.</p>
-    </div>
-  </div>
-
   <!-- SHOULD I BE A DOCTOR QUIZ -->
   <div class="page" id="page-doctorquiz">
     <h1 class="section-heading">Should I Be a Doctor?</h1>
     <p class="section-sub">10 honest questions about cost, timeline, and resilience — not gated behind any stage, since this is most useful before you commit further, not after.</p>
     <div id="doctorquiz-body"></div>
+  </div>
+
+  <!-- STAGE DETAIL PAGE -->
+  <div class="page" id="page-stagedetail">
+    <button class="btn outline" style="margin-bottom:22px;" onclick="go('bootcamp', navElementFor('bootcamp'))">← Back to Bootcamp</button>
+    <div class="stage-detail-layout">
+      <div class="stage-detail-main">
+        <div class="node-stage" id="sp-stage" style="color:var(--teal-text); font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;"></div>
+        <h1 id="sp-title" class="section-heading" style="margin-bottom:16px;"></h1>
+        <p id="sp-why" style="font-size:13.5px; color:var(--muted); line-height:1.6; margin-bottom:18px;"></p>
+        <div id="sp-source"></div>
+        <div id="sp-parts"></div>
+        <div id="sp-assessment"></div>
+        <div id="sp-track-selector"></div>
+        <div id="sp-testing-window"></div>
+        <div style="margin:18px 0;">
+          <div class="side-title" style="margin-bottom:10px;">Reflection Prompts</div>
+          <ul id="sp-reflection" style="list-style:none;"></ul>
+        </div>
+        <div style="margin-bottom:20px;">
+          <div class="side-title" style="margin-bottom:10px;">Checklist to Unlock Next Stage</div>
+          <ul id="sp-checklist" class="checklist" style="list-style:none;"></ul>
+        </div>
+        <button class="btn" id="sp-cta" onclick="handleStageCta()">Continue</button>
+      </div>
+      <div class="stage-detail-side">
+        <div class="stage-advisor-card">
+          <div class="side-title">Ask <span id="sd-advisor-name"></span> about this stage</div>
+          <div id="sd-advisor-messages" class="chat-messages stage-advisor-messages"></div>
+          <div class="chat-input-wrap">
+            <textarea id="sd-advisor-input" class="chat-input-real" placeholder="Ask a question..." aria-label="Ask a question about this stage" onkeydown="handleStageAdvisorKey(event)"></textarea>
+            <button class="chat-send-btn" onclick="sendStageAdvisorMessage()" aria-label="Send question">↑</button>
+          </div>
+          <button class="agent-tool-link" onclick="continueStageAdvisorInChat()">Continue in full Chat →</button>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -311,45 +298,6 @@
     <div class="modal-head"><h3>Switch Agent</h3><button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button></div>
     <p style="font-size:12.5px; color:var(--muted); line-height:1.5; margin-bottom:14px;">Chat is one agent at a time, matching how the rest of this app works — pick who you want to talk to. Locked agents unlock as you complete their stage.</p>
     <div class="modal-list" id="chat-agent-picker-list"><!-- populated by JS from AGENT_DATA --></div>
-  </div>
-</div>
-
-
-
-<!-- ===== STAGE DETAIL PAGE ===== -->
-<div class="page" id="page-stagedetail">
-  <button class="btn outline" style="margin-bottom:22px;" onclick="go('bootcamp', navElementFor('bootcamp'))">← Back to Bootcamp</button>
-  <div class="stage-detail-layout">
-    <div class="stage-detail-main">
-      <div class="node-stage" id="sp-stage" style="color:var(--teal-text); font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;"></div>
-      <h1 id="sp-title" class="section-heading" style="margin-bottom:16px;"></h1>
-      <p id="sp-why" style="font-size:13.5px; color:var(--muted); line-height:1.6; margin-bottom:18px;"></p>
-      <div id="sp-source"></div>
-      <div id="sp-parts"></div>
-      <div id="sp-assessment"></div>
-      <div id="sp-track-selector"></div>
-      <div id="sp-testing-window"></div>
-      <div style="margin:18px 0;">
-        <div class="side-title" style="margin-bottom:10px;">Reflection Prompts</div>
-        <ul id="sp-reflection" style="list-style:none;"></ul>
-      </div>
-      <div style="margin-bottom:20px;">
-        <div class="side-title" style="margin-bottom:10px;">Checklist to Unlock Next Stage</div>
-        <ul id="sp-checklist" class="checklist" style="list-style:none;"></ul>
-      </div>
-      <button class="btn" id="sp-cta" onclick="handleStageCta()">Continue</button>
-    </div>
-    <div class="stage-detail-side">
-      <div class="stage-advisor-card">
-        <div class="side-title">Ask <span id="sd-advisor-name"></span> about this stage</div>
-        <div id="sd-advisor-messages" class="chat-messages stage-advisor-messages"></div>
-        <div class="chat-input-wrap">
-          <textarea id="sd-advisor-input" class="chat-input-real" placeholder="Ask a question..." aria-label="Ask a question about this stage" onkeydown="handleStageAdvisorKey(event)"></textarea>
-          <button class="chat-send-btn" onclick="sendStageAdvisorMessage()" aria-label="Send question">↑</button>
-        </div>
-        <button class="agent-tool-link" onclick="continueStageAdvisorInChat()">Continue in full Chat →</button>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -378,38 +326,6 @@
     </div>
     <div class="modal-footer">
       <button class="modal-start-btn" id="qs-cta" onclick="submitQuickSetup()">Generate My Roadmap</button>
-    </div>
-  </div>
-</div>
-
-<!-- ===== INTERVIEW SIMULATOR MODAL ===== -->
-<div class="modal-overlay" id="interview-modal" onclick="closeIfInterviewOverlay(event)">
-  <div class="modal" id="interview-panel" style="width:520px;">
-    <div class="modal-head">
-      <div>
-        <div class="node-stage" style="color:var(--teal-text); font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;">MMI Interview Practice</div>
-        <h3 style="font-size:20px;">Interview Simulator</h3>
-      </div>
-      <button class="modal-close" onclick="closeInterviewSim()" aria-label="Close interview simulator">✕</button>
-    </div>
-    <div class="modal-list" style="padding-right:6px;">
-      <div id="interview-body"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== THE COMMITTEE MODAL ===== -->
-<div class="modal-overlay" id="committee-modal" onclick="closeIfCommitteeOverlay(event)">
-  <div class="modal" id="committee-panel" style="width:520px;">
-    <div class="modal-head">
-      <div>
-        <div class="node-stage" style="color:var(--teal-text); font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;">Practice Read, Not a Prediction</div>
-        <h3 style="font-size:20px;">The Committee</h3>
-      </div>
-      <button class="modal-close" onclick="closeCommittee()" aria-label="Close committee">✕</button>
-    </div>
-    <div class="modal-list" style="padding-right:6px;">
-      <div id="committee-body"></div>
     </div>
   </div>
 </div>

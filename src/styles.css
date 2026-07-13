@@ -272,70 +272,9 @@
   .pace-read.warn{ background:#FEF3C7; color:#78350F; }
   .pace-read.bad{ background:#FCEBEB; color:#7F1D1D; }
 
-  /* Interview Simulator */
-  .interview-persona-grid{ display:grid; grid-template-columns:1fr; gap:8px; margin-bottom:18px; }
-  .interview-persona-card{ display:flex; align-items:center; gap:12px; border:1px solid var(--line-strong); border-radius:12px; padding:12px 14px; cursor:pointer; background:var(--panel); }
-  .interview-persona-card.selected{ border-color:var(--teal); background:var(--teal-pale); }
-  .interview-persona-avatar{ font-size:22px; }
-  .interview-persona-name{ font-size:13px; font-weight:700; }
-  .interview-persona-title{ font-size:11.5px; color:var(--muted); }
-  .interview-category-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:8px; margin-bottom:18px; }
-  .interview-category-pill{ border:1px solid var(--line-strong); border-radius:10px; padding:10px; font-size:12px; font-weight:600; text-align:center; cursor:pointer; background:var(--panel); }
-  .interview-category-pill.selected{ background:var(--teal); border-color:var(--teal); color:white; }
-  .interview-question-card{ border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin-bottom:14px; background:var(--teal-pale); }
-  .interview-question-meta{ font-size:11px; font-family:'IBM Plex Mono',monospace; color:var(--teal-text); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
-  .interview-question-text{ font-size:15px; font-weight:700; }
-  .interview-answer-box{ width:100%; box-sizing:border-box; border:1px solid var(--line-strong); border-radius:10px; padding:12px 14px; font-size:13px; font-family:inherit; min-height:110px; resize:vertical; margin-bottom:12px; }
-  .interview-feedback-card{ border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin-bottom:14px; }
-  .interview-score-row{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
-  .interview-score-badge{ font-size:24px; font-weight:800; }
-  .interview-feedback-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--muted); margin:10px 0 3px; }
-  .interview-feedback-text{ font-size:13px; line-height:1.55; }
-
-  /* The Committee */
-  .committee-member-card{ border:1px solid var(--line); border-radius:14px; padding:14px 16px; margin-bottom:10px; border-left-width:4px; }
-  .committee-member-card.positive{ border-left-color:#1D9E75; }
-  .committee-member-card.neutral{ border-left-color:#D97706; }
-  .committee-member-card.concerned{ border-left-color:#DC2626; }
-  .committee-member-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
-  .committee-member-role{ font-size:13px; font-weight:700; }
-  .committee-member-focus{ font-size:11px; color:var(--muted); margin-bottom:8px; }
-  .committee-score-badge{ font-size:13px; font-weight:800; padding:2px 9px; border-radius:8px; }
-  .committee-score-badge.positive{ background:#E1F5EE; color:#1D9E75; }
-  .committee-score-badge.neutral{ background:#FEF3C7; color:#D97706; }
-  .committee-score-badge.concerned{ background:#FCEBEB; color:#DC2626; }
-  .committee-statement{ font-size:13px; line-height:1.55; }
-  .committee-verdict-banner{ border-radius:14px; padding:18px; text-align:center; margin:16px 0; }
-  .committee-verdict-banner.Interview{ background:#E1F5EE; }
-  .committee-verdict-banner.Hold{ background:#FEF3C7; }
-  .committee-verdict-banner.Decline{ background:#FCEBEB; }
-  .committee-verdict-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:4px; }
-  .committee-verdict-decision{ font-size:24px; font-weight:800; }
-  .committee-verdict-reason{ font-size:12.5px; color:var(--muted); margin-top:6px; }
-  .committee-action-list{ list-style:none; padding:0; margin:0; }
-  .committee-action-list li{ font-size:13px; padding:8px 0; border-bottom:1px solid var(--line); }
-  .committee-action-list li:last-child{ border-bottom:none; }
-
-  /* Activity Ledger */
-  .ledger-summary-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:14px; margin-bottom:22px; }
-  .ledger-cat-card{ border:1px solid var(--line); border-radius:14px; padding:14px 16px; background:var(--panel); }
-  .ledger-cat-name{ font-size:13px; font-weight:700; margin-bottom:4px; }
-  .ledger-cat-hours{ font-size:18px; font-weight:800; color:var(--teal); margin-bottom:6px; }
-  .ledger-cat-track{ height:6px; border-radius:4px; background:var(--line); overflow:hidden; margin-bottom:6px; }
-  .ledger-cat-fill{ height:100%; background:var(--teal-light); border-radius:4px; }
-  .ledger-cat-label{ font-size:11px; color:var(--muted); }
-  .ledger-form{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:20px; background:var(--panel); }
-  .ledger-select{ border:1px solid var(--line-strong); border-radius:8px; padding:9px 10px; font-size:13px; font-family:inherit; }
-  .ledger-input{ flex:1 1 180px; border:1px solid var(--line-strong); border-radius:8px; padding:9px 10px; font-size:13px; font-family:inherit; min-width:0; }
-  .ledger-input-narrow{ flex:0 1 130px; }
-  .ledger-list{ display:flex; flex-direction:column; gap:10px; }
-  .ledger-entry{ border:1px solid var(--line); border-radius:12px; padding:12px 16px; background:var(--panel); }
-  .ledger-entry-head{ display:flex; align-items:center; gap:10px; margin-bottom:4px; }
-  .ledger-entry-cat{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; color:var(--teal-text); }
-  .ledger-entry-hours{ font-size:12.5px; font-weight:700; }
-  .ledger-entry-remove{ margin-left:auto; border:none; background:none; color:var(--muted); cursor:pointer; font-size:13px; }
-  .ledger-entry-org{ font-size:13px; font-weight:600; }
-  .ledger-entry-note{ font-size:12.5px; color:var(--muted); margin-top:3px; }
+  /* Generic form inputs (used by Institutes) */
+  .form-input{ flex:1 1 180px; border:1px solid var(--line-strong); border-radius:8px; padding:9px 10px; font-size:13px; font-family:inherit; min-width:0; }
+  .form-input-narrow{ flex:0 1 130px; }
 
   /* Stage Detail (was a slide-in modal panel — now a real page, with an embedded advisor) */
   .stage-detail-layout{ display:grid; grid-template-columns:1fr 340px; gap:24px; align-items:start; }
@@ -363,23 +302,6 @@
   .ps-check-card.bad{ background:#FCEBEB; color:#7F1D1D; }
   .ps-check-label{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:4px; }
   .ps-empty{ font-size:12.5px; color:var(--muted); font-style:italic; }
-
-  /* LOR Tracker */
-  .lor-form{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:20px; background:var(--panel); }
-  .lor-list{ display:flex; flex-direction:column; gap:10px; }
-  .lor-entry{ border:1px solid var(--line); border-radius:12px; padding:12px 16px; background:var(--panel); display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
-  .lor-entry-name{ font-size:13.5px; font-weight:700; }
-  .lor-entry-role{ font-size:11.5px; color:var(--muted); }
-  .lor-status-badge{ font-size:11px; font-weight:700; padding:3px 10px; border-radius:8px; }
-  .lor-status-badge.notasked{ background:var(--line); color:var(--muted); }
-  .lor-status-badge.asked{ background:#FEF3C7; color:#78350F; }
-  .lor-status-badge.confirmed{ background:var(--teal-pale); color:var(--teal); }
-  .lor-status-badge.submitted{ background:#E1F5EE; color:#1D9E75; }
-  .lor-freshness{ font-size:11.5px; margin-left:auto; }
-  .lor-freshness.fresh{ color:#1D9E75; }
-  .lor-freshness.aging{ color:#D97706; }
-  .lor-freshness.stale{ color:#DC2626; }
-  .lor-entry-remove{ border:none; background:none; color:var(--muted); cursor:pointer; font-size:13px; }
 
   /* Should I Be a Doctor? quiz */
   .quiz-progress-track{ height:6px; border-radius:4px; background:var(--line); overflow:hidden; margin-bottom:24px; }

@@ -697,308 +697,6 @@ function renderTimeline(){
   `).join('');
 }
 
-// ---- Interview Simulator (content/simulations-design.md) ----
-
-let interviewState = { phase: 'setup', personaId: null, categoryId: null, questionIdx: 0, questionText: null, askedIndices: {}, lastAnswer: '', feedback: null };
-
-function openInterviewSim(){
-  interviewState = { phase: 'setup', personaId: null, categoryId: null, questionIdx: 0, questionText: null, askedIndices: {}, lastAnswer: '', feedback: null };
-  renderInterviewBody();
-  document.getElementById('interview-modal').classList.add('open');
-}
-function closeInterviewSim(){ document.getElementById('interview-modal').classList.remove('open'); }
-function closeIfInterviewOverlay(e){ if (e.target.id === 'interview-modal') closeInterviewSim(); }
-
-function selectInterviewPersona(id){ interviewState.personaId = id; renderInterviewBody(); }
-function selectInterviewCategory(id){ interviewState.categoryId = id; renderInterviewBody(); }
-
-function startInterviewQuestion(){
-  if (!interviewState.personaId || !interviewState.categoryId) return;
-  pickNextInterviewQuestion();
-}
-
-function pickNextInterviewQuestion(){
-  const cat = INTERVIEW_CATEGORIES.find(c => c.id === interviewState.categoryId);
-  const used = interviewState.askedIndices[cat.id] || [];
-  let available = cat.examples.map((_, i) => i).filter(i => !used.includes(i));
-  if (available.length === 0) { available = cat.examples.map((_, i) => i); interviewState.askedIndices[cat.id] = []; }
-  const idx = available[Math.floor(Math.random() * available.length)];
-  interviewState.askedIndices[cat.id] = (interviewState.askedIndices[cat.id] || []).concat(idx);
-  interviewState.questionIdx = idx;
-  interviewState.questionText = cat.examples[idx];
-  interviewState.phase = 'question';
-  renderInterviewBody();
-}
-
-function changeInterviewCategory(){
-  interviewState.phase = 'setup';
-  renderInterviewBody();
-}
-
-function submitInterviewAnswer(){
-  const textarea = document.getElementById('interview-answer-input');
-  const text = textarea.value.trim();
-  if (text.length < 5) { showToast('Write an actual answer before submitting.'); return; }
-  interviewState.lastAnswer = text;
-  interviewState.feedback = computeInterviewFeedback(interviewState.categoryId, text);
-  interviewState.phase = 'feedback';
-  renderInterviewBody();
-}
-
-// Honestly rule-based, not simulated AI grading — see content/simulations-design.md §1.
-function computeInterviewFeedback(categoryId, answerText){
-  const persona = INTERVIEW_PERSONAS.find(p => p.id === interviewState.personaId);
-  const cat = INTERVIEW_CATEGORIES.find(c => c.id === categoryId);
-  const words = answerText.split(/\s+/).filter(Boolean);
-  const wordCount = words.length;
-  const hasNumber = /\d/.test(answerText);
-  const hasFirstPersonAction = /\bI (felt|realized|learned|decided|noticed|asked|told|helped|watched|saw|remember|found|understood)\b/i.test(answerText);
-  const properNounHits = (answerText.match(/\b[A-Z][a-z]{2,}\b/g) || []).length;
-  const specific = hasNumber || hasFirstPersonAction || properNounHits >= 2;
-
-  let score = 50;
-  if (wordCount >= 40 && wordCount <= 220) score += 20;
-  else if (wordCount < 20) score -= 15;
-  else if (wordCount > 300) score -= 10;
-  if (specific) score += 25; else score -= 15;
-  score = Math.max(5, Math.min(98, score));
-
-  const strong = specific
-    ? `You grounded this in something concrete rather than staying abstract — that's exactly what ${persona.name} is listening for.`
-    : `You addressed the question directly and stayed on topic.`;
-
-  let strengthen;
-  if (wordCount < 20) {
-    strengthen = `This is too brief for a real interview answer — add one specific moment, number, or name so it doesn't read as a placeholder.`;
-  } else if (wordCount > 300) {
-    strengthen = `This would run long out loud — aim for roughly 60–90 seconds spoken (about 150–220 words), built around your strongest specific detail.`;
-  } else if (!specific) {
-    strengthen = persona.tone.includes('rehearsed')
-      ? `${persona.name} would push back here — this reads as rehearsed. Add a specific person, place, number, or moment someone else could picture.`
-      : `Right now this reads as generic — add a specific person, place, number, or moment someone else could picture.`;
-  } else {
-    strengthen = `Solid answer — the next level is naming, explicitly, which competency this moment actually demonstrates, not just narrating what happened.`;
-  }
-
-  // Follow-up = the next example question in the same category — an honest substitute
-  // for an AI-generated follow-up, not a disguised fake.
-  const followUp = cat.examples[(interviewState.questionIdx + 1) % cat.examples.length];
-
-  return { score, strong, strengthen, followUp };
-}
-
-function retryInterviewQuestion(){ pickNextInterviewQuestion(); }
-
-function logInterviewAnswerToEvidence(){
-  const cat = INTERVIEW_CATEGORIES.find(c => c.id === interviewState.categoryId);
-  const key = `interview-${Date.now()}`;
-  upsertEntry(key, {
-    source_type: 'agent_conversation',
-    source_reference: `Interview Simulator (${cat.name})`,
-    competency_tags: [cat.competency],
-    maturity_at_entry: null,
-    content: interviewState.lastAnswer
-  });
-  showToast('Logged to your Evidence Log.');
-}
-
-function renderInterviewBody(){
-  const body = document.getElementById('interview-body');
-  if (interviewState.phase === 'question') { body.innerHTML = interviewQuestionHTML(); return; }
-  if (interviewState.phase === 'feedback') { body.innerHTML = interviewFeedbackHTML(); return; }
-  body.innerHTML = interviewSetupHTML();
-}
-
-function interviewSetupHTML(){
-  const personaHTML = INTERVIEW_PERSONAS.map(p => `
-    <div class="interview-persona-card ${interviewState.personaId === p.id ? 'selected' : ''}" role="button" tabindex="0" aria-pressed="${interviewState.personaId === p.id}" onclick="selectInterviewPersona('${p.id}')">
-      <div class="interview-persona-avatar">${p.avatar}</div>
-      <div>
-        <div class="interview-persona-name">${p.name}</div>
-        <div class="interview-persona-title">${p.title} — ${p.tone}</div>
-      </div>
-    </div>`).join('');
-  const categoryHTML = INTERVIEW_CATEGORIES.map(c => `
-    <div class="interview-category-pill ${interviewState.categoryId === c.id ? 'selected' : ''}" role="button" tabindex="0" aria-pressed="${interviewState.categoryId === c.id}" onclick="selectInterviewCategory('${c.id}')">${c.name}</div>
-  `).join('');
-  const canStart = interviewState.personaId && interviewState.categoryId;
-  return `
-    <div class="side-title" style="margin-bottom:10px;">Choose your interviewer</div>
-    <div class="interview-persona-grid">${personaHTML}</div>
-    <div class="side-title" style="margin-bottom:10px;">Choose a category</div>
-    <div class="interview-category-grid">${categoryHTML}</div>
-    <button class="modal-start-btn" style="${canStart ? '' : 'opacity:0.5;cursor:not-allowed;'}" onclick="startInterviewQuestion()">Start Practice Question</button>
-  `;
-}
-
-function interviewQuestionHTML(){
-  const persona = INTERVIEW_PERSONAS.find(p => p.id === interviewState.personaId);
-  const cat = INTERVIEW_CATEGORIES.find(c => c.id === interviewState.categoryId);
-  return `
-    <div class="interview-question-card">
-      <div class="interview-question-meta">${persona.avatar} ${persona.name} · ${cat.name}</div>
-      <div class="interview-question-text">${interviewState.questionText}</div>
-    </div>
-    <textarea class="interview-answer-box" id="interview-answer-input" placeholder="Type your answer as you'd actually say it..."></textarea>
-    <button class="modal-start-btn" onclick="submitInterviewAnswer()">Submit Answer</button>
-    <button class="btn outline" style="width:100%;margin-top:8px;" onclick="changeInterviewCategory()">Change Category</button>
-  `;
-}
-
-function interviewFeedbackHTML(){
-  const f = interviewState.feedback;
-  const scoreColor = f.score >= 75 ? '#1D9E75' : f.score >= 55 ? '#D97706' : '#DC2626';
-  return `
-    <div class="interview-feedback-card">
-      <div class="interview-score-row">
-        <div class="interview-score-badge" style="color:${scoreColor};">${f.score}</div>
-        <div style="font-size:12px;color:var(--muted);">Heuristic read — length + specificity, not real AI grading</div>
-      </div>
-      <div class="interview-feedback-label">What worked</div>
-      <div class="interview-feedback-text">${f.strong}</div>
-      <div class="interview-feedback-label">What to strengthen</div>
-      <div class="interview-feedback-text">${f.strengthen}</div>
-      <div class="interview-feedback-label">A natural follow-up</div>
-      <div class="interview-feedback-text">${f.followUp}</div>
-    </div>
-    <button class="modal-start-btn" onclick="logInterviewAnswerToEvidence()">Log This Answer as Evidence</button>
-    <button class="btn outline" style="width:100%;margin-top:8px;" onclick="retryInterviewQuestion()">Try Another Question</button>
-    <button class="btn outline" style="width:100%;margin-top:8px;" onclick="changeInterviewCategory()">Change Category</button>
-  `;
-}
-
-// ---- The Committee (content/simulations-design.md) ----
-
-function openCommittee(){
-  renderCommitteeBody();
-  document.getElementById('committee-modal').classList.add('open');
-}
-function closeCommittee(){ document.getElementById('committee-modal').classList.remove('open'); }
-function closeIfCommitteeOverlay(e){ if (e.target.id === 'committee-modal') closeCommittee(); }
-
-// Reads real app state (selfAssessment, evidenceLog, trackChoice, stage status) into a
-// templated verdict — a practice read on current progress, never a real admissions
-// prediction. See content/simulations-design.md §2.
-function computeCommitteeVerdict(){
-  const stageDone = (title) => { const s = STAGE_DATA.find(x => x.title === title); return !!(s && s.status === 'done'); };
-  const gradesMcatDone = stageDone('Grades & MCAT');
-  const costAccessDone = stageDone('Cost & Access');
-  const researchEntry = evidenceLog.find(e => e.source_reference === 'Research or No Research?' && e.content && e.content.trim().length > 0);
-  const narrativeEntries = evidenceLog.filter(e => e.source_reference === 'Be Yourself: Narrative').length;
-  const withEvidence = COMPETENCIES.filter(c => evidenceLog.some(e => e.competency_tags.includes(c.name))).length;
-
-  // Real data from the Activity Ledger — see README gap #16 for why this wasn't factored
-  // in until now.
-  const ledgerHours = (categoryId) => activityLedger.filter(e => e.categoryId === categoryId).reduce((sum, e) => sum + (e.hours || 0), 0);
-  const clinicalHours = ledgerHours('clinical');
-  const serviceHours = ledgerHours('service');
-
-  const statements = [];
-
-  if (gradesMcatDone && testingWindowDate) {
-    const statement = `Grades & MCAT is complete with a real target testing window logged. That's a concrete academic plan, not just an intention.`;
-    statements.push({ member: COMMITTEE_MEMBERS[0], sentiment: 'positive', score: 8, statement });
-  } else if (gradesMcatDone) {
-    statements.push({ member: COMMITTEE_MEMBERS[0], sentiment: 'neutral', score: 6,
-      statement: `Grades & MCAT is complete, but there's no target testing window logged yet — I'd want to see real pacing, not just a plan on paper.` });
-  } else {
-    statements.push({ member: COMMITTEE_MEMBERS[0], sentiment: 'concerned', score: 3,
-      statement: `Grades & MCAT hasn't been worked through yet. I can't assess academic readiness without it.` });
-  }
-
-  if (costAccessDone && trackChoice) {
-    const trackLabel = trackChoice === 'MD' ? 'MD-focused' : trackChoice === 'DO' ? 'DO-focused' : 'dual-applying';
-    let score = 8;
-    let statement = `Cost & Access is done and there's a clear ${trackLabel} direction. That's realistic planning, not wishful thinking.`;
-    if (clinicalHours >= 75 || serviceHours >= 40) {
-      score += 1;
-      statement += ` Real logged hours back this up too — ${Math.round(clinicalHours)}h clinical and ${Math.round(serviceHours)}h non-clinical service, not just intentions.`;
-    } else if (clinicalHours === 0 && serviceHours === 0) {
-      statement += ` I don't see any logged hours in the Activity Ledger yet, though — service commitment needs to show up as more than a plan eventually.`;
-    }
-    statements.push({ member: COMMITTEE_MEMBERS[1], sentiment: 'positive', score, statement });
-  } else if (costAccessDone || trackChoice) {
-    statements.push({ member: COMMITTEE_MEMBERS[1], sentiment: 'neutral', score: 6,
-      statement: `Some financial and strategic planning is in place, but not both — I'd want to see the full picture before I'm convinced this is realistic.` });
-  } else {
-    statements.push({ member: COMMITTEE_MEMBERS[1], sentiment: 'concerned', score: 3,
-      statement: `No financial planning or MD/DO direction logged yet. That tells me this is early — which is fine, but it's not something I can advocate for yet.` });
-  }
-
-  if (researchEntry) {
-    statements.push({ member: COMMITTEE_MEMBERS[2], sentiment: 'positive', score: 7,
-      statement: `There's a logged, reasoned decision about the research path. I don't need everyone to run a wet lab — I need everyone to have thought it through, and this student has.` });
-  } else {
-    statements.push({ member: COMMITTEE_MEMBERS[2], sentiment: 'neutral', score: 5,
-      statement: `No research decision logged yet with reasoning attached. Not a dealbreaker on its own, but I'd want to see that reasoning eventually.` });
-  }
-
-  if (narrativeEntries > 0 && withEvidence >= 10) {
-    statements.push({ member: COMMITTEE_MEMBERS[3], sentiment: 'positive', score: 8,
-      statement: `The narrative work is there, and evidence spans ${withEvidence} of the 17 competencies. That's a real, broad case — not one good story surrounded by gaps.` });
-  } else if (narrativeEntries > 0 || withEvidence >= 5) {
-    statements.push({ member: COMMITTEE_MEMBERS[3], sentiment: 'neutral', score: 6,
-      statement: `There's a real start here — ${withEvidence} of 17 competencies have some evidence — but it's not broad yet. Keep logging as things actually happen.` });
-  } else {
-    statements.push({ member: COMMITTEE_MEMBERS[3], sentiment: 'concerned', score: 3,
-      statement: `Very little logged evidence so far. I can't evaluate a case that hasn't been written down yet.` });
-  }
-
-  const avgScore = statements.reduce((s, x) => s + x.score, 0) / statements.length;
-  const decision = avgScore >= 7 ? 'Interview' : avgScore >= 5 ? 'Hold' : 'Decline';
-  const decisionReason = decision === 'Interview'
-    ? `Across all four areas, there's a real, evidenced, and planned case here — not a finished application, but a genuinely strong trajectory for where this is in the process.`
-    : decision === 'Hold'
-    ? `Real progress in some areas, real gaps in others. This isn't a rejection of the person — it's a specific, fixable list of what's still missing.`
-    : `Too much is still unstarted to form a read. This is normal early on — the action items below are exactly what would change this verdict.`;
-
-  const actionItems = [];
-  if (!gradesMcatDone) actionItems.push('Complete the Grades & MCAT stage and log a target testing window.');
-  if (!costAccessDone) actionItems.push('Complete the Cost & Access stage.');
-  if (!trackChoice) actionItems.push('Make (and log) an MD/DO/dual decision in the Strategy stage.');
-  if (!researchEntry) actionItems.push('Log your research-or-not decision, with reasoning, in the Research stage.');
-  if (clinicalHours === 0 && serviceHours === 0) actionItems.push('Log at least one real activity in the Activity Ledger — right now there are zero hours on record.');
-  if (withEvidence < 10) {
-    COMPETENCIES.filter(c => !evidenceLog.some(e => e.competency_tags.includes(c.name))).slice(0, 3)
-      .forEach(c => actionItems.push(`Log real evidence for ${c.name} — nothing on record for it yet.`));
-  }
-  if (actionItems.length === 0) actionItems.push('Keep going — revisit stages periodically and keep the evidence log current as things actually happen.');
-
-  return { statements, decision, decisionReason, actionItems };
-}
-
-function renderCommitteeBody(){
-  const body = document.getElementById('committee-body');
-  const ratedCount = COMPETENCIES.filter(c => selfAssessment[c.name] && selfAssessment[c.name].level).length;
-  if (ratedCount === 0) {
-    body.innerHTML = `<p style="font-size:13.5px;color:var(--muted);line-height:1.6;">Complete Stage 01's self-assessment (or Quick Setup) before convening the Committee — right now there's nothing in your evidence log for them to actually discuss.</p>`;
-    return;
-  }
-  const result = computeCommitteeVerdict();
-  const membersHTML = result.statements.map(s => `
-    <div class="committee-member-card ${s.sentiment}">
-      <div class="committee-member-head">
-        <div class="committee-member-role">${s.member.role}</div>
-        <div class="committee-score-badge ${s.sentiment}">${s.score}/10</div>
-      </div>
-      <div class="committee-member-focus">Focus: ${s.member.focus}</div>
-      <div class="committee-statement">${s.statement}</div>
-    </div>
-  `).join('');
-  const actionsHTML = result.actionItems.map(a => `<li>→ ${a}</li>`).join('');
-  body.innerHTML = `
-    <p style="font-size:12.5px;color:var(--muted);line-height:1.5;margin-bottom:14px;">Four committee members read your actual self-assessment, evidence log, and roadmap progress below. This is a practice read on where things stand today — not a real admissions prediction.</p>
-    ${membersHTML}
-    <div class="committee-verdict-banner ${result.decision}">
-      <div class="committee-verdict-label">Practice Verdict</div>
-      <div class="committee-verdict-decision">${result.decision}</div>
-      <div class="committee-verdict-reason">${result.decisionReason}</div>
-    </div>
-    <div class="side-title" style="margin-bottom:8px;">Action Items</div>
-    <ul class="committee-action-list">${actionsHTML}</ul>
-  `;
-}
-
 // ---- Personal Statement Checker (content/personal-statement-checker-design.md) ----
 
 function detectPhrases(text){
@@ -1093,84 +791,6 @@ function renderPsChecker(){
   sidebar.innerHTML = html;
 }
 
-// ---- Activity Ledger ----
-
-let activityLedger = [];
-let ledgerEntryCounter = 0;
-
-function addLedgerEntry(){
-  const categorySelect = document.getElementById('ledger-category');
-  const orgInput = document.getElementById('ledger-org');
-  const hoursInput = document.getElementById('ledger-hours');
-  const dateInput = document.getElementById('ledger-date');
-  const noteInput = document.getElementById('ledger-note');
-
-  const org = orgInput.value.trim();
-  if (!org) { showToast('Add a name or description for this activity.'); return; }
-
-  const categoryId = categorySelect.value;
-  const hours = hoursInput.value ? parseFloat(hoursInput.value) : null;
-  const entry = { id: ++ledgerEntryCounter, categoryId, orgOrDescription: org, hours, date: dateInput.value || null, note: noteInput.value.trim() };
-  activityLedger.push(entry);
-
-  const cat = LEDGER_CATEGORIES.find(c => c.id === categoryId);
-  upsertEntry(`ledger-${entry.id}`, {
-    source_type: 'logged_hour',
-    source_reference: org,
-    competency_tags: cat.competencyTags,
-    maturity_at_entry: null,
-    content: entry.note || `${hours ? hours + ' hours — ' : ''}${cat.name}`
-  });
-
-  orgInput.value = ''; hoursInput.value = ''; dateInput.value = ''; noteInput.value = '';
-  renderLedger();
-  showToast('Logged to your Activity Ledger and Evidence Log.');
-}
-
-function removeLedgerEntry(id){
-  activityLedger = activityLedger.filter(e => e.id !== id);
-  removeEntry(`ledger-${id}`);
-  renderLedger();
-}
-
-function renderLedger(){
-  const summaryEl = document.getElementById('ledger-summary');
-  const listEl = document.getElementById('ledger-list');
-  if (!summaryEl || !listEl) return;
-
-  const categorySelect = document.getElementById('ledger-category');
-  if (categorySelect && categorySelect.options.length === 0) {
-    categorySelect.innerHTML = LEDGER_CATEGORIES.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-  }
-
-  summaryEl.innerHTML = LEDGER_CATEGORIES.map(cat => {
-    const totalHours = activityLedger.filter(e => e.categoryId === cat.id).reduce((sum, e) => sum + (e.hours || 0), 0);
-    const pct = cat.targetHours ? Math.min(100, Math.round((totalHours / cat.targetHours) * 100)) : null;
-    return `<div class="ledger-cat-card">
-      <div class="ledger-cat-name">${cat.name}</div>
-      <div class="ledger-cat-hours">${totalHours}${cat.targetHours ? ' / ' + cat.targetHours + 'h' : 'h logged'}</div>
-      ${pct !== null ? `<div class="ledger-cat-track"><div class="ledger-cat-fill" style="width:${pct}%;"></div></div>` : ''}
-      <div class="ledger-cat-label">${cat.targetLabel}</div>
-    </div>`;
-  }).join('');
-
-  const entries = activityLedger.slice().reverse();
-  listEl.innerHTML = entries.length === 0
-    ? `<div class="ps-empty">No activities logged yet.</div>`
-    : entries.map(e => {
-        const cat = LEDGER_CATEGORIES.find(c => c.id === e.categoryId);
-        return `<div class="ledger-entry">
-          <div class="ledger-entry-head">
-            <span class="ledger-entry-cat">${cat.name}</span>
-            ${e.hours ? `<span class="ledger-entry-hours">${e.hours}h</span>` : ''}
-            <button class="ledger-entry-remove" onclick="removeLedgerEntry(${e.id})" aria-label="Remove this activity">✕</button>
-          </div>
-          <div class="ledger-entry-org">${e.orgOrDescription}${e.date ? ' · ' + e.date : ''}</div>
-          ${e.note ? `<div class="ledger-entry-note">${e.note}</div>` : ''}
-        </div>`;
-      }).join('');
-}
-
 // ---- Timeline pace read ----
 // Deliberately framed around runway adequacy (is there enough time left for what
 // remains), never around comparison to peers or an expected schedule — see the
@@ -1190,87 +810,6 @@ function computePaceRead(){
     return { level: 'warn', message: `This fits, but it's a real pace — roughly ${stagesPerTerm.toFixed(1)} stages per term left to reach your ${studentProfile.targetCycleYear} cycle. Worth checking in on this each term.` };
   }
   return { level: 'bad', message: `This is a tight fit — roughly ${stagesPerTerm.toFixed(1)} stages per term left. That's not a judgment on where you are, just a signal that your ${studentProfile.targetCycleYear} target may need more runway, or some stages may need to move faster than others.` };
-}
-
-// ---- LOR Tracker ----
-
-let lorEntries = [];
-let lorEntryCounter = 0;
-
-function addLorEntry(){
-  const roleSelect = document.getElementById('lor-role');
-  const nameInput = document.getElementById('lor-name');
-  const dateInput = document.getElementById('lor-last-contact');
-  const statusSelect = document.getElementById('lor-status');
-
-  const name = nameInput.value.trim();
-  if (!name) { showToast('Add a name for this potential letter-writer.'); return; }
-
-  const entry = { id: ++lorEntryCounter, role: roleSelect.value, name, lastContact: dateInput.value || null, status: statusSelect.value };
-  lorEntries.push(entry);
-
-  upsertEntry(`lor-${entry.id}`, {
-    source_type: 'agent_conversation',
-    source_reference: `Letters & Relationships — ${name}`,
-    competency_tags: ['Self-Awareness', 'Written Communication'],
-    maturity_at_entry: null,
-    content: `${roleSelect.value} — status: ${statusSelect.value}${dateInput.value ? ', last contact ' + dateInput.value : ''}`
-  });
-
-  nameInput.value = ''; dateInput.value = '';
-  renderLorList();
-  showToast('Logged to your LOR Tracker and Evidence Log.');
-}
-
-function updateLorStatus(id, newStatus){
-  const entry = lorEntries.find(e => e.id === id);
-  if (entry) entry.status = newStatus;
-  renderLorList();
-}
-
-function removeLorEntry(id){
-  lorEntries = lorEntries.filter(e => e.id !== id);
-  removeEntry(`lor-${id}`);
-  renderLorList();
-}
-
-// Freshness stands in for the source app's real deadline-tracking (no live database here)
-// — it tracks how long since the student last actually talked with this person, matching
-// Stage 10's "ask while their impression is fresh" advice directly.
-function lorFreshness(lastContact){
-  if (!lastContact) return { level: 'stale', label: 'No contact logged yet' };
-  const days = Math.floor((new Date() - new Date(lastContact)) / (1000 * 60 * 60 * 24));
-  if (days <= 90) return { level: 'fresh', label: `Contacted ${days}d ago` };
-  if (days <= 180) return { level: 'aging', label: `${days}d since last contact` };
-  return { level: 'stale', label: `${days}d since last contact — worth reaching out` };
-}
-
-function renderLorList(){
-  const roleSelect = document.getElementById('lor-role');
-  const statusSelect = document.getElementById('lor-status');
-  const listEl = document.getElementById('lor-list');
-  if (!listEl) return;
-  if (roleSelect && roleSelect.options.length === 0) roleSelect.innerHTML = LOR_ROLES.map(r => `<option value="${r}">${r}</option>`).join('');
-  if (statusSelect && statusSelect.options.length === 0) statusSelect.innerHTML = LOR_STATUSES.map(s => `<option value="${s}">${s}</option>`).join('');
-
-  listEl.innerHTML = lorEntries.length === 0
-    ? `<div class="ps-empty">No potential letter-writers logged yet.</div>`
-    : lorEntries.slice().reverse().map(e => {
-        const fresh = lorFreshness(e.lastContact);
-        const statusClass = e.status.toLowerCase().replace(' ', '');
-        return `<div class="lor-entry">
-          <div>
-            <div class="lor-entry-name">${e.name}</div>
-            <div class="lor-entry-role">${e.role}</div>
-          </div>
-          <span class="lor-status-badge ${statusClass}">${e.status}</span>
-          <select onchange="updateLorStatus(${e.id}, this.value)" class="ledger-select" aria-label="Status for ${e.name}">
-            ${LOR_STATUSES.map(s => `<option value="${s}" ${s === e.status ? 'selected' : ''}>${s}</option>`).join('')}
-          </select>
-          <span class="lor-freshness ${fresh.level}">${fresh.label}</span>
-          <button class="lor-entry-remove" onclick="removeLorEntry(${e.id})" aria-label="Remove ${e.name}">✕</button>
-        </div>`;
-      }).join('');
 }
 
 // ---- "Should I Be a Doctor?" quiz ----
@@ -1348,10 +887,6 @@ let chatSessionCounter = 0;
 
 function findAgent(agentId){ return AGENT_DATA.find(a => a.id === agentId); }
 
-function ledgerHoursFor(categoryId){
-  return activityLedger.filter(e => e.categoryId === categoryId).reduce((sum, e) => sum + (e.hours || 0), 0);
-}
-
 function isAgentGated(agent){
   const idx = agent.stageTitle ? stageIndexByTitle(agent.stageTitle) : -1;
   return idx > -1 && STAGE_DATA[idx].status === 'locked';
@@ -1364,7 +899,6 @@ function resolveChatTokens(text){
   const currentStage = STAGE_DATA.find(s => s.status === 'current');
   const withEvidence = COMPETENCIES.filter(c => evidenceLog.some(e => e.competency_tags.includes(c.name))).length;
   const narrativeCount = evidenceLog.filter(e => e.source_reference === 'Be Yourself: Narrative').length;
-  const lorConfirmedCount = lorEntries.filter(e => e.status === 'Confirmed' || e.status === 'Submitted').length;
   const targetCycleLine = studentProfile.targetCycleYear
     ? `You're targeting the ${studentProfile.targetCycleYear} application cycle.`
     : `You haven't set a target application cycle yet — Quick Setup or Stage 05 can set that.`;
@@ -1374,13 +908,6 @@ function resolveChatTokens(text){
     evidenceCount: evidenceLog.length,
     competencyCoverage: withEvidence,
     narrativeCount,
-    clinicalHours: ledgerHoursFor('clinical'),
-    serviceHours: ledgerHoursFor('service'),
-    shadowingHours: ledgerHoursFor('shadowing'),
-    researchHours: ledgerHoursFor('research'),
-    leadershipHours: ledgerHoursFor('leadership'),
-    lorCount: lorEntries.length,
-    lorConfirmedCount,
     targetCycleLine,
     patternRead: withEvidence < 5
       ? `there's not quite enough logged yet to see a real pattern — keep rating competencies and answering stage reflections as things actually happen.`
@@ -1523,7 +1050,8 @@ function renderChat(){
 
   const sourcesEl = document.getElementById('chat-sources-block');
   if (sourcesEl) {
-    sourcesEl.innerHTML = `<div class="manage-box"><div><p>Grounded in your real state</p><span>${evidenceLog.length} evidence entries · ${activityLedger.length} logged activities · ${lorEntries.length} letters tracked</span></div></div>`;
+    const coveredCount = COMPETENCIES.filter(c => evidenceLog.some(e => e.competency_tags.includes(c.name))).length;
+    sourcesEl.innerHTML = `<div class="manage-box"><div><p>Grounded in your real state</p><span>${evidenceLog.length} evidence entries · ${coveredCount} of 17 competencies covered</span></div></div>`;
   }
 }
 
@@ -1645,10 +1173,10 @@ function renderInstituteForm(){
   el.innerHTML = `${deadlineBanner}
     <h3 style="margin-bottom:10px;">Apply for a Pilot</h3>
     <p>Bring structure and AI mentorship to your students without building it yourself — or fully customize the curriculum if your office already has strong material.</p>
-    <input type="text" class="ledger-input" style="margin-bottom:10px;" placeholder="Organization or office name" aria-label="Organization or office name" value="${instituteApplication.orgName}" oninput="updateInstituteField('orgName', this.value)">
-    <input type="email" class="ledger-input" style="margin-bottom:10px;" placeholder="Contact email" aria-label="Contact email" value="${instituteApplication.contactEmail}" oninput="updateInstituteField('contactEmail', this.value)">
-    <input type="text" class="ledger-input" style="margin-bottom:10px;" placeholder="Your role (e.g. Pre-Health Advisor)" aria-label="Your role" value="${instituteApplication.role}" oninput="updateInstituteField('role', this.value)">
-    <input type="number" class="ledger-input ledger-input-narrow" style="margin-bottom:10px;" placeholder="Student population size" aria-label="Student population size" min="0" value="${instituteApplication.studentPopulation}" oninput="updateInstituteField('studentPopulation', this.value)">
+    <input type="text" class="form-input" style="margin-bottom:10px;" placeholder="Organization or office name" aria-label="Organization or office name" value="${instituteApplication.orgName}" oninput="updateInstituteField('orgName', this.value)">
+    <input type="email" class="form-input" style="margin-bottom:10px;" placeholder="Contact email" aria-label="Contact email" value="${instituteApplication.contactEmail}" oninput="updateInstituteField('contactEmail', this.value)">
+    <input type="text" class="form-input" style="margin-bottom:10px;" placeholder="Your role (e.g. Pre-Health Advisor)" aria-label="Your role" value="${instituteApplication.role}" oninput="updateInstituteField('role', this.value)">
+    <input type="number" class="form-input form-input-narrow" style="margin-bottom:10px;" placeholder="Student population size" aria-label="Student population size" min="0" value="${instituteApplication.studentPopulation}" oninput="updateInstituteField('studentPopulation', this.value)">
     <textarea class="ps-draft-textarea" style="height:80px; margin-bottom:14px;" placeholder="Current advising resources (be specific — this is what a reviewer weighs most)" aria-label="Current advising resources" oninput="updateInstituteField('currentResources', this.value)">${instituteApplication.currentResources}</textarea>
     <div class="side-title" style="margin-bottom:8px;">Specific gaps you want Institutes to fill</div>
     <div style="margin-bottom:16px;">
@@ -1676,25 +1204,13 @@ function renderProfileSnapshot(){
   const doneStages = STAGE_DATA.filter(s => s.status === 'done').length;
   const currentStage = STAGE_DATA.find(s => s.status === 'current');
 
-  const totalHours = LEDGER_CATEGORIES.reduce((sum, cat) =>
-    sum + activityLedger.filter(e => e.categoryId === cat.id).reduce((s, e) => s + (e.hours || 0), 0), 0);
-
-  const lorSummary = LOR_STATUSES.map(s => ({ status: s, count: lorEntries.filter(e => e.status === s).length }))
-    .filter(x => x.count > 0).map(x => `${x.count} ${x.status}`).join(' · ');
-
   const cards = [
     { title: 'Roadmap', stat: `${doneStages} / ${STAGE_DATA.length}`, label: 'stages complete',
       detail: currentStage ? `Current: ${currentStage.title}` : 'All stages complete.',
       link: 'bootcamp', linkLabel: 'Open Bootcamp' },
     { title: 'Competencies', stat: `${ratedCount} / 17`, label: `rated · ${withEvidence} with evidence`,
       detail: ratedCount < 17 ? 'Complete your Stage 01 self-assessment for the full picture.' : 'Self-assessment complete.',
-      link: 'evidencelog', linkLabel: 'Open Evidence Log' },
-    { title: 'Activity Ledger', stat: `${totalHours}h`, label: `across ${activityLedger.length} logged ${activityLedger.length === 1 ? 'entry' : 'entries'}`,
-      detail: totalHours === 0 ? 'Nothing logged yet.' : 'Feeding your Evidence Log and Committee read.',
-      link: 'ledger', linkLabel: 'Open Activity Ledger' },
-    { title: 'Letters (LOR)', stat: `${lorEntries.length}`, label: 'potential letter-writers tracked',
-      detail: lorEntries.length === 0 ? 'Nothing logged yet.' : lorSummary,
-      link: 'lortracker', linkLabel: 'Open LOR Tracker' }
+      link: 'evidencelog', linkLabel: 'Open Evidence Log' }
   ];
 
   grid.innerHTML = cards.map(c => `
@@ -1715,8 +1231,6 @@ renderKnowHow();
 renderProgressRing();
 renderEvidenceLog();
 renderTimeline();
-renderLedger();
-renderLorList();
 renderDoctorQuiz();
 renderProfileSnapshot();
 renderPsChecker();

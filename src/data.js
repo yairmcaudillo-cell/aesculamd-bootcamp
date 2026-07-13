@@ -247,19 +247,19 @@ const AGENT_DATA = [
     ],
     chatFallback: "Tell me who you're talking to and what they're worried about — a parent's worry about time is usually different from a sibling's, or a partner's." },
 
-  { id: "experience-pathways", name: "Experience Pathways", desc: "Shadowing, scribing, CNA, EMT, and non-clinical service — matched to your schedule, comfort level, and what's actually accessible to you.", stageTitle: "Clinical Experience", realTool: "ledger", realToolLabel: "Open Activity Ledger",
-    chatGreeting: "Hi — you've logged {clinicalHours}h clinical and {serviceHours}h non-clinical service in your Activity Ledger so far. What are you weighing?",
+  { id: "experience-pathways", name: "Experience Pathways", desc: "Shadowing, scribing, CNA, EMT, and non-clinical service — matched to your schedule, comfort level, and what's actually accessible to you. Real hour-logging and tracking live in the full AesculaMD platform.", stageTitle: "Clinical Experience", realTool: null,
+    chatGreeting: "Hi — let's talk through what's actually accessible to you right now, given your schedule and comfort level.",
     chatTopics: [
-      { keywords: ["shadow", "shadowing"], label: "my shadowing hours", reply: "You've got {shadowingHours}h of shadowing logged. It's usually the easiest access point, but on its own it demonstrates observation, not hands-on care — worth pairing with something in the Direct Clinical Experience category too." },
+      { keywords: ["shadow", "shadowing"], label: "shadowing", reply: "Shadowing is usually the easiest access point, but on its own it demonstrates observation, not hands-on care — worth pairing with something more hands-on if you can." },
       { keywords: ["which", "choose", "best", "better", "should i do"], label: "which experience to choose", reply: "It depends on your schedule and comfort level more than which one 'looks best' — a school genuinely doesn't rank scribing above CNA work. What's actually accessible to you right now, given your schedule?" }
     ],
-    chatFallback: "Log what you try in the Activity Ledger as you go — {clinicalHours}h clinical, {serviceHours}h service so far — and I can speak to real gaps instead of guessing." },
+    chatFallback: "Tell me what's actually available to you — schedule, transportation, comfort level — and I can speak to real tradeoffs instead of guessing. Once you're logging real hours, that tracking lives in the full AesculaMD platform." },
 
   { id: "research-navigator", name: "Research Navigator", desc: "PI outreach, lab fit, wet-lab vs. clinical vs. public health research.", stageTitle: "Research or No Research?", realTool: null,
     chatGreeting: "Hi — Research or No Research is a real decision either way, not a default yes. Where are you on it?",
     chatTopics: [
       { keywords: ["pi", "professor", "lab", "email", "outreach", "reach out"], label: "emailing a PI", reply: "A PI outreach email that gets answered is short, specific about why *their* lab (not research in general), and asks for 15 minutes — not a position outright. Want to talk through what you'd actually say?" },
-      { keywords: ["wet lab", "clinical research", "public health", "which type", "kind of research"], label: "which type of research to pursue", reply: "Wet-lab, clinical, and public health research all count the same on an application — what matters is that you can speak to why you picked it and what you actually did, not the label. You've logged {researchHours}h research so far." }
+      { keywords: ["wet lab", "clinical research", "public health", "which type", "kind of research"], label: "which type of research to pursue", reply: "Wet-lab, clinical, and public health research all count the same on an application — what matters is that you can speak to why you picked it and what you actually did, not the label." }
     ],
     chatFallback: "Tell me what's pulling you toward or away from research — and remember, 'no research, with a real reason' is a legitimate logged decision too, not a gap." },
 
@@ -279,99 +279,13 @@ const AGENT_DATA = [
     ],
     chatFallback: "Tell me where you're at with your list — how many schools, and whether you've thought about reach/target/safety balance yet. Detailed school-by-school comparisons are part of the full AesculaMD platform once you're further into your cycle; here I can help with the strategy behind the list." },
 
-  { id: "letters-relationships", name: "Letters & Relationships", desc: "Tracking potential letter-writers, timing your ask, and keeping those relationships warm years before you actually need the letter.", stageTitle: "Personal Brand", realTool: "lortracker", realToolLabel: "Open LOR Tracker",
-    chatGreeting: "Hi — you've got {lorCount} potential letter-writer(s) tracked, {lorConfirmedCount} confirmed or submitted. Stage 10's own advice: ask while their impression of you is still fresh, not when you actually need the letter.",
+  { id: "letters-relationships", name: "Letters & Relationships", desc: "Timing your ask and keeping relationships warm years before you actually need the letter. Real letter-writer tracking lives in the full AesculaMD platform.", stageTitle: "Personal Brand", realTool: null,
+    chatGreeting: "Hi — Stage 10's own advice: ask while their impression of you is still fresh, not when you actually need the letter. Who are you thinking about?",
     chatTopics: [
-      { keywords: ["when", "timing", "ask", "how early"], label: "when to ask for a letter", reply: "Ask as soon as a relationship is strong, not when you need the letter — waiting means asking someone to remember specifics from years ago. You've got {lorCount} tracked; worth asking which ones are overdue." },
+      { keywords: ["when", "timing", "ask", "how early"], label: "when to ask for a letter", reply: "Ask as soon as a relationship is strong, not when you need the letter — waiting means asking someone to remember specifics from years ago." },
       { keywords: ["who", "choose", "which", "pick"], label: "who to ask", reply: "The strongest letter-writers can speak to something specific about you, not just your grade or your title. Someone who can describe one real moment beats someone more prestigious who barely remembers you." }
     ],
-    chatFallback: "Ask me about timing or who to choose — or open the LOR Tracker to see which of your {lorCount} tracked contacts are going stale." }
-];
-
-// Interview Simulator + The Committee reference data — see content/simulations-design.md
-// for how these were adapted (not copied) from AesculaMD_1's real implementation into
-// scripted, rule-based experiences for this no-backend prototype.
-
-const INTERVIEW_PERSONAS = [
-  { id: "friendly", name: "Dr. Sarah Chen", title: "Friendly Faculty Member", avatar: "👩‍⚕️",
-    tone: "warm and encouraging — acknowledges what worked before naming what to strengthen" },
-  { id: "challenging", name: "Dr. Marcus Williams", title: "Challenging Admissions Director", avatar: "👨‍💼",
-    tone: "direct and probing — expects specifics, not general statements" },
-  { id: "skeptical", name: "Dr. Robert Hayes", title: "Skeptical Physician", avatar: "👨‍⚕️",
-    tone: "seen every cliché — allergic to rehearsed-sounding answers, wants the real story" }
-];
-
-const INTERVIEW_CATEGORIES = [
-  { id: "traditional", name: "Traditional", competency: "Oral Communication", examples: [
-    "Tell me about yourself.",
-    "Why do you want to be a doctor?",
-    "What draws you to medicine specifically, versus another helping profession?",
-    "What are your strengths and weaknesses?",
-    "How do you handle stress and pressure?"
-  ]},
-  { id: "behavioral", name: "Behavioral", competency: "Teamwork and Collaboration", examples: [
-    "Tell me about a time you worked with a difficult team member.",
-    "Describe a situation where you had to resolve a conflict.",
-    "Tell me about a time you failed and what you learned.",
-    "Describe a situation where you demonstrated leadership.",
-    "Tell me about a time you had to advocate for someone."
-  ]},
-  { id: "ethics", name: "Ethics & Scenarios", competency: "Ethical Responsibility to Self and Others", examples: [
-    "What would you do if you witnessed a colleague making a medical error?",
-    "How would you handle a patient who refuses treatment due to religious beliefs?",
-    "A patient asks you not to tell their family about their diagnosis. What do you do?",
-    "How would you handle a situation where a patient can't afford their medication?",
-    "Discuss the ethical considerations of allocating limited medical resources."
-  ]},
-  { id: "mmi", name: "MMI Style", competency: "Critical Thinking", examples: [
-    "Your teammate consistently arrives late to meetings. How would you address this?",
-    "You're caring for a patient who doesn't speak your language. What would you do?",
-    "A patient is nervous about a procedure. How would you reassure them?",
-    "Role-play: how would you break bad news to a patient?",
-    "You notice a fellow student cheating on an exam. What would you do?"
-  ]},
-  { id: "knowledge", name: "Medical Knowledge", competency: "Human Behavior", examples: [
-    "What do you think is the most pressing issue in healthcare today?",
-    "How would you improve the current healthcare system?",
-    "What role does preventive care play in medicine?",
-    "What experiences have you had with underserved populations?",
-    "Discuss the impact of social determinants on health outcomes."
-  ]},
-  { id: "specialty", name: "Specialty-Focused", competency: "Self-Awareness", examples: [
-    "What interests you about primary care medicine?",
-    "Why might you consider surgery as a specialty?",
-    "How would you handle the emotional demands of oncology?",
-    "What aspects of emergency medicine appeal to you?",
-    "How would you balance the lifestyle demands of different specialties?"
-  ]},
-  { id: "research", name: "Research Experience", competency: "Scientific Inquiry", examples: [
-    "Tell me about your research experience.",
-    "How do you stay updated with medical literature?",
-    "What was the most challenging aspect of your research?",
-    "How would you explain your research to a non-scientist?",
-    "What role should research play in clinical practice?"
-  ]},
-  { id: "community", name: "Community Health", competency: "Understanding Others", examples: [
-    "How would you address health disparities in underserved communities?",
-    "What role should physicians play in addressing social determinants of health?",
-    "How would you use community health data to advocate for resources?",
-    "What creative approaches would you bring to a public health problem you care about?",
-    "Tell me about a time you engaged with a community different from your own."
-  ]},
-  { id: "mission", name: "Mission Alignment", competency: "Service Orientation", examples: [
-    "How would you contribute to a school's commitment to health equity?",
-    "What draws you to programs focused on underserved populations?",
-    "How do your experiences align with a mission-driven medical school?",
-    "What unique perspective would you bring to a learning community?",
-    "Why does service to a specific community matter to you personally?"
-  ]}
-];
-
-const COMMITTEE_MEMBERS = [
-  { role: "Academic Reviewer", focus: "GPA, MCAT readiness, and course rigor" },
-  { role: "Mission Advocate", focus: "Financial realism, service commitment, and MD/DO fit" },
-  { role: "Research Director", focus: "Research decisiveness and depth" },
-  { role: "Student Affairs", focus: "Narrative coherence and breadth of evidence" }
+    chatFallback: "Ask me about timing or who to choose — once you're ready to actually track and manage letter-writers, that lives in the full AesculaMD platform." }
 ];
 
 // Personal Statement Checker reference data — see
@@ -412,18 +326,6 @@ const AMCAS_CONTENT_TYPES = [
   { id: "activity_description", name: "Activity Description", limit: 700 },
   { id: "most_meaningful", name: "Most Meaningful Narrative", limit: 1325 },
   { id: "secondary_essay", name: "Secondary Essay (typical)", limit: 2000 }
-];
-
-// Activity Ledger categories — target hours are our own already-verified benchmark
-// figures from Stages 06/07 content, not AesculaMD_1's numbers. Research and Leadership
-// intentionally have no hour target, matching those stages' own "hours aren't the point"
-// framing.
-const LEDGER_CATEGORIES = [
-  { id: "shadowing", name: "Shadowing", competencyTags: ["Understanding Others", "Interpersonal Skills"], targetHours: 40, targetLabel: "30–50h typical" },
-  { id: "clinical", name: "Direct Clinical Experience", competencyTags: ["Service Orientation", "Understanding Others", "Empathy and Compassion", "Interpersonal Skills"], targetHours: 150, targetLabel: "150+h typical" },
-  { id: "service", name: "Non-Clinical Service", competencyTags: ["Service Orientation", "Understanding Others"], targetHours: 75, targetLabel: "50–100+h typical" },
-  { id: "research", name: "Research", competencyTags: ["Scientific Inquiry", "Critical Thinking"], targetHours: null, targetLabel: "Decision clarity matters more than hours" },
-  { id: "leadership", name: "Leadership", competencyTags: ["Teamwork and Collaboration", "Interpersonal Skills", "Reliability and Dependability"], targetHours: null, targetLabel: "3+ sustained roles matters more than hours" }
 ];
 
 // "Should I Be a Doctor?" quiz — adapted from AesculaMD_1's ShouldIBeADoctor.tsx.
@@ -531,10 +433,6 @@ const DOCTOR_QUIZ_TIERS = [
     positives: ["You're doing the honest work that most people skip.", "Your answers show self-awareness, which is foundational to any clinical career.", "The qualities that draw you toward healthcare are real — they'll serve you wherever you land.", "This is the ideal moment to explore, not a year into pre-med coursework."],
     nextSteps: ["Research PA, NP, and pharmacy pathways seriously — not as consolation prizes, but as genuine options.", "Get direct patient-facing experience before making any further commitments.", "Talk to people in multiple healthcare roles, not just physicians.", "If medicine still calls after that exploration, come back and start with Stage 01."] }
 ];
-
-// LOR Tracker roles — matches Stage 10's "4–6 letters, mixed roles" guidance.
-const LOR_ROLES = ["Science Professor", "Non-Science Professor", "Clinical Supervisor", "PI / Research Mentor", "Physician", "Other"];
-const LOR_STATUSES = ["Not Asked", "Asked", "Confirmed", "Submitted"];
 
 // Institutes pilot-application gap options — what computeInstituteFit() in app.js
 // reads to build an honest instant fit read, not just a "thanks, we'll be in touch."
