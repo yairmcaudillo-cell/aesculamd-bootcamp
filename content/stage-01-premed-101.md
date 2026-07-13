@@ -1,7 +1,7 @@
 # Stage 01: Premed 101 — Your Real Starting Point
 
 *Foundations Track — first stage, no prerequisites*
-*Estimated time: 40–50 minutes · Unlocks: your personalized roadmap*
+*Estimated time: 50–65 minutes · Unlocks: your personalized roadmap*
 
 ---
 
@@ -67,6 +67,16 @@ Notice the difference isn't how impressive the story is — it's how specific an
 ### What this looks like in practice (a composite, not a real student)
 
 Priya, a sophomore, rated herself **Demonstrating** on Reliability and Dependability — she'd worked a part-time job through high school and never missed a shift, even during finals week. She rated **Scientific Inquiry** as **Planning** — she understood the idea of a testable question but had never designed or run one herself. Because of that, her roadmap surfaced the Research stage earlier than the default sequence, while Leadership — where she already had real evidence from coordinating coworkers' shift swaps — got referenced rather than re-taught.
+
+### Try it yourself first
+
+A student describes: *"In my study group, I usually take notes and share them with everyone afterward. Last semester two members stopped attending regularly, so I texted them individually to see if the meeting time still worked, and we shifted it 30 minutes later. Attendance went back to full for the rest of the semester."* Before reading further — would you rate this **Progressing** or **Demonstrating** on Teamwork and Collaboration, and why?
+
+<details><summary>See how this gets reasoned through</summary>
+
+Demonstrating. Just "attending a study group" would be Progressing at best — the specific, self-directed move is noticing a real problem (declining attendance), finding out why instead of assuming, and making a concrete change that measurably fixed it. That's the same "specific and self-directed" pattern the Reliability example above uses — the story doesn't need to be dramatic, it needs to show a real decision a stranger could picture.
+
+</details>
 
 **A prompt to take seriously before you rate yourself:** competencies built outside of "premed activities" count just as much as ones built inside them. Working a job, caregiving for family, translating for parents, organizing a team, surviving a hard year — all of that is real evidence if you can describe it specifically. This stage is where that gets captured for the first time, before it gets buried under years of "official" premed activities.
 

@@ -98,6 +98,10 @@ function openStagePanel(i){
   if (s.title === 'Grades & MCAT') {
     renderTestingWindow('sp-testing-window');
   }
+  document.getElementById('sp-recall').innerHTML = '';
+  if (i === 7 || i === 8 || i === 9) {
+    renderRecallCheck('sp-recall');
+  }
   document.getElementById('sp-reflection').innerHTML = s.reflection.map((r, ri) => {
     const key = `stage-${i}-${ri}`;
     const existing = evidenceLog.find(e => e.key === key);
@@ -179,14 +183,22 @@ function setAssessmentLevel(name, level){
 // Reuses the same vague-phrase dictionary PS Checker uses (generic language reads the
 // same way in a private reflection as it does in an essay), plus a bare length check.
 // See content-audit finding: completion had no quality signal beyond "answered or not."
-function specificityNudge(text){
+// stageIdx 1 (Narrative) and 9 (Personal Brand) get a hint naming the actual
+// concrete-noun/five-minute-window/sensory-detail technique those stages teach,
+// instead of the generic version — see curriculum-depth audit Gap C.
+function specificityNudge(text, stageIdx){
   const trimmed = text.trim();
   if (trimmed === '') return null;
   const wordCount = trimmed.split(/\s+/).filter(Boolean).length;
   const lower = trimmed.toLowerCase();
   const vagueHit = Object.keys(VAGUE_PHRASES).some(p => lower.includes(p));
-  if (wordCount < 12) return "This reads pretty short — is there one specific person, place, or moment you could name?";
-  if (vagueHit && wordCount < 30) return "This reads a bit general — a specific detail (a name, a place, a number) would make it stronger.";
+  const narrativeStage = stageIdx === 1 || stageIdx === 9;
+  if (wordCount < 12) return narrativeStage
+    ? "This reads pretty short — try the technique from this stage: one concrete noun, one five-minute window, one sensory detail."
+    : "This reads pretty short — is there one specific person, place, or moment you could name?";
+  if (vagueHit && wordCount < 30) return narrativeStage
+    ? "This reads a bit general — swap an abstraction for one concrete noun and a specific window of time, the way this stage's technique describes."
+    : "This reads a bit general — a specific detail (a name, a place, a number) would make it stronger.";
   return null;
 }
 
@@ -225,7 +237,7 @@ function updateStageReflection(stageIdx, promptIdx, text){
     maturity_at_entry: null,
     content: text
   });
-  if (hintEl) hintEl.textContent = specificityNudge(text) || '';
+  if (hintEl) hintEl.textContent = specificityNudge(text, stageIdx) || '';
 }
 
 // ---- Stage 04 track selector (MD / DO / Dual) ----
@@ -263,6 +275,32 @@ function renderTestingWindow(containerId){
 
 function updateTestingWindow(value){
   testingWindowDate = value || null;
+}
+
+// ---- Recall check (Stages 08/09/10) ----
+// Real retrieval practice, not static content: asks the student to recall their own
+// Stage 02 narrative material from memory before revealing what they actually saved
+// to evidenceLog — see curriculum-depth audit Gap D ("resurfaces" was previously just
+// a reflection question referencing Stage 02, never an actual retrieval attempt).
+function renderRecallCheck(containerId){
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = `<div class="side-title" style="margin-bottom:10px;">Recall Check — Stage 02</div>
+    <p style="font-size:12.5px; color:var(--muted); line-height:1.5; margin-bottom:10px;">Before you look, try to recall from memory: what specific moment did you write about in Stage 02's narrative prompts? This isn't saved anywhere — it's a real retrieval attempt, not a new entry.</p>
+    <textarea class="reflection-textarea" placeholder="Try to recall it first, without looking back..."></textarea>
+    <button class="btn outline" style="margin-top:8px;" onclick="revealRecallAnswer()">Show what I actually wrote in Stage 02</button>
+    <div id="recall-reveal" style="margin-top:10px;"></div>`;
+}
+
+function revealRecallAnswer(){
+  const el = document.getElementById('recall-reveal');
+  if (!el) return;
+  const entries = [0, 1, 2].map(ri => evidenceLog.find(e => e.key === `stage-1-${ri}`)).filter(Boolean);
+  if (entries.length === 0) {
+    el.innerHTML = `<div style="font-size:12.5px; color:var(--muted); font-style:italic;">You haven't completed Stage 02 yet — nothing to compare against.</div>`;
+    return;
+  }
+  el.innerHTML = entries.map(e => `<div style="font-size:13px; color:#3E4A3F; line-height:1.55; padding:8px 0; border-top:1px dashed var(--line);">${e.content}</div>`).join('');
 }
 
 function monthsUntil(dateStr){

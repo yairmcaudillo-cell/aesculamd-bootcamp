@@ -1,7 +1,7 @@
 # Stage 04: Strategy — MD, DO, or Both
 
 *Foundations Track — unlocks after Stage 03 (Cost & Access)*
-*Estimated time: 30–35 minutes · Sets: how later stages get lightly customized to your path*
+*Estimated time: 40–50 minutes · Sets: how later stages get lightly customized to your path*
 
 ---
 
@@ -44,6 +44,16 @@ To make that concrete: some state public schools admit close to zero out-of-stat
 ### What this looks like in practice (a composite, not a real student)
 
 Jamal assumed he'd apply MD-only until a shadowing shift with a DO sports-medicine physician showed him OMM being used on an athlete he'd watched get injured the week before — the whole-person framing clicked in a way lecture-hall descriptions hadn't. He didn't abandon MD; he decided to dual-apply, and used what he'd just seen in Cost & Access to budget for two application fees instead of assuming he'd sort that out later. He also started asking that DO physician for shadowing time specifically with an eventual letter in mind, rather than waiting until junior year to think about who his DO letter-writer would be.
+
+### Try it yourself first
+
+Your home state's public medical school admits 92% of its incoming class from in-state, and accepted only 11 out-of-state applicants last year out of over 1,400 who applied. You're an out-of-state applicant with strong stats. Before anything else — how should this change how you think about that school?
+
+<details><summary>See how this gets reasoned through</summary>
+
+It should move that school from "reach or target based on my stats" to "realistically closer to a lottery, regardless of stats" — an 11-in-1,400+ out-of-state admit rate isn't a competitiveness problem your GPA/MCAT can fix, it's a structural one. This is the exact trap this stage names: reach/target/safety thinking assumes stats are the main variable, but for public schools, residency can matter more than stats do. The move isn't to give up on applying broadly — it's making sure this specific school isn't quietly treated as a realistic target in your own head, when the numbers say it functions more like a long-shot lottery ticket for anyone outside the state.
+
+</details>
 
 ---
 

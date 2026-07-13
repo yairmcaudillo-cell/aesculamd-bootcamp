@@ -1,7 +1,7 @@
 # Stage 05: Grades & MCAT
 
 *Foundations Track — unlocks after Stage 04 (Strategy)*
-*Estimated time: 35–40 minutes · Unlocks: Logistics & Pacing agent (MCAT mode) and School Fit agent*
+*Estimated time: 50–65 minutes · Unlocks: Logistics & Pacing agent (MCAT mode) and School Fit agent*
 
 ---
 
@@ -58,6 +58,32 @@ Aisha scored a 502 on her first attempt after prepping mostly with flashcards. R
 
 ---
 
+## Part 2.5: CARS and science, actually reasoned through — not just logistics
+
+Everything above this point is real, useful — and entirely about the exam's structure and rules, not its content. That's a genuine gap worth naming honestly: no single stage in a self-paced curriculum can re-teach a full pre-med science sequence or a semester of CARS practice. What it can do is show you, concretely, what the actual reasoning looks like — which is different from, and more useful than, another paragraph of study tips.
+
+**CARS, actually approached — the section you can't just memorize your way through.** Every CARS passage is an argument, not a set of facts to recall — the real skill is identifying what the author is claiming, not what the passage is about. Take this three-sentence excerpt:
+
+> *"Proponents of universal screening argue it saves lives by catching disease early. But screening also produces false positives, unnecessary procedures, and real harm to patients who were never actually sick. The wiser policy targets screening only at those already at elevated risk."*
+
+**Question: what is the author's main claim?** (A) Screening always causes more harm than good. (B) Universal screening should be replaced with risk-targeted screening. (C) False positives are the biggest problem in medicine today. (D) At-risk patients should never be screened.
+
+<details><summary>See how this gets reasoned through</summary>
+
+Three-step approach: first, find the author's actual claim, not just the topic — this passage is about screening, but the author's claim is specifically that *targeted* screening beats *universal* screening, which is (B). Second, watch the tone — the author concedes screening's benefit before pivoting on "but," a common structure signaling where the real argument starts. Third, treat extreme-language answers with suspicion: (A) and (D) use absolute words ("always," "never") the passage never actually supports — CARS wrong answers are frequently the passage's topic pushed to an extreme the author didn't argue. (C) is a real detail from the passage, but it's a supporting fact, not the author's main claim — a very common wrong-answer type: true statement, wrong role in the argument.
+
+</details>
+
+**A worked science-passage question, reasoned from what's given — not memorized content.** MCAT science sections are passage-based for a reason: much of the reasoning uses information the passage itself provides, combined with foundational concepts, rather than pure recall. Example: *a passage describes an enzyme whose reaction rate increases as substrate concentration rises, then plateaus at high substrate levels despite more substrate being available.* **Question: what does the plateau most likely indicate?**
+
+<details><summary>See how this gets reasoned through</summary>
+
+The plateau is the passage handing you the answer, not a fact you need to have memorized: if adding more substrate stops increasing the reaction rate, every available enzyme molecule must already be occupied — the enzyme, not the substrate, has become the limiting factor (a classic saturation-kinetics pattern). Notice the reasoning path: identify what changed (substrate, up) and what didn't respond (rate, flat) between two states the passage described, then ask what's the simplest explanation connecting them. That's the actual skill in a science passage — using two data points the passage already gave you, not searching your memory for the word "saturation" first.
+
+</details>
+
+---
+
 ## Part 3: Course sequencing — you don't need to be a science major
 
 Prerequisite coursework (biology, general chemistry, organic chemistry, physics, and often biochemistry and psychology/sociology) is required regardless of major — but the major itself doesn't need to be a science field. Admissions committees don't reward one major over another; they care whether you completed the required coursework and performed well in it. Choosing a major that genuinely interests you, and sequencing prerequisites thoughtfully across four years rather than stacking them all at once, protects both your GPA and your actual engagement with the material.
@@ -91,4 +117,4 @@ Once you have a real (or realistic practice-test) MCAT number alongside your GPA
 
 ---
 
-*Verified against current AAMC MCAT Essentials, MCAT Examination Repeat Policies and Data, and 2025 FACTS matriculant data (2026 cycle). Fee and score-band figures should be re-checked yearly, since the AAMC updates registration costs and score distributions each testing cycle.*
+*Verified against current AAMC MCAT Essentials, MCAT Examination Repeat Policies and Data, and 2025 FACTS matriculant data (2026 cycle). Fee and score-band figures should be re-checked yearly, since the AAMC updates registration costs and score distributions each testing cycle. The CARS and science worked examples in Part 2.5 are original material written to model AAMC's documented question format and reasoning approach — not reproduced official test content, and not a substitute for full content review.*

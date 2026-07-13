@@ -1,7 +1,7 @@
 # Stage 03: Cost & Access
 
 *Foundations Track — unlocks after Stage 02 (Be Yourself: Narrative); revisit before applying*
-*Estimated time: 30–35 minutes · Unlocks: Logistics & Pacing agent (cost-planning mode)*
+*Estimated time: 40–50 minutes · Unlocks: Logistics & Pacing agent (cost-planning mode)*
 
 ---
 
@@ -82,6 +82,16 @@ Knowing which of these four buckets you can self-fund, which your family can hel
 ### What this looks like in practice (a composite, not a real student)
 
 Daniela ran her family's numbers against the FAP threshold sophomore fall and found they qualified — but she almost missed it: she'd assumed "fee assistance" meant something closer to welfare eligibility than a 400%-of-poverty-level test, which is far more generous than she expected. She applied for FAP three months before her planned MCAT date, specifically so the approval would land before she registered. The one thing she got wrong the first time: she assumed AACOMAS worked the same way as FAP, then found out its waiver expires 14 days after approval — a detail that would have cost her the DO-side waiver if she'd applied for it as early as she applied for FAP.
+
+### Try it yourself first
+
+A family of four has a combined household income of $58,000/year. The FAP threshold for a family of four is 400% of the federal poverty level. Before doing any math — is this family likely to qualify for FAP?
+
+<details><summary>See how this gets reasoned through</summary>
+
+Very likely yes. 400% of the federal poverty level for a family of four lands well above $100,000 in recent years — meaning a household earning $58,000 is comfortably under the line, not just barely under it. This is exactly the miscalibration this stage warned about: most students hear "fee assistance" and picture a much stricter bar than 400%-of-poverty actually is. The only way to know for certain is checking the real, current-year table directly — but the instinct to assume you're too high-income to qualify is usually wrong before you've even looked.
+
+</details>
 
 ---
 

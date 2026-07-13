@@ -1,7 +1,7 @@
 # Stage 09: Leadership
 
 *Foundations Track — unlocks after Stage 08 (Research or No Research?)*
-*Estimated time: 25–30 minutes · Unlocks: nothing new — strengthens your evidence log directly*
+*Estimated time: 35–45 minutes · Unlocks: nothing new — strengthens your evidence log directly*
 
 ---
 
@@ -42,6 +42,20 @@ Fatima noticed new volunteers at her free clinic kept making the same intake-pap
 **A second kind of leadership story, just as real.** Not everyone founds something, and this stage isn't only for people who do. One student never held a title in his research lab, but he became the person every new undergrad ended up asking for help — not because it was assigned, but because he noticed people struggling with the protocol he'd once struggled with himself, and made himself available without being asked. Two years and six mentees later, his PI mentioned it, unprompted, in his recommendation letter. No founding, no title — just consistency other people came to depend on.
 
 **A third kind, different again.** When her volunteer coordinator quit mid-semester with no replacement lined up, one student with no formal authority at all kept the shift schedule from collapsing for six weeks by simply stepping in and doing it, without waiting for someone official to fix it. She never got the coordinator title — someone else was eventually hired for that. But she could describe, specifically, what she'd learned about holding something together under real pressure, which is exactly the kind of substance this stage is asking you to find, whether or not it comes with an official role attached.
+
+### Try it yourself first
+
+Two students, same club: (1) ran for and won "Vice President," attends monthly meetings, and lists the title on their application. (2) held no title, but noticed new members kept missing sign-up deadlines for shadowing opportunities, built a shared calendar with automatic reminders on their own initiative, and now three other members maintain it after they graduated. Which is the stronger leadership story?
+
+<details><summary>See how this gets reasoned through</summary>
+
+(2) — this is the exact trap this stage names: a title held passively reads as weaker evidence than an untitled but real initiative that solved an actual problem and outlasted the person who started it. Notice what makes (2) legible: a specific problem noticed, a concrete solution built without being asked, and evidence it mattered beyond one person (others now maintain it). (1) has a title but no comparable specific substance behind it in this description — precisely the gap an admissions reader is trained to notice.
+
+</details>
+
+### Recall check, before you move on
+
+This stage is supposed to connect back to your Stage 02 "why" — but that only means something if you actually try to recall it, not just read the claim that it connects. Before scrolling back, try to recall the specific moment you wrote about in Stage 02. (In the live app, this is a real interactive recall-check pulling your actual saved Stage 02 answer, not just a suggestion.)
 
 ---
 

@@ -1,7 +1,7 @@
 # Stage 08: Research or No Research?
 
 *Foundations Track — unlocks after Stage 07 (Volunteering & Compassion)*
-*Estimated time: 25–30 minutes · Unlocks: Research Navigator agent*
+*Estimated time: 35–45 minutes · Unlocks: Research Navigator agent*
 
 ---
 
@@ -59,6 +59,20 @@ Keep it under 150 words. Name one specific paper or project of theirs — not "I
 ### What this looks like in practice (a composite, not a real student)
 
 Owen joined a wet lab sophomore year because everyone said research was mandatory, spent a semester washing glassware and running gels he didn't understand the point of, and then honestly logged a decision to leave — not because research failed him, but because he'd never actually wanted mechanism-level questions in the first place. He switched to a health-disparities survey project the next semester and found he could explain, unprompted, why the research question mattered. The AMCAS line looks like two shorter entries instead of one long one — but the dated log of *why* he switched is what makes both of them legible instead of looking like he just quit.
+
+### Try it yourself first
+
+A student emails a PI: *"Dear Professor, I am very interested in your research and would love to gain some experience in a lab. I have attached my resume and transcript. Please let me know if you have any openings. Thank you!"* Before rereading the guidance above — what's wrong with this email?
+
+<details><summary>See how this gets reasoned through</summary>
+
+It fails on nearly every point this stage's outreach guidance names: it's generic ("your research" — no specific paper or project named, the single biggest tell of a mass-email), it asks for a position outright instead of 15 minutes to talk, and it attaches a resume and transcript unsolicited. A PI reading this has no way to tell it apart from fifteen identical emails sent to fifteen other labs that same week — which is exactly why it's likely to go unanswered, not because the student isn't qualified, but because the email gave the PI nothing specific to respond to.
+
+</details>
+
+### Recall check, before you move on
+
+Before rereading it — try to recall, from memory, what specific moment you wrote about back in Stage 02's narrative prompts. Then open your Evidence Log and check what you actually wrote. (In the live app, this is a real interactive recall-check pulling your actual saved Stage 02 answer, not just a suggestion to scroll back.)
 
 ---
 

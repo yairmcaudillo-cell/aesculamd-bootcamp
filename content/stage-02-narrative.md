@@ -1,7 +1,7 @@
 # Stage 02: Be Yourself — Narrative
 
 *Foundations Track — unlocks after Stage 01 (Premed 101)*
-*Estimated time: 35–45 minutes · Feeds: your evidence log, your future personal statement*
+*Estimated time: 45–60 minutes · Feeds: your evidence log, your future personal statement*
 
 ---
 
@@ -38,6 +38,16 @@ Answer these as specifically as you can — names, places, moments, not summarie
 ### What this looks like in practice (a composite, not a real student)
 
 When Marcus answered prompt 1, his real material wasn't a single dramatic scene — it was noticing, at 16, that he was the only person in the ER waiting room who could translate his grandmother's symptoms for the attending physician, and feeling both useful and terrified in the same five minutes. That's the kind of specific, complicated moment this stage is trying to surface — not a tidy, inspirational one, and not one he'd have remembered this clearly if he'd waited until senior year to write it down.
+
+### Try it yourself first
+
+Two answers to "why medicine, not something else": (1) *"I've always been passionate about helping people and want to make a difference in their lives."* (2) *"My little brother has asthma, and I was the one who learned to read his peak-flow numbers because my parents worked nights — I got good at knowing when a normal day was actually the start of a bad one."* Which is stronger, and specifically why?
+
+<details><summary>See how this gets reasoned through</summary>
+
+(2) — not because it's more dramatic, but because of the technique this stage already taught: it swaps an abstraction ("helping people") for one concrete noun (peak-flow numbers), one specific role (reading them because parents worked nights), and a real, learnable skill (knowing when a normal day was actually the start of a bad one). (1) could have been written by literally any applicant; (2) could only have been written by this one. That's the entire test — not whether it sounds impressive, but whether someone else could have written the same sentence.
+
+</details>
 
 ---
 

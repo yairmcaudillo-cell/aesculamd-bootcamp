@@ -1,7 +1,7 @@
 # Stage 07: Volunteering & Compassion
 
 *Foundations Track — unlocks after Stage 06 (Clinical Experience)*
-*Estimated time: 25–30 minutes · Unlocks: nothing new — strengthens the Experience Pathways agent you already have, which covers non-clinical service too*
+*Estimated time: 35–45 minutes · Unlocks: nothing new — strengthens the Experience Pathways agent you already have, which covers non-clinical service too*
 
 ---
 
@@ -34,6 +34,16 @@ What matters more than the number: **consistency over a single burst.** A studen
 ### What this looks like in practice (a composite, not a real student)
 
 Wei almost picked an environmental nonprofit because it sounded distinctive on paper, before catching herself and admitting she didn't actually care about it. She chose weekend tutoring at a youth literacy program instead — less unusual-sounding, but something she kept showing up to for two full years. What she could eventually say about it wasn't "I tutored 200 hours"; it was a specific account of watching one student go from refusing to read aloud to volunteering to read first, and what that taught her about patience she hadn't expected to need.
+
+### Try it yourself first
+
+Two entries: (1) *"Volunteered at 4 different organizations over one summer, totaling 60 hours, to build a well-rounded service record."* (2) *"Tutored the same two students in a public-library literacy program every Saturday for two years; one now reads a full grade level ahead of where she started."* Which reads as stronger evidence of Service Orientation, and why?
+
+<details><summary>See how this gets reasoned through</summary>
+
+(2) — not because of the hour count (it may well be fewer total hours than option 1), but because of what this stage already named: consistency and a real relationship read as stronger evidence than a wide, shallow spread designed to look well-rounded. Option (1)'s own stated reasoning — "to build a well-rounded service record" — is a real tell: it names the application as the motive, exactly the shallow-involvement pattern this stage warns produces forgettable evidence. (2) shows a specific, measurable outcome from sustained presence, which is the actual thing committees are reading for.
+
+</details>
 
 ---
 

@@ -1,7 +1,7 @@
 # Stage 10: Personal Brand — Social Media, Letters, and Being Unique
 
 *Foundations Track — unlocks after Stage 09 (Leadership)*
-*Estimated time: 30–35 minutes · Unlocks: Letters & Relationships agent*
+*Estimated time: 40–50 minutes · Unlocks: Letters & Relationships agent*
 
 ---
 
@@ -48,6 +48,20 @@ This is exactly what your evidence log has been building since Stage 01. If you'
 ### What this looks like in practice (a composite, not a real student)
 
 Sofia almost built her "unique angle" around a semester abroad because an advisor told her international experience stands out. When she actually searched her own evidence log instead, what kept resurfacing across four different stages was her habit of translating medical information for her non-English-speaking grandmother — showing up in her Stage 02 narrative, a Stage 06 clinical reflection, and a Stage 07 volunteering entry, without her ever having planned it that way. That was the real throughline, not the trip. She asked her clinic supervisor — who'd watched her do exactly this for a year — to be one of her letter-writers, specifically because he could speak to it firsthand.
+
+### Try it yourself first
+
+Two "what makes me unique" pitches: (1) *"I spent a summer volunteering abroad in a rural clinic, which gave me a global perspective on healthcare that most applicants don't have."* (2) *"I've translated medical information for my grandmother at three different specialists' offices over four years — it shows up, unprompted, in my Stage 02 narrative, a clinical reflection, and a volunteering entry."* Which reads as more genuinely distinctive, and why?
+
+<details><summary>See how this gets reasoned through</summary>
+
+(2) — for the reason this stage names: genuine distinctiveness comes from a real, accumulated pattern across your own evidence log, not one notable-sounding experience. (1) is real, but it's also a claim many applicants make in nearly identical language ("global perspective," "most applicants don't have") — it's a claim about being unique, not evidence of it. (2) never uses the word "unique" at all, and doesn't need to: a specific pattern showing up unprompted across three unrelated stages is something no other applicant could have written, because no one else has this exact combination of experiences.
+
+</details>
+
+### Recall check, before you review your full evidence log
+
+Before you open it — try to recall, from memory, the specific moment you wrote about in Stage 02. Then actually check. (In the live app, this is a real interactive recall-check pulling your actual saved Stage 02 answer, not just a suggestion to scroll back.)
 
 ---
 

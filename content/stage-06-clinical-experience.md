@@ -1,7 +1,7 @@
 # Stage 06: Clinical Experience — Choose Your Lane
 
 *Foundations Track — unlocks after Stage 05 (Grades & MCAT)*
-*Estimated time: 30–35 minutes · Unlocks: Experience Pathways agent*
+*Estimated time: 40–50 minutes · Unlocks: Experience Pathways agent*
 
 ---
 
@@ -52,6 +52,16 @@ If your real constraint is needing paid work rather than unpaid time, CNA certif
 ### What this looks like in practice (a composite, not a real student)
 
 Tomás needed paid work, so he became a hospital scribe rather than volunteering unpaid — and worried, until this stage, that paid work would read as less genuine than volunteering. It didn't: over a year he documented hundreds of patient encounters across the ED, building real fluency in how physicians actually think through a differential, which he could describe specifically in his eventual interviews. What made it strong wasn't that it was paid or unpaid — it was that he stayed a full year at the same site instead of switching shifts around for convenience.
+
+### Try it yourself first
+
+You have no car, need paid work (not unpaid volunteering) to help with expenses, and have about 10 hours a week free. Which is the stronger first move — (A) cold-emailing three physicians asking to shadow, or (B) getting CNA-certified and applying to a nursing home or home-health agency near a bus line?
+
+<details><summary>See how this gets reasoned through</summary>
+
+(B), given this specific set of constraints. Shadowing is unpaid by definition, which conflicts directly with the real need for paid work — and physician cold-emails have a low, slow response rate compared to direct-patient-contact jobs that are actively hiring. CNA certification (often a matter of weeks) solves three constraints in one move: it's paid, it's real direct clinical experience rather than just observation, and healthcare employers specifically recruit near transit lines because so many of their own staff don't drive. Notice this isn't "shadowing is bad" — the stronger move depends on the real constraints in front of you, not a generic ranking of options.
+
+</details>
 
 ---
 
