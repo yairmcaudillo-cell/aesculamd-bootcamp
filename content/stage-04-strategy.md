@@ -25,6 +25,8 @@ This stage won't force you to choose forever. It'll help you make a real, inform
 
 **Letters of recommendation.** Most DO programs require at least one letter from a physician (MD or DO) — and many specifically prefer or strongly recommend that it come from a DO, though this varies school by school and only a few make it an outright requirement. Either way, it's a logistical detail worth knowing now: a DO-leaning student benefits from seeking out DO shadowing or mentorship early enough to have that relationship in place well before application season, rather than scrambling for a DO letter the summer before applying.
 
+**State residency changes the math more than almost anything else in this stage.** For public MD and DO schools, in-state applicants are frequently admitted at several times the rate out-of-state applicants are — some public schools accept only a small handful of non-residents a year, regardless of stats. Before you build any mental model of reach/target/safety, years from now, know your own state's public-school landscape now — it's one of the most under-discussed facts in premed strategy, and it changes how competitive a given GPA/MCAT combination actually is for you specifically.
+
 ---
 
 ## Part 2: Reflection — matching the path to you, not to prestige assumptions
@@ -33,6 +35,7 @@ This stage won't force you to choose forever. It'll help you make a real, inform
 2. Have you had any exposure to an osteopathic physician or OMM specifically? If not, is that something worth deliberately seeking out before you decide?
 3. Are you drawn to DO, MD, or dual-applying for reasons connected to your own values and interests — or mostly because of assumptions about prestige or difficulty? Be honest; this isn't a graded answer, it's for you.
 4. Given what you saw in Cost & Access about separate applications, separate fees, and the letter-of-recommendation difference — does dual-applying feel realistic for your time and budget, or does focusing on one path make more sense right now?
+5. Look up your home state's public medical school(s) and their out-of-state acceptance rate. Does what you find change how you're thinking about any of this?
 
 ---
 

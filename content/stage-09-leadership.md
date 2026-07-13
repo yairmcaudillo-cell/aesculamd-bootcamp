@@ -39,6 +39,10 @@ There's no official requirement, but a reasonable planning target is **three or 
 
 Fatima noticed new volunteers at her free clinic kept making the same intake-paperwork mistakes because no one trained them consistently — so she wrote up a one-page onboarding guide and started walking new volunteers through it herself, without being asked or given a title for it. A year later the clinic coordinator formalized it as an official role. The strength of the story isn't the eventual title; it's that she solved a real, specific problem before anyone gave her permission to.
 
+**A second kind of leadership story, just as real.** Not everyone founds something, and this stage isn't only for people who do. One student never held a title in his research lab, but he became the person every new undergrad ended up asking for help — not because it was assigned, but because he noticed people struggling with the protocol he'd once struggled with himself, and made himself available without being asked. Two years and six mentees later, his PI mentioned it, unprompted, in his recommendation letter. No founding, no title — just consistency other people came to depend on.
+
+**A third kind, different again.** When her volunteer coordinator quit mid-semester with no replacement lined up, one student with no formal authority at all kept the shift schedule from collapsing for six weeks by simply stepping in and doing it, without waiting for someone official to fix it. She never got the coordinator title — someone else was eventually hired for that. But she could describe, specifically, what she'd learned about holding something together under real pressure, which is exactly the kind of substance this stage is asking you to find, whether or not it comes with an official role attached.
+
 ---
 
 ## Part 3: Reflection

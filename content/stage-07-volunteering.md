@@ -27,6 +27,8 @@ There's no fixed number, and it varies more by school mission than almost any ot
 
 What matters more than the number: **consistency over a single burst.** A student volunteering 2 hours a week for two years at the same organization, building real relationships, reads as more credible than someone who logged 150 hours in one summer at an organization they never returned to.
 
+**"Sustained" looks different depending on your actual life, and that's fine.** A student with real free time might commit two hours a week to the same tutoring program for two straight years. A student working two jobs might only be able to give one Sunday a month to their church's food pantry — but do it without fail, for two years, and build a real relationship with the people who run it. A student with heavy caregiving responsibilities at home might not have room for an external commitment at all in some semesters, and the honest, specific reflection on what that caregiving itself required of you can be its own real evidence, even if it never shows up as a logged volunteer hour. What committees are actually reading for is follow-through relative to your real capacity, not a fixed number everyone is equally positioned to hit.
+
 ---
 
 ### What this looks like in practice (a composite, not a real student)

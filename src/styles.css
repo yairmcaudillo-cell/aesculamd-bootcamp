@@ -248,6 +248,8 @@
   .assess-reflection-label{ font-size:11.5px; color:var(--muted); margin-bottom:4px; }
   .roadmap-personalized-note{ display:flex; align-items:center; gap:8px; font-size:12px; color:var(--teal-text); font-weight:600; margin-bottom:14px; padding:10px 14px; background:var(--teal-pale); border-radius:10px; }
   .reflection-textarea{ width:100%; box-sizing:border-box; border:1px solid var(--line-strong); border-radius:8px; padding:8px 10px; font-size:12.5px; font-family:inherit; color:var(--ink); resize:vertical; min-height:44px; margin-top:6px; }
+  .specificity-hint{ font-size:11.5px; color:var(--accent2-text); margin-top:5px; min-height:14px; }
+  .specificity-hint:empty{ margin-top:0; }
 
   /* Stage 04 track selector + Stage 05 testing-window date (also reused by Quick Setup) */
   .track-pills{ display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 18px; }

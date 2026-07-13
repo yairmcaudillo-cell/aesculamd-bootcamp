@@ -48,6 +48,18 @@ For every competency you rate Progressing or Demonstrating, answer three short p
 
 *(Note: don't force an answer for competencies you honestly rate Planning. That's useful information, not a gap to paper over.)*
 
+### Calibrating the scale before you touch it
+
+The three levels only work if they're calibrated the same way for everyone, so here are two worked examples before you rate yourself:
+
+**Empathy and Compassion** — *Planning* sounds like "I care about people and think I'd be good at this." *Progressing* sounds like "I sat with an upset classmate once and didn't know what to say, but I stayed anyway." *Demonstrating* sounds like "I noticed a coworker quietly struggling for weeks, asked directly instead of waiting for them to bring it up, and changed how I checked in with my whole team afterward."
+
+**Reliability and Dependability** — *Planning* is "I think I'm a reliable person." *Progressing* is "I've mostly shown up on time for my part-time job." *Demonstrating* is "I never missed a shift in two years, including the week my car broke down, because I found my own coverage before telling my manager there was a problem."
+
+Notice the difference isn't how impressive the story is — it's how specific and self-directed it is.
+
+**One honest check before you lock in your ratings:** for every competency you're about to rate Demonstrating, ask yourself — if a stranger read only your written reflection, would they independently land on "Demonstrating," too, or are you being generous with yourself because the word sounds better than Progressing? There's no penalty anywhere in this roadmap for rating something Progressing instead. This gets more useful the more honestly it's calibrated, not less — a roadmap built on an inflated self-assessment just re-teaches you things you don't actually need.
+
 ### What this looks like in practice (a composite, not a real student)
 
 Priya, a sophomore, rated herself **Demonstrating** on Reliability and Dependability — she'd worked a part-time job through high school and never missed a shift, even during finals week. She rated **Scientific Inquiry** as **Planning** — she understood the idea of a testable question but had never designed or run one herself. Because of that, her roadmap surfaced the Research stage earlier than the default sequence, while Leadership — where she already had real evidence from coordinating coworkers' shift swaps — got referenced rather than re-taught.

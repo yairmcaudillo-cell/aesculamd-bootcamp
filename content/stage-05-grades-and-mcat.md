@@ -39,6 +39,19 @@ This is the part most premed advice gets muddled on, so here are the actual rule
 
 ---
 
+## Part 1.5: A real study system, not just "study more"
+
+The method matters more than the hours. Two habits do most of the work:
+
+- **Spaced repetition** — reviewing material at increasing intervals instead of cramming it once — beats re-reading a passage five times in one sitting, because retention tracks how many times you've successfully *retrieved* something, not how many times you've looked at it.
+- **Active recall** — closing the book and reconstructing an answer from memory, then checking — builds the same muscle an exam question actually requires; passively highlighting a textbook doesn't.
+
+Build toward a real full-length practice-exam cadence well before test day, reviewing every wrong answer for the reasoning gap behind it, not just the correct answer. None of this requires a paid course — a self-study plan built around these two habits, started early, consistently outperforms a last-minute course with neither.
+
+**If a semester goes badly, here's what actually happens next** — not just "the trend matters": a withdrawal (W) removes the class from your GPA calculation but still shows up on your transcript — one or two, honestly explained, generally reads as knowing your limits, not as a red flag. A retake at your own school typically *averages* both grades into your GPA rather than replacing the first one, regardless of any undergrad-only "grade replacement" policy — AMCAS calculates GPA its own way, independent of what your transcript shows. If the repair needed is bigger than a retake or two, a post-bac program (structured additional undergraduate-level coursework) or an SMP — Special Master's Program (graduate-level coursework built specifically to prove you can handle a rigorous course load) — are both real, commonly used paths back into serious contention, not a last resort.
+
+---
+
 ### What this looks like in practice (a composite, not a real student)
 
 Aisha scored a 502 on her first attempt after prepping mostly with flashcards. Rather than immediately re-registering, she spent three weeks diagnosing why — she was strong on content recall but consistently ran out of time on CARS passages. Her retake prep looked almost nothing like her first round: timed passage drills four days a week instead of more flashcards. Her second score was a 514. When she later talked about it, the story she told wasn't "I got a bad score and fixed it" — it was specifically what she'd learned about how she processes dense text under time pressure, which is a different, more useful thing to be able to say in an interview.

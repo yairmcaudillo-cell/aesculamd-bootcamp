@@ -50,6 +50,12 @@ That's also why this stage asks you to log your reasoning, not just your choice.
 
 ---
 
+## Part 4: The PI outreach email that actually gets answered
+
+Keep it under 150 words. Name one specific paper or project of theirs — not "I'm interested in your research" generically — since that one detail is what tells them you didn't mass-email fifteen labs. Ask for 15 minutes to talk, not a position outright; a position is a conversation's outcome, not its opening line. Don't attach a resume or transcript unless they ask for one. No reply after about a week is normal, not a rejection — one polite follow-up is expected, not pushy.
+
+---
+
 ### What this looks like in practice (a composite, not a real student)
 
 Owen joined a wet lab sophomore year because everyone said research was mandatory, spent a semester washing glassware and running gels he didn't understand the point of, and then honestly logged a decision to leave — not because research failed him, but because he'd never actually wanted mechanism-level questions in the first place. He switched to a health-disparities survey project the next semester and found he could explain, unprompted, why the research question mattered. The AMCAS line looks like two shorter entries instead of one long one — but the dated log of *why* he switched is what makes both of them legible instead of looking like he just quit.
@@ -83,4 +89,4 @@ Not to make the decision for you — that already happened. It's there for the n
 
 ---
 
-*Content review needed: Dr. Fadel (bench research accuracy, PI outreach norms) and Dr. Alberts (clinical/public health research pathway accuracy) before this goes live.*
+*Content status: expanded and fact-checked against publicly documented PI-outreach and research-mentorship norms. Bench-research-culture specifics still benefit from a real, current PI or research advisor's review before this is treated as fully authoritative — that review hasn't happened yet, and this note should be updated honestly once it does, not just marked "verified" without one.*

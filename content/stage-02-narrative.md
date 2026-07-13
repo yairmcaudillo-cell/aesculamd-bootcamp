@@ -19,6 +19,8 @@ Admissions officers read thousands of personal statements a year, and the ones t
 
 Your real "why" is allowed to be: unclear, tied to something difficult, still evolving, or connected to something you haven't told many people. This stage isn't asking you to perform certainty. It's asking you to be accurate.
 
+**The actual move that turns generic into specific** isn't a mystery — it's a technique. Swap an abstraction for one concrete noun. Swap a summarized period of time for one five-minute window. Name one physical or sensory detail. Watch it happen to a real sentence: "I've always wanted to help people" becomes "I was the one who explained the doctor's words to my grandmother, in our kitchen, the week her test results came back" — same underlying idea, but only one of those two sentences could have been written by anyone else. Every prompt below is easier to answer once you're looking for that one window, not the general period around it.
+
 ---
 
 ## Part 2: Finding the real material

@@ -50,6 +50,19 @@ The pattern across all of these: **they exist, they're underused, and they're no
 
 ---
 
+## Part 1.5: The other side of the ledger — what medical school itself costs
+
+Everything above is the cost of *applying*. It's worth knowing, honestly, what the degree itself costs too: average MD debt at graduation is around $223,000, and roughly 70% of graduates carry six-figure debt. That number is the real reason "can I afford this" deserves an honest answer now, not senior year.
+
+It's also not the whole picture. Two structurally-funded paths worth knowing exist, even though neither is right for most people:
+
+- **HPSP** (the military's Health Professions Scholarship Program) covers full tuition plus a stipend, in exchange for a service commitment after residency.
+- **MD-PhD programs** are typically fully funded, including a stipend, for students genuinely drawn to physician-scientist research careers — not a way to "get research in," but a real, different career track.
+
+Knowing these exist now, rather than discovering them in your thirties with debt already taken on, is exactly the kind of thing this stage is for.
+
+---
+
 ## Part 3: Building your own budget, semester by semester
 
 Rather than one intimidating total, break it into the four points where money actually leaves your account:

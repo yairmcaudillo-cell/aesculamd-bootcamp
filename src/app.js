@@ -104,6 +104,7 @@ function openStagePanel(i){
     return `<li style="font-size:13px; color:#3E4A3F; line-height:1.55; padding:6px 0;">
       <div>→ ${r}</div>
       <textarea class="reflection-textarea" onblur="updateStageReflection(${i}, ${ri}, this.value)" placeholder="Your answer...">${existing ? existing.content : ''}</textarea>
+      <div class="specificity-hint" id="hint-stage-${i}-${ri}"></div>
     </li>`;
   }).join('');
   document.getElementById('sp-checklist').innerHTML = s.checklist.map(c => `<li style="display:flex; gap:8px; font-size:13px; padding:6px 0;"><span class="box" style="width:14px;height:14px;border:2px solid var(--line-strong);border-radius:4px;flex-shrink:0;margin-top:2px;"></span>${c}</li>`).join('');
@@ -136,7 +137,7 @@ function renderAssessment(containerId){
       <div class="assess-progress-label">${rated} / ${COMPETENCIES.length} rated</div>
     </div>`;
   let lastCategory = null;
-  COMPETENCIES.forEach(c => {
+  COMPETENCIES.forEach((c, ci) => {
     if (c.category !== lastCategory) {
       html += `<div class="assess-category">${c.category}</div>`;
       lastCategory = c.category;
@@ -154,6 +155,7 @@ function renderAssessment(containerId){
       ${showReflection ? `<div class="assess-reflection">
         <div class="assess-reflection-label">One specific moment where you demonstrated this — specific enough someone else could picture it:</div>
         <textarea onblur="updateReflection('${safeName}', this.value)" placeholder="Describe a real moment...">${entry.reflection || ''}</textarea>
+        <div class="specificity-hint" id="hint-self-${ci}"></div>
       </div>` : ''}
     </div>`;
   });
@@ -173,6 +175,21 @@ function setAssessmentLevel(name, level){
   });
 }
 
+// A soft quality bar, not a grade — nothing here blocks saving or unlocking a stage.
+// Reuses the same vague-phrase dictionary PS Checker uses (generic language reads the
+// same way in a private reflection as it does in an essay), plus a bare length check.
+// See content-audit finding: completion had no quality signal beyond "answered or not."
+function specificityNudge(text){
+  const trimmed = text.trim();
+  if (trimmed === '') return null;
+  const wordCount = trimmed.split(/\s+/).filter(Boolean).length;
+  const lower = trimmed.toLowerCase();
+  const vagueHit = Object.keys(VAGUE_PHRASES).some(p => lower.includes(p));
+  if (wordCount < 12) return "This reads pretty short — is there one specific person, place, or moment you could name?";
+  if (vagueHit && wordCount < 30) return "This reads a bit general — a specific detail (a name, a place, a number) would make it stronger.";
+  return null;
+}
+
 function updateReflection(name, text){
   if (!selfAssessment[name]) selfAssessment[name] = { level: null, reflection: '' };
   selfAssessment[name].reflection = text;
@@ -185,6 +202,9 @@ function updateReflection(name, text){
       content: text
     });
   }
+  const ci = COMPETENCIES.findIndex(c => c.name === name);
+  const hintEl = document.getElementById(`hint-self-${ci}`);
+  if (hintEl) hintEl.textContent = specificityNudge(text) || '';
 }
 
 // Stage reflection prompts (all stages) auto-tag to whatever competencies that stage
@@ -192,7 +212,12 @@ function updateReflection(name, text){
 function updateStageReflection(stageIdx, promptIdx, text){
   const s = STAGE_DATA[stageIdx];
   const key = `stage-${stageIdx}-${promptIdx}`;
-  if (text.trim() === '') { removeEntry(key); return; }
+  const hintEl = document.getElementById(`hint-stage-${stageIdx}-${promptIdx}`);
+  if (text.trim() === '') {
+    removeEntry(key);
+    if (hintEl) hintEl.textContent = '';
+    return;
+  }
   upsertEntry(key, {
     source_type: 'stage_reflection',
     source_reference: s.title,
@@ -200,6 +225,7 @@ function updateStageReflection(stageIdx, promptIdx, text){
     maturity_at_entry: null,
     content: text
   });
+  if (hintEl) hintEl.textContent = specificityNudge(text) || '';
 }
 
 // ---- Stage 04 track selector (MD / DO / Dual) ----

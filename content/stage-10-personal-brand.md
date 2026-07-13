@@ -49,6 +49,12 @@ Sofia almost built her "unique angle" around a semester abroad because an adviso
 
 ---
 
+## What this Foundations Track was actually for, now that you've finished it
+
+Building a real, evidenced case — competency by competency, year by year — before you're under application-cycle pressure to invent one from memory. It ends here on purpose. The next phase — building your actual school list, writing and submitting secondaries, interview prep, managing an active cycle — is a different kind of work, with different tools, and it's not part of this bootcamp. When you're ready for it, that's what AesculaMD's full platform is built for. This isn't a dead end; it's a deliberate handoff to the part of the process that needs you to already have what you just spent years building.
+
+---
+
 ## Part 4: Reflection
 
 1. Search your own name. What did you find, and is there anything worth addressing before it becomes relevant to an application?

@@ -41,6 +41,14 @@ Some paid programs — often marketed as international medical "internships" or 
 
 ---
 
+## Part 3.5: If you don't have a car, a connection, or free time
+
+Here's an actual plan, not just "ask around." Community health centers and free/sliding-scale clinics are almost always more open to undergrad volunteers than hospitals are, and many are reachable by public transit in a way large hospital systems aren't. Hospice organizations constantly need volunteers and typically provide their own training, no prior connections required. The highest-leverage cold contact is usually a volunteer coordinator, not a physician directly — search "[your city] hospice volunteer" or "[your city] free clinic volunteer" and call, don't just email, since many small clinics are more responsive by phone.
+
+If your real constraint is needing paid work rather than unpaid time, CNA certification (often a matter of weeks, not months) opens direct-patient-contact jobs with actual pay, which solves the schedule and the access problem in the same move.
+
+---
+
 ### What this looks like in practice (a composite, not a real student)
 
 Tomás needed paid work, so he became a hospital scribe rather than volunteering unpaid — and worried, until this stage, that paid work would read as less genuine than volunteering. It didn't: over a year he documented hundreds of patient encounters across the ED, building real fluency in how physicians actually think through a differential, which he could describe specifically in his eventual interviews. What made it strong wasn't that it was paid or unpaid — it was that he stayed a full year at the same site instead of switching shifts around for convenience.
