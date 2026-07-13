@@ -61,6 +61,8 @@ It's also not the whole picture. Two structurally-funded paths worth knowing exi
 
 Knowing these exist now, rather than discovering them in your thirties with debt already taken on, is exactly the kind of thing this stage is for.
 
+**An honest word on reapplying**, since it's common enough to plan for financially, not just emotionally: a meaningful share of accepted students didn't get in on their first attempt — reapplying is a normal, well-worn path, not a rare exception or something to be quiet about. Financially, it means budgeting for the possibility of a second round of primary and secondary fees, not assuming one clean cycle covers everything. Emotionally, it connects directly to Resilience and Adaptability — one of the 17 competencies this whole roadmap is built around — and a thoughtful account of what changed between attempts is itself real, legible evidence, not something to hide from a future application.
+
 ---
 
 ## Part 3: Building your own budget, semester by semester

@@ -27,6 +27,8 @@ This stage won't force you to choose forever. It'll help you make a real, inform
 
 **State residency changes the math more than almost anything else in this stage.** For public MD and DO schools, in-state applicants are frequently admitted at several times the rate out-of-state applicants are — some public schools accept only a small handful of non-residents a year, regardless of stats. Before you build any mental model of reach/target/safety, years from now, know your own state's public-school landscape now — it's one of the most under-discussed facts in premed strategy, and it changes how competitive a given GPA/MCAT combination actually is for you specifically.
 
+To make that concrete: some state public schools admit close to zero out-of-state applicants in a given year — a handful, out of thousands who applied — while others admit out-of-state applicants at rates approaching their in-state numbers. That's not a small variance; it can be the difference between a school being a real reach and barely worth applying to at all, regardless of your stats. The only way to know which kind your home state has is to actually look, not assume.
+
 ---
 
 ## Part 2: Reflection — matching the path to you, not to prestige assumptions

@@ -40,6 +40,8 @@ For each of the 17 competencies below, rate yourself using the same three-level 
 - **Progressing** — you have some experience, but it's early or you're still developing real fluency with it
 - **Demonstrating** — you have a specific, real experience you could describe in detail that shows this competency clearly
 
+**What this bootcamp is, and isn't, in one honest sentence:** these ten stages are Phase 1 — building a real, evidenced case while you still have years of runway. Phase 2 — your actual school list, secondaries, interview prep, managing a live application cycle — is different work, with different tools, and lives elsewhere; you'll hear exactly where at the end of Stage 10. For now, just know that finishing this track is a real, complete milestone on its own, not half of one.
+
 For every competency you rate Progressing or Demonstrating, answer three short prompts (these become entries in your permanent evidence log, referenced again in later stages):
 
 1. What did you learn about this competency by watching someone else do it well (or poorly)?

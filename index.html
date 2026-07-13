@@ -48,6 +48,7 @@
   <div class="sub-nav" id="explore-sub">
     <div class="sub-item" data-page="agents" role="button" tabindex="0" onclick="go('agents', this)">AI Agents</div>
     <div class="sub-item" data-page="knowhow" role="button" tabindex="0" onclick="go('knowhow', this)">Know How</div>
+    <div class="sub-item" data-page="glossary" role="button" tabindex="0" onclick="go('glossary', this)">Glossary</div>
     <div class="sub-item" data-page="community" role="button" tabindex="0" onclick="go('community', this)">Community</div>
   </div>
 
@@ -195,7 +196,7 @@
     <h1 class="section-heading">Practice. Reflect. Prepare.</h1>
     <p class="section-sub">Practice tools that read your real self-assessment, evidence log, and roadmap progress.</p>
     <div class="sim-grid">
-      <div class="sim-card"><div class="sim-thumb"></div><div class="sim-body"><h4>Family Conversation</h4><p>Practice explaining a gap year or long timeline to family who haven't been through it.</p></div></div>
+      <div class="sim-card" style="cursor:pointer;" role="button" tabindex="0" onclick="go('chat', document.getElementById('nav-new-chat')); startNewChat('family-conversations');"><div class="sim-thumb"></div><div class="sim-body"><h4>Family Conversation</h4><p>Talk through explaining a gap year, the cost, or the timeline to family who haven't been through it — especially useful if you're the first in your family to go through anything like this.</p></div></div>
     </div>
   </div>
 
@@ -208,12 +209,30 @@
 
   <!-- COMMUNITY -->
   <div class="page" id="page-community">
-    <h1 class="section-heading">Cohort, Not Crowd</h1>
-    <p class="section-sub">Matched by stage and region — you're never the only one figuring this out alone.</p>
-    <div class="sim-grid">
-      <div class="sim-card"><div class="sim-thumb"></div><div class="sim-body"><h4>Pine House</h4><p>Your cohort of 24, matched by start date. Weekly prompts every Monday.</p></div></div>
-      <div class="sim-card"><div class="sim-thumb"></div><div class="sim-body"><h4>Live Q&A</h4><p>Thursday sessions with current medical students and advisors.</p></div></div>
-      <div class="sim-card"><div class="sim-thumb"></div><div class="sim-body"><h4>Local Clinics</h4><p>Free clinic and shadowing partners active in your area.</p></div></div>
+    <h1 class="section-heading">Community</h1>
+    <p class="section-sub">The honest version: real peer-matching needs real accounts, which this prototype doesn't have yet. Here's what's actually real right now, not a mockup of a cohort that isn't there.</p>
+
+    <div class="apply-card" style="max-width:680px; margin-bottom:20px;">
+      <h3>Not built yet — and we'd rather say so than fake it</h3>
+      <p>A real cohort — other students at your exact stage, matched by background and start date, with a real feed and real messages — needs real accounts and a real backend, neither of which this prototype has. Building that honestly, once the rest of this exists, is a real priority. Until then, this page isn't going to show you a "cohort of 24" or a "Thursday Q&A" that don't actually exist.</p>
+    </div>
+
+    <div class="apply-card" style="max-width:680px; margin-bottom:20px;">
+      <h3>Real communities, outside this app, you can join today</h3>
+      <p style="margin-bottom:14px;">None of these are part of AesculaMD — they're real, independent, and mostly free:</p>
+      <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:12px;">
+        <li><b>Student National Medical Association (SNMA)</b> — the oldest and largest organization run by and for underrepresented-in-medicine students, with an active pre-med (MAPS) chapter network.</li>
+        <li><b>Latino Medical Student Association (LMSA)</b> — similar in spirit, with a strong pre-med presence.</li>
+        <li><b>r/premed</b> — the largest active premed community online. Genuinely useful for real-time questions; treat any single anecdote there with the same healthy skepticism you'd give a stranger's advice anywhere.</li>
+        <li><b>Student Doctor Network (SDN) forums</b> — one of the longest-running premed and med-student communities, with searchable threads on almost every situation you'll hit.</li>
+        <li><b>AAMC's Aspiring Docs resources</b> — includes material written specifically for first-generation and low-income applicants, not just generic advice.</li>
+      </ul>
+    </div>
+
+    <div class="apply-card" style="max-width:680px;">
+      <h3>What's real, right now, inside this app</h3>
+      <p>Family Conversations in Chat won't replace a real mentor who's known you for years — but it's real, it's always available, and it doesn't require a cohort to exist first.</p>
+      <button class="btn outline" onclick="go('chat', document.getElementById('nav-new-chat')); startNewChat('family-conversations');">Talk to Family Conversations →</button>
     </div>
   </div>
 
@@ -222,6 +241,13 @@
     <h1 class="section-heading">Know How</h1>
     <p class="section-sub">Your personalized path to a competitive application. Your roadmap, your pace. Learn from real admissions patterns, take the next step, and keep building.</p>
     <div class="kh-grid" id="kh-grid"><!-- populated by JS from STAGE_DATA --></div>
+  </div>
+
+  <!-- GLOSSARY -->
+  <div class="page" id="page-glossary">
+    <h1 class="section-heading">Glossary</h1>
+    <p class="section-sub">Every acronym and term that actually shows up somewhere in the ten stages, in plain language — no separate tab required.</p>
+    <div id="glossary-grid"><!-- populated by JS from GLOSSARY_TERMS --></div>
   </div>
 
   <!-- EVIDENCE LOG -->

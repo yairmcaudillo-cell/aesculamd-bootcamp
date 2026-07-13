@@ -47,6 +47,8 @@ Everything you wrote above becomes tagged entries in your evidence log under **S
 
 This stage will resurface deliberately: in Stage 08 (Research) and Stage 09 (Leadership), you'll be asked whether what you're experiencing there connects back to what you wrote here — building the actual throughline, over years, instead of retrofitting one at the end.
 
+**Revisiting this isn't optional, and it isn't automatic either — put an actual date on it.** "This resurfaces later" only works if you actually come back to it. Right now, before you move on, set a real reminder for six months from today to reread what you just wrote — not to rewrite it, just to notice what still feels true and what's changed. Trusting yourself to remember on your own is exactly how this material gets lost by the time you actually need it.
+
 ---
 
 ## A note on doubt and complexity

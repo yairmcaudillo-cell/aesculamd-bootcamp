@@ -514,6 +514,21 @@ function renderKnowHow(){
   }).join('');
 }
 
+function renderGlossary(){
+  const grid = document.getElementById('glossary-grid');
+  if (!grid) return;
+  let lastCategory = null;
+  let html = '';
+  GLOSSARY_TERMS.forEach(g => {
+    if (g.category !== lastCategory) {
+      html += `<div class="assess-category">${g.category}</div>`;
+      lastCategory = g.category;
+    }
+    html += `<div class="glossary-row"><div class="glossary-term">${g.term}</div><div class="glossary-def">${g.definition}</div></div>`;
+  });
+  grid.innerHTML = html;
+}
+
 function renderEvidenceLog(){
   const summary = document.getElementById('evidence-log-summary');
   const grid = document.getElementById('evidence-log-grid');
@@ -945,6 +960,8 @@ function resolveChatTokens(text){
 
 function generateAgentReply(agent, userText){
   const lower = userText.toLowerCase();
+  const lifeContext = LIFE_CONTEXT_SIGNALS.find(s => s.keywords.some(k => lower.includes(k)));
+  if (lifeContext) return resolveChatTokens(lifeContext.reply);
   const topic = (agent.chatTopics || []).find(t => t.keywords.some(k => lower.includes(k)));
   return resolveChatTokens(topic ? topic.reply : agent.chatFallback);
 }
@@ -1230,13 +1247,21 @@ function renderProfileSnapshot(){
   const doneStages = STAGE_DATA.filter(s => s.status === 'done').length;
   const currentStage = STAGE_DATA.find(s => s.status === 'current');
 
+  const countUserMessages = (msgs) => msgs.filter(m => m.sender === 'user').length;
+  const questionsAsked = chatSessions.reduce((sum, s) => sum + countUserMessages(s.messages), 0)
+    + countUserMessages(chatState.messages);
+  const agentsUsed = new Set([...chatSessions.map(s => s.agentId), chatState.activeAgentId]).size;
+
   const cards = [
     { title: 'Roadmap', stat: `${doneStages} / ${STAGE_DATA.length}`, label: 'stages complete',
       detail: currentStage ? `Current: ${currentStage.title}` : 'All stages complete.',
       link: 'bootcamp', linkLabel: 'Open Bootcamp' },
     { title: 'Competencies', stat: `${ratedCount} / 17`, label: `rated · ${withEvidence} with evidence`,
       detail: ratedCount < 17 ? 'Complete your Stage 01 self-assessment for the full picture.' : 'Self-assessment complete.',
-      link: 'evidencelog', linkLabel: 'Open Evidence Log' }
+      link: 'evidencelog', linkLabel: 'Open Evidence Log' },
+    { title: 'Chat', stat: `${questionsAsked}`, label: `question${questionsAsked === 1 ? '' : 's'} asked · ${agentsUsed} agent${agentsUsed === 1 ? '' : 's'} used`,
+      detail: questionsAsked === 0 ? 'Nothing asked yet.' : 'Ask any of your 8 agents something real, any time.',
+      link: 'chat', linkLabel: 'Open Chat' }
   ];
 
   grid.innerHTML = cards.map(c => `
@@ -1254,6 +1279,7 @@ function renderProfileSnapshot(){
 renderStageList();
 renderAgents();
 renderKnowHow();
+renderGlossary();
 renderProgressRing();
 renderEvidenceLog();
 renderTimeline();

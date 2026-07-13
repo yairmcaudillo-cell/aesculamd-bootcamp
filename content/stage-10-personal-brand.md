@@ -49,9 +49,15 @@ Sofia almost built her "unique angle" around a semester abroad because an adviso
 
 ---
 
+## What you'll eventually be tested on in an interview
+
+Worth knowing the shape of now, even years before you'll actually do one. Most schools use one of two formats. A **traditional interview** is a single, longer conversation, often one-on-one or panel, covering your application broadly. An **MMI (Multiple Mini Interview)** is a series of short stations, each a few minutes, usually built around an ethical or situational prompt rather than a memorized answer — it's testing how you think in the moment, not what you rehearsed. Neither format rewards a polished script; both reward the same thing this whole bootcamp has been building toward — specific, honest self-knowledge you can speak from. You don't need to practice interviewing yet. Knowing the shape of what's coming is enough to choose your experiences and reflections with it already in mind.
+
+---
+
 ## What this Foundations Track was actually for, now that you've finished it
 
-Building a real, evidenced case — competency by competency, year by year — before you're under application-cycle pressure to invent one from memory. It ends here on purpose. The next phase — building your actual school list, writing and submitting secondaries, interview prep, managing an active cycle — is a different kind of work, with different tools, and it's not part of this bootcamp. When you're ready for it, that's what AesculaMD's full platform is built for. This isn't a dead end; it's a deliberate handoff to the part of the process that needs you to already have what you just spent years building.
+Building a real, evidenced case — competency by competency, year by year — before you're under application-cycle pressure to invent one from memory. It ends here on purpose. Phase 2 is a different kind of work: building your real school list against your actual GPA/MCAT, tracking and writing secondary essays under real deadlines, structured practice for the interview formats above, and everything else that happens mid-cycle — LOR submission, waitlist decisions, comparing offers. None of that is part of this bootcamp, on purpose — it needs tools built for an active cycle, not a self-paced one. When you're ready for it, that's what AesculaMD's full platform is built for. This isn't a dead end; it's a deliberate handoff to the part of the process that needs you to already have what you just spent years building.
 
 ---
 
