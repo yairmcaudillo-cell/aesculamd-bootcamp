@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AesculaMD Bootcamp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+<!-- ===== MOBILE TOPBAR (visible below 880px) ===== -->
+<div class="mobile-topbar">
+  <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="Open menu">☰</button>
+  <div class="brand-text">AesculaMD<span>The Path</span></div>
+</div>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- ===== SIDEBAR ===== -->
+<div class="sidebar" id="sidebar">
+  <button class="mobile-sidebar-close" onclick="closeSidebar()" aria-label="Close menu">✕</button>
+  <div class="brand">
+    <img class="brand-mark" src="assets/logo-icon.png" alt="AesculaMD">
+    <div class="brand-text">AesculaMD<span>The Path</span></div>
+  </div>
+
+  <div class="nav-item active" data-page="home" role="button" tabindex="0" onclick="go('home', this)"><span class="icon">⌂</span> Home</div>
+  <div class="nav-item" data-page="bootcamp" role="button" tabindex="0" onclick="go('bootcamp', this)"><span class="icon">◎</span> Bootcamp</div>
+  <div class="nav-item" data-page="timeline" role="button" tabindex="0" onclick="go('timeline', this)"><span class="icon">◷</span> Timeline</div>
+  <div class="nav-item" data-page="profile" role="button" tabindex="0" onclick="go('profile', this)"><span class="icon">◉</span> My Profile</div>
+  <div class="nav-item" data-page="institutes" role="button" tabindex="0" onclick="go('institutes', this)"><span class="icon">✦</span> Institutes</div>
+
+  <div class="nav-item" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub('chat-sub', this)"><span class="icon">◈</span> Chat <span class="chev">▾</span></div>
+  <div class="sub-nav" id="chat-sub">
+    <div class="sub-item active" id="nav-new-chat" data-page="chat" role="button" tabindex="0" onclick="go('chat', this); startNewChat();">New Chat</div>
+    <div class="sub-item" id="nav-chat-history" data-page="chat" role="button" tabindex="0" onclick="go('chat', this); showChatHistoryView();">Chat History</div>
+  </div>
+
+  <div class="nav-item" role="button" tabindex="0" aria-expanded="true" onclick="toggleSub('tools-sub', this)"><span class="icon">▤</span> My Tools <span class="chev">▾</span></div>
+  <div class="sub-nav open" id="tools-sub">
+    <div class="sub-item" data-page="evidencelog" role="button" tabindex="0" onclick="go('evidencelog', this)">Evidence Log</div>
+    <div class="sub-item" data-page="ledger" role="button" tabindex="0" onclick="go('ledger', this)">Activity Ledger</div>
+    <div class="sub-item" data-page="lortracker" role="button" tabindex="0" onclick="go('lortracker', this)">LOR Tracker</div>
+    <div class="sub-item" data-page="schoollist" role="button" tabindex="0" onclick="go('schoollist', this)">School List</div>
+  </div>
+
+  <div class="nav-item" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub('practice-sub', this)"><span class="icon">✎</span> Practice <span class="chev">▾</span></div>
+  <div class="sub-nav" id="practice-sub">
+    <div class="sub-item" data-page="simulations" role="button" tabindex="0" onclick="go('simulations', this)">Simulations</div>
+    <div class="sub-item" data-page="pschecker" role="button" tabindex="0" onclick="go('pschecker', this)">PS Checker</div>
+    <div class="sub-item" data-page="doctorquiz" role="button" tabindex="0" onclick="go('doctorquiz', this)">Should I Be a Doctor?</div>
+  </div>
+
+  <div class="nav-item" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub('explore-sub', this)"><span class="icon">◆</span> Explore <span class="chev">▾</span></div>
+  <div class="sub-nav" id="explore-sub">
+    <div class="sub-item" data-page="agents" role="button" tabindex="0" onclick="go('agents', this)">AI Agents</div>
+    <div class="sub-item" data-page="knowhow" role="button" tabindex="0" onclick="go('knowhow', this)">Know How</div>
+    <div class="sub-item" data-page="community" role="button" tabindex="0" onclick="go('community', this)">Community</div>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="sf-avatar">Y</div>
+    <div class="sf-name">Yair</div>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main">
+
+  <!-- HOME -->
+  <div class="page active" id="page-home">
+    <div class="home-hero"><span class="scroll-pill">Scroll to Discover ◐</span></div>
+    <img src="assets/logo-full.png" alt="AesculaMD" style="display:block; height:56px; margin:0 auto 22px;">
+    <h1 class="big">Bootcamp</h1>
+    <p class="sub">A self-paced path from your first pre-med decision to a competitive AMCAS application — built for freshmen and sophomores who don't have an advisor doing this for them.</p>
+
+    <div class="path-canvas">
+      <svg viewBox="0 0 1100 340" preserveAspectRatio="none">
+        <path d="M120 90 L 260 90 L 320 150 L 400 150 L 460 90 L 640 90" />
+        <path d="M640 90 L 700 150 L 870 150" stroke-dasharray="1 8" />
+      </svg>
+      <div class="node-dot filled hex" style="left:100px; top:64px;"></div>
+      <div class="node-label" style="left:70px; top:130px;">Joined</div>
+
+      <div class="node-dot hex" style="left:380px; top:90px;"></div>
+      <div class="node-label ghost" style="left:355px; top:150px;">Bootcamp</div>
+
+      <div class="node-dot hex" style="left:640px; top:110px;"></div>
+      <div class="node-label ghost" style="left:590px; top:170px;">Institutes</div>
+
+      <div class="node-badge" style="left:840px; top:100px;">
+        <div class="node-badge-inner">✎</div>
+      </div>
+      <div class="node-label" style="left:850px; top:60px; background:var(--accent2);">Partner Pilot</div>
+    </div>
+
+    <div class="status-card">
+      <div>
+        <h3>Keep up the great work!</h3>
+        <p>You are currently at Stage 03 · Cost & Access</p>
+      </div>
+      <button class="btn" onclick="go('bootcamp', document.querySelector('.nav-item[data-page=bootcamp]'))">Jump Back In</button>
+    </div>
+
+    <div class="status-card" style="margin-top:14px;">
+      <div>
+        <h3>Prefer to skip the guided lessons?</h3>
+        <p>Answer a few questions and jump straight to your personalized timeline — no stage-by-stage reading required.</p>
+      </div>
+      <button class="btn outline" onclick="openQuickSetup()">Quick Setup</button>
+    </div>
+
+    <div class="status-card" style="margin-top:14px;">
+      <div>
+        <h3>Not sure medicine is even the right goal?</h3>
+        <p>A 10-question honest reality check — cost, timeline, resilience — before you commit any further.</p>
+      </div>
+      <button class="btn outline" onclick="go('doctorquiz', document.querySelector('.sub-item[data-page=doctorquiz]'))">Take the Quiz</button>
+    </div>
+  </div>
+
+  <!-- BOOTCAMP -->
+  <div class="page" id="page-bootcamp">
+    <h1 class="section-heading">Welcome to the Bootcamp!</h1>
+    <p class="section-sub">Select a stage and dive in.</p>
+
+    <div class="bootcamp-layout">
+      <div class="stage-list" id="stage-list">
+        <!-- populated by JS from STAGE_DATA -->
+      </div>
+
+      <div class="progress-card">
+        <h3>Up Next</h3>
+        <p>Everyone's pace is different — here's the next step your roadmap recommends.</p>
+        <div class="ring" id="progress-ring"><div class="ring-inner"><div class="l1" id="ring-label">Stage 4 / 10</div><div class="l2">Sophomore Fall</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="page" id="page-timeline">
+    <h1 class="section-heading">Your Timeline</h1>
+    <p class="section-sub" id="timeline-sub">Complete Quick Setup or Stage 01 (with a target cycle year) to generate your personalized timeline to application day.</p>
+    <div id="timeline-pace"></div>
+    <div id="timeline-grid" class="timeline-grid"><!-- populated by JS from computeTimeline() --></div>
+  </div>
+
+  <!-- MY PROFILE -->
+  <div class="page" id="page-profile">
+    <h1 class="section-heading">My Profile</h1>
+    <p class="section-sub">Everything you've logged across the app, in one place — each card links to the tool that owns it.</p>
+    <div id="profile-grid" class="profile-grid"><!-- populated by JS from renderProfileSnapshot() --></div>
+  </div>
+
+  <!-- INSTITUTES -->
+  <div class="page" id="page-institutes">
+    <h1 class="section-heading">AesculaMD Institutes</h1>
+    <div class="institutes-layout">
+      <div>
+        <p class="inst-desc">Institutes is a custom-content licensing program for pre-health advising offices, HBCU pipeline programs, and health equity nonprofits. Your students get the same stage-gated bootcamp and agent structure — with your curriculum, your voice, and your local partnerships built in.</p>
+        <p class="inst-desc">Apply by submitting your student population size, current advising resources, and the specific gaps you want Institutes to fill. All applicants receive a fit assessment once review is complete.</p>
+      </div>
+      <div class="apply-card" id="institute-form-area"><!-- populated by JS from renderInstituteForm() --></div>
+    </div>
+  </div>
+
+  <!-- CHAT -->
+  <div class="page" id="page-chat">
+    <div class="chat-layout" id="chat-live-view">
+      <div class="chat-main">
+        <div class="chat-header"><div class="chat-avatar"></div><b id="chat-agent-name">Reflection Coach</b></div>
+        <div id="chat-messages" class="chat-messages"><!-- populated by JS from chatState.messages --></div>
+        <div class="chat-input-wrap">
+          <textarea id="chat-input-box" class="chat-input-real" placeholder="Ask anything..." aria-label="Message" onkeydown="handleChatInputKey(event)"></textarea>
+          <button class="chat-send-btn" onclick="sendChatMessage()" aria-label="Send message">↑</button>
+        </div>
+      </div>
+      <div class="chat-side">
+        <div class="side-block">
+          <div class="side-title">Participant</div>
+          <div id="chat-participant-block"><!-- populated by JS --></div>
+        </div>
+        <div class="side-block">
+          <div class="side-title">Quick Prompts</div>
+          <div class="skills-grid" id="chat-skills-grid"><!-- populated by JS from this agent's chatTopics --></div>
+        </div>
+        <div class="side-block">
+          <div class="side-title">Grounded In</div>
+          <div id="chat-sources-block"><!-- populated by JS --></div>
+        </div>
+      </div>
+    </div>
+    <div class="chat-history-view" id="chat-history-view" style="display:none;">
+      <h1 class="section-heading">Past Conversations</h1>
+      <p class="section-sub">Session-only, like everything else in this prototype — these reset on refresh, not stored anywhere real yet.</p>
+      <div id="chat-history-list" style="margin-top:20px;"><!-- populated by JS from chatSessions --></div>
+    </div>
+  </div>
+
+  <!-- SIMULATIONS -->
+  <div class="page" id="page-simulations">
+    <h1 class="section-heading">Practice. Reflect. Prepare.</h1>
+    <p class="section-sub">Practice tools that read your real self-assessment, evidence log, and roadmap progress — a grounded practice read, not a real admissions prediction.</p>
+    <div class="sim-grid">
+      <div class="sim-card" style="cursor:pointer;" role="button" tabindex="0" onclick="openInterviewSim()"><div class="sim-thumb"></div><div class="sim-body"><h4>MMI Interview</h4><p>Practice multiple mini-interview stations with realistic ethical and situational prompts, with feedback on your actual answer.</p></div></div>
+      <div class="sim-card" style="cursor:pointer;" role="button" tabindex="0" onclick="openCommittee()"><div class="sim-thumb"></div><div class="sim-body"><h4>The Committee</h4><p>Four committee members read your real progress and reach a practice verdict — Interview, Hold, or Decline.</p></div></div>
+      <div class="sim-card"><div class="sim-thumb"></div><div class="sim-body"><h4>Family Conversation</h4><p>Practice explaining a gap year or long timeline to family who haven't been through it.</p></div></div>
+    </div>
+  </div>
+
+  <!-- AGENTS -->
+  <div class="page" id="page-agents">
+    <h1 class="section-heading">AI Agents</h1>
+    <p class="section-sub">Specialized agents, gated behind education — each one only knows its lane.</p>
+    <div class="agents-grid" id="agents-grid"><!-- populated by JS, tied to STAGE_DATA unlocks --></div>
+  </div>
+
+  <!-- COMMUNITY -->
+  <div class="page" id="page-community">
+    <h1 class="section-heading">Cohort, Not Crowd</h1>
+    <p class="section-sub">Matched by stage and region — you're never the only one figuring this out alone.</p>
+    <div class="sim-grid">
+      <div class="sim-card"><div class="sim-thumb"></div><div class="sim-body"><h4>Pine House</h4><p>Your cohort of 24, matched by start date. Weekly prompts every Monday.</p></div></div>
+      <div class="sim-card"><div class="sim-thumb"></div><div class="sim-body"><h4>Live Q&A</h4><p>Thursday sessions with current medical students and advisors.</p></div></div>
+      <div class="sim-card"><div class="sim-thumb"></div><div class="sim-body"><h4>Local Clinics</h4><p>Free clinic and shadowing partners active in your area.</p></div></div>
+    </div>
+  </div>
+
+  <!-- KNOW HOW -->
+  <div class="page" id="page-knowhow">
+    <h1 class="section-heading">Know How</h1>
+    <p class="section-sub">Your personalized path to a competitive application. Your roadmap, your pace. Learn from real admissions patterns, take the next step, and keep building.</p>
+    <div class="kh-grid" id="kh-grid"><!-- populated by JS from STAGE_DATA --></div>
+  </div>
+
+  <!-- EVIDENCE LOG -->
+  <div class="page" id="page-evidencelog">
+    <h1 class="section-heading">Evidence Log</h1>
+    <p class="section-sub">Every rating and reflection you've logged, organized by competency instead of by date — the real, accumulated case for who you are.</p>
+    <div id="evidence-log-summary" style="margin-bottom:20px;"></div>
+    <div id="evidence-log-grid"><!-- populated by JS from evidenceLog --></div>
+  </div>
+
+  <!-- ACTIVITY LEDGER -->
+  <div class="page" id="page-ledger">
+    <h1 class="section-heading">Activity Ledger</h1>
+    <p class="section-sub">Log real hours as they happen — this feeds your Evidence Log and The Committee with actual numbers instead of estimates.</p>
+    <div id="ledger-summary" class="ledger-summary-grid"></div>
+    <div class="ledger-form">
+      <select id="ledger-category" class="ledger-select" aria-label="Activity category"></select>
+      <input type="text" id="ledger-org" class="ledger-input" placeholder="Organization or activity (e.g. Good Samaritan Clinic)" aria-label="Organization or activity">
+      <input type="number" id="ledger-hours" class="ledger-input ledger-input-narrow" placeholder="Hours (optional)" min="0" step="0.5" aria-label="Hours (optional)">
+      <input type="date" id="ledger-date" class="ledger-input ledger-input-narrow" aria-label="Date">
+      <input type="text" id="ledger-note" class="ledger-input" placeholder="Brief note (optional)" aria-label="Brief note (optional)">
+      <button class="btn" onclick="addLedgerEntry()">Log Activity</button>
+    </div>
+    <div id="ledger-list" class="ledger-list"></div>
+  </div>
+
+  <!-- PERSONAL STATEMENT CHECKER -->
+  <div class="page" id="page-pschecker">
+    <h1 class="section-heading">Personal Statement Checker</h1>
+    <p class="section-sub">Paste a draft you already wrote — this only analyzes what's on the page. It never generates, rewrites, or suggests replacement text for you.</p>
+    <div class="ps-layout">
+      <div class="ps-editor">
+        <select id="ps-content-type" class="ps-type-select" onchange="renderPsChecker()" aria-label="Content type"></select>
+        <textarea id="ps-draft-input" class="ps-draft-textarea" placeholder="Paste your draft here..." oninput="renderPsChecker()" aria-label="Your draft"></textarea>
+        <div id="ps-char-counter" class="ps-char-counter"></div>
+      </div>
+      <div class="ps-sidebar" id="ps-sidebar"></div>
+    </div>
+  </div>
+
+  <!-- LOR TRACKER -->
+  <div class="page" id="page-lortracker">
+    <h1 class="section-heading">LOR Tracker</h1>
+    <p class="section-sub">Track potential letter-writers and how fresh each relationship is — Stage 10's own advice is to ask while their impression of you is still recent, not to wait until you need the letter.</p>
+    <div class="lor-form">
+      <select id="lor-role" class="ledger-select" aria-label="Letter-writer role"></select>
+      <input type="text" id="lor-name" class="ledger-input" placeholder="Name (e.g. Dr. Alvarez)" aria-label="Name">
+      <input type="date" id="lor-last-contact" class="ledger-input ledger-input-narrow" title="Last real conversation with them" aria-label="Last real conversation with them">
+      <select id="lor-status" class="ledger-select" aria-label="Relationship status"></select>
+      <button class="btn" onclick="addLorEntry()">Add / Log Contact</button>
+    </div>
+    <div id="lor-list" class="lor-list"></div>
+  </div>
+
+  <!-- SCHOOL LIST -->
+  <div class="page" id="page-schoollist">
+    <h1 class="section-heading">School List</h1>
+    <p class="section-sub">Detailed, school-by-school comparisons live in the full AesculaMD platform, not the bootcamp — here's why, and what to focus on instead.</p>
+    <div class="apply-card" style="max-width:640px;">
+      <h3>This lives in the full AesculaMD platform</h3>
+      <p>Real Reach/Target/Safety comparisons against the full, current school database — not an illustrative sample — are part of AesculaMD's full application-cycle platform. Once you're deep enough into your cycle to need that level of detail, that's where it lives.</p>
+      <p class="fine">Bootcamp stays focused on the earlier part of the journey: building your case, not managing your application list. Ask the School Fit agent in Chat if you want to talk through list-building strategy in the meantime.</p>
+    </div>
+  </div>
+
+  <!-- SHOULD I BE A DOCTOR QUIZ -->
+  <div class="page" id="page-doctorquiz">
+    <h1 class="section-heading">Should I Be a Doctor?</h1>
+    <p class="section-sub">10 honest questions about cost, timeline, and resilience — not gated behind any stage, since this is most useful before you commit further, not after.</p>
+    <div id="doctorquiz-body"></div>
+  </div>
+
+</div>
+
+<!-- ===== AGENT SWITCHER MODAL ===== -->
+<div class="modal-overlay" id="modal" onclick="closeIfOverlay(event)">
+  <div class="modal">
+    <div class="modal-head"><h3>Switch Agent</h3><button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button></div>
+    <p style="font-size:12.5px; color:var(--muted); line-height:1.5; margin-bottom:14px;">Chat is one agent at a time, matching how the rest of this app works — pick who you want to talk to. Locked agents unlock as you complete their stage.</p>
+    <div class="modal-list" id="chat-agent-picker-list"><!-- populated by JS from AGENT_DATA --></div>
+  </div>
+</div>
+
+
+
+<!-- ===== STAGE DETAIL PAGE ===== -->
+<div class="page" id="page-stagedetail">
+  <button class="btn outline" style="margin-bottom:22px;" onclick="go('bootcamp', navElementFor('bootcamp'))">← Back to Bootcamp</button>
+  <div class="stage-detail-layout">
+    <div class="stage-detail-main">
+      <div class="node-stage" id="sp-stage" style="color:var(--teal-text); font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;"></div>
+      <h1 id="sp-title" class="section-heading" style="margin-bottom:16px;"></h1>
+      <p id="sp-why" style="font-size:13.5px; color:var(--muted); line-height:1.6; margin-bottom:18px;"></p>
+      <div id="sp-source"></div>
+      <div id="sp-parts"></div>
+      <div id="sp-assessment"></div>
+      <div id="sp-track-selector"></div>
+      <div id="sp-testing-window"></div>
+      <div style="margin:18px 0;">
+        <div class="side-title" style="margin-bottom:10px;">Reflection Prompts</div>
+        <ul id="sp-reflection" style="list-style:none;"></ul>
+      </div>
+      <div style="margin-bottom:20px;">
+        <div class="side-title" style="margin-bottom:10px;">Checklist to Unlock Next Stage</div>
+        <ul id="sp-checklist" class="checklist" style="list-style:none;"></ul>
+      </div>
+      <button class="btn" id="sp-cta" onclick="handleStageCta()">Continue</button>
+    </div>
+    <div class="stage-detail-side">
+      <div class="stage-advisor-card">
+        <div class="side-title">Ask <span id="sd-advisor-name"></span> about this stage</div>
+        <div id="sd-advisor-messages" class="chat-messages stage-advisor-messages"></div>
+        <div class="chat-input-wrap">
+          <textarea id="sd-advisor-input" class="chat-input-real" placeholder="Ask a question..." aria-label="Ask a question about this stage" onkeydown="handleStageAdvisorKey(event)"></textarea>
+          <button class="chat-send-btn" onclick="sendStageAdvisorMessage()" aria-label="Send question">↑</button>
+        </div>
+        <button class="agent-tool-link" onclick="continueStageAdvisorInChat()">Continue in full Chat →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUICK SETUP MODAL ===== -->
+<div class="modal-overlay" id="quicksetup-modal" onclick="closeIfQuickSetupOverlay(event)">
+  <div class="modal" id="quicksetup-panel" style="width:520px;">
+    <div class="modal-head">
+      <div>
+        <div class="node-stage" style="color:var(--teal-text); font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;">Quick Setup</div>
+        <h3 style="font-size:20px;">Skip the Lessons, Get Your Timeline</h3>
+      </div>
+      <button class="modal-close" onclick="closeQuickSetup()" aria-label="Close quick setup">✕</button>
+    </div>
+    <div class="modal-list" style="padding-right:6px;">
+      <p style="font-size:13.5px; color:var(--muted); line-height:1.6; margin-bottom:18px;">Same questions the guided bootcamp asks, just all at once. Every stage stays open to read in full later — this just builds your personalized timeline right now.</p>
+
+      <div class="side-title" style="margin-bottom:8px;">Where are you right now?</div>
+      <div class="track-pills" id="qs-year-pills"></div>
+
+      <div class="side-title" style="margin-bottom:8px;">When do you plan to submit your primary application?</div>
+      <div class="track-pills" id="qs-cycle-pills"></div>
+
+      <div id="qs-track-selector"></div>
+      <div id="qs-testing-window"></div>
+      <div id="qs-assessment"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-start-btn" id="qs-cta" onclick="submitQuickSetup()">Generate My Roadmap</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== INTERVIEW SIMULATOR MODAL ===== -->
+<div class="modal-overlay" id="interview-modal" onclick="closeIfInterviewOverlay(event)">
+  <div class="modal" id="interview-panel" style="width:520px;">
+    <div class="modal-head">
+      <div>
+        <div class="node-stage" style="color:var(--teal-text); font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;">MMI Interview Practice</div>
+        <h3 style="font-size:20px;">Interview Simulator</h3>
+      </div>
+      <button class="modal-close" onclick="closeInterviewSim()" aria-label="Close interview simulator">✕</button>
+    </div>
+    <div class="modal-list" style="padding-right:6px;">
+      <div id="interview-body"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== THE COMMITTEE MODAL ===== -->
+<div class="modal-overlay" id="committee-modal" onclick="closeIfCommitteeOverlay(event)">
+  <div class="modal" id="committee-panel" style="width:520px;">
+    <div class="modal-head">
+      <div>
+        <div class="node-stage" style="color:var(--teal-text); font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;">Practice Read, Not a Prediction</div>
+        <h3 style="font-size:20px;">The Committee</h3>
+      </div>
+      <button class="modal-close" onclick="closeCommittee()" aria-label="Close committee">✕</button>
+    </div>
+    <div class="modal-list" style="padding-right:6px;">
+      <div id="committee-body"></div>
+    </div>
+  </div>
+</div>
+
+<script src="src/data.js"></script>
+<script src="src/app.js"></script>
+<script src="src/nav.js"></script>
+</body>
+</html>
