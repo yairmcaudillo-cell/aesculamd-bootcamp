@@ -62,6 +62,8 @@ Aisha scored a 502 on her first attempt after prepping mostly with flashcards. R
 
 Prerequisite coursework (biology, general chemistry, organic chemistry, physics, and often biochemistry and psychology/sociology) is required regardless of major — but the major itself doesn't need to be a science field. Admissions committees don't reward one major over another; they care whether you completed the required coursework and performed well in it. Choosing a major that genuinely interests you, and sequencing prerequisites thoughtfully across four years rather than stacking them all at once, protects both your GPA and your actual engagement with the material.
 
+The actual sequencing of when to take which prerequisite genuinely varies by your specific school's course offerings and any major requirements you're also juggling — your registrar or campus pre-health advising office has your school's real course-planning rules, which is a level of specificity this stage was never going to be able to give you.
+
 **On GPA trends specifically:** a grade trend that improves over time is viewed differently than a flat average — a rough freshman year followed by a strong upward trajectory reads as real growth, not just a number.
 
 ---

@@ -63,3 +63,6 @@ If what you wrote above feels unfinished, contradictory, or uncertain — that's
 - [ ] Re-read what you wrote — no editing needed, just notice what surprised you
 - [ ] Continue to Stage 03: Cost & Access
 
+---
+
+*Grounded in AAMC guidance on personal statement writing and widely-documented admissions-reader practice on narrative specificity. There's no single verifiable statistic in this stage the way other stages have one; the underlying claim — that specific, honest narratives read stronger than generic ones — reflects broad admissions-reader consensus, not an official AAMC rule.*

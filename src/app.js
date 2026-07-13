@@ -1230,6 +1230,7 @@ function renderInstituteForm(){
         </div>`;
       }).join('')}
     </div>
+    <p class="fine" style="margin-bottom:10px;">A note on "tracking": there's no advisor-facing dashboard or per-student progress view built yet, for anyone. Selecting that option tells us it's wanted — it doesn't mean it exists today. If that's your office's main reason to apply, ask us what it would actually look like before you commit staff time to a pilot around it.</p>
     <p class="fine" style="margin-bottom:14px;">Pilot cohorts are limited to 3 partner institutions per semester. Late applications roll to the next cohort.</p>
     <button class="btn" style="width:100%;" onclick="submitInstituteApplication()">Submit Pilot Application</button>`;
 }

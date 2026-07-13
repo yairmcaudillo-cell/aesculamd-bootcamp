@@ -31,6 +31,8 @@ Letters matter more than most premeds realize, precisely because they're the one
 
 **The exact phrasing matters.** When you eventually make the ask, the honest version is: *"Would you be willing to write me a strong letter of recommendation?"* — that specific word gives someone an easy, low-awkwardness way to decline if they can't genuinely advocate for you, which protects you from a lukewarm letter that quietly undermines an otherwise strong file.
 
+**Before any of this — find out whether your school even lets you send individual letters at all.** A large share of undergraduate institutions route letters through a pre-health committee instead: your letter-writers submit to the committee, not to you or AMCAS directly, and the committee combines them into one composite letter or packages them together with its own evaluation. Committee processes often run on their own early timeline (sometimes starting by the fall of your junior year), sometimes require a formal waiver of your right to see the letters, and occasionally include a committee interview before anything gets sent. If your school has one, it supersedes the "4–6 individual letters" plan above — this stage can tell you what a strong letter portfolio generally looks like, but it can't tell you which process your specific school uses. **Your campus pre-health advising office knows this immediately; this bootcamp can't.** Find out which kind of school you're at before you start asking anyone for a letter, not after.
+
 ---
 
 ## Part 3: "Being unique" isn't a marketing exercise
@@ -79,6 +81,7 @@ A note on timing before you meet it: the advice in Part 2 to start building thes
 
 - [ ] Complete your own name search and address anything worth addressing
 - [ ] Identify at least one potential future letter-writer and a real plan to strengthen that relationship
+- [ ] Find out whether your school uses a committee/composite letter process, or individual letters
 - [ ] Answer all three reflection prompts
 - [ ] Review your full evidence log across all ten stages — this is your real, accumulated case for who you are
 

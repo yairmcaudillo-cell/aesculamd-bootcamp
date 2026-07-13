@@ -42,6 +42,8 @@ For each of the 17 competencies below, rate yourself using the same three-level 
 
 **What this bootcamp is, and isn't, in one honest sentence:** these ten stages are Phase 1 — building a real, evidenced case while you still have years of runway. Phase 2 — your actual school list, secondaries, interview prep, managing a live application cycle — is different work, with different tools, and lives elsewhere; you'll hear exactly where at the end of Stage 10. For now, just know that finishing this track is a real, complete milestone on its own, not half of one.
 
+**One more honest thing, before you start:** this bootcamp is built to work alongside a real campus pre-health advisor, not instead of one. If your school has a pre-health advising office, they know things about your specific institution — prerequisite sequencing, committee-letter processes, linkage or early-assurance agreements, local scholarship funds — that no general curriculum, including this one, can know for you. Later stages will point you back to them for exactly those questions, rather than pretending this roadmap has already covered them.
+
 For every competency you rate Progressing or Demonstrating, answer three short prompts (these become entries in your permanent evidence log, referenced again in later stages):
 
 1. What did you learn about this competency by watching someone else do it well (or poorly)?
@@ -94,3 +96,6 @@ Every agent in AesculaMD is built to help you think more clearly, reflect more h
 - [ ] Review your own results — no need to "fix" a Planning rating, just notice it honestly
 - [ ] Continue to Stage 02: Be Yourself — Narrative
 
+---
+
+*Verified against AAMC's Core Competencies for Entering Medical Students framework and AAMC's Matriculating Student Questionnaire (2024 data — the gap-year and average-age figures). Both are the most recent AAMC-published cycle available; re-check the MSQ figures against each new year's release.*
