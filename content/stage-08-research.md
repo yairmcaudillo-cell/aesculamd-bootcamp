@@ -13,6 +13,12 @@ The actual answer is more useful and less anxious than the myth: **research is n
 
 ---
 
+## Your Deliverable: Your Research Decision
+
+In the live app's Workspace view, an AI coach asks the three prompts below one at a time and turns your answers into an editable **Research Decision**, with three fields: **What Success Looks Like**, **Connection to Your Why**, and **Your Path & Constraint**. It's a scripted, heuristic-guided conversation, not a real model call — the same honesty stance as every other chat surface in this platform.
+
+---
+
 ## Part 1: What admissions committees are actually reading for
 
 When a committee looks at your research line, they are not checking a box. They are asking three questions, in this order:

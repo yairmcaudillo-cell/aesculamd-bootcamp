@@ -7,6 +7,15 @@ const STAGE_DATA = [
     competencies: "Self-Awareness · Commitment to Learning and Growth",
     sourceStatus: "verified",
     sourceNote: "Verified against AAMC's Core Competencies for Entering Medical Students framework and AAMC's Matriculating Student Questionnaire (2024 data — the gap-year and average-age figures). Both are the most recent AAMC-published cycle available; re-check the MSQ figures against each new year's release.",
+    deliverable: { name: "Your Starting-Point Snapshot", fields: [
+      { label: "What You Learned Watching Others", reflectionIndex: 0 },
+      { label: "Your Strongest Evidence", reflectionIndex: 1 },
+      { label: "Non-Traditional Evidence", reflectionIndex: 2 }
+    ]},
+    exploreMore: [
+      { label: "Browse the Glossary for any term you didn't recognize", page: "glossary" },
+      { label: "See your Evidence Log start filling in", page: "evidencelog" }
+    ],
     why: "Before you build a plan, you need an honest read on where you're actually starting from. This stage is the input that makes every later stage about you, not a generic checklist.",
     parts: [
       "<b>A note on timing, before you rate yourself:</b> if you're a freshman with nothing yet that looks like a 'premed activity,' you are not behind — 74% of 2024 matriculants took at least one gap year, and the average matriculant is now 24–25 years old. The 'no gaps, straight through' path is the exception. This roadmap's sequence is a recommendation, not a countdown clock.",
@@ -34,6 +43,15 @@ const STAGE_DATA = [
     competencies: "Self-Awareness · Ethical Responsibility to Self and Others",
     sourceStatus: "verified",
     sourceNote: "Grounded in AAMC guidance on personal statement writing and widely-documented admissions-reader practice on narrative specificity — there's no single verifiable statistic in this stage the way other stages have one; the underlying claim (specific, honest narratives read stronger than generic ones) reflects broad admissions-reader consensus, not an official AAMC rule.",
+    deliverable: { name: "Your Real Why", fields: [
+      { label: "The Moment", reflectionIndex: 0 },
+      { label: "The Doubt", reflectionIndex: 1 },
+      { label: "The Throughline", reflectionIndex: 2 }
+    ]},
+    exploreMore: [
+      { label: "Talk through explaining this to family who haven't been through it", page: "community" },
+      { label: "Browse the Glossary", page: "glossary" }
+    ],
     why: "Most students write their real 'why medicine' story senior year, reconstructing it from memory. This stage captures it now, while it's still close and specific.",
     parts: [
       "<b>Why this stage exists, and why it's this early:</b> most students don't write their 'why medicine' story until the summer before they apply — under deadline pressure, years removed from the actual moments that shaped them, reconstructing a narrative instead of remembering one. What you write here won't be your personal statement. It'll be the raw, honest material your future personal statement gets built from, two or three years from now, by you.",
@@ -57,6 +75,15 @@ const STAGE_DATA = [
     competencies: "Reliability and Dependability · Ethical Responsibility to Self and Others",
     sourceStatus: "verified",
     sourceNote: "Verified against AAMC's official Fee Assistance Program pages and AACOM's fee-waiver guidance (2026 cycle). Figures change annually — re-check before each new cycle.",
+    deliverable: { name: "Your Cost & Aid Plan", fields: [
+      { label: "Biggest Cost Concern", reflectionIndex: 0 },
+      { label: "Funding Conversation Status", reflectionIndex: 1 },
+      { label: "FAP Likelihood", reflectionIndex: 2 }
+    ]},
+    exploreMore: [
+      { label: "Browse the Glossary (FAP, AACOMAS, and more)", page: "glossary" },
+      { label: "See the full ten-stage roadmap", page: "knowhow" }
+    ],
     why: "Almost no one tells you the price tag until you're already in it. This stage makes the real numbers visible early enough to plan around, not scramble around — and before Strategy asks you whether dual-applying fits your budget.",
     parts: [
       "<b>What the full cycle actually costs, in 2026 numbers:</b> MCAT registration is $355. The AMCAS primary application is $175 for your first school, plus $47 for each additional school — applying to 15–20 schools commonly runs well over $800 for the primary alone. Secondary applications commonly cost around $100 each, often several owed at once. Interview travel (flights, hotels, sometimes multiple trips in one month) is often the single largest, least-anticipated cost of the whole cycle.",
@@ -80,6 +107,18 @@ const STAGE_DATA = [
     competencies: "Self-Awareness · Critical Thinking",
     sourceStatus: "verified",
     sourceNote: "Verified against AACOM, ACOM, and individual DO-program admissions pages (2025–2026 cycle). LOR norms vary by school; treat as general guidance, not a universal rule.",
+    deliverable: { name: "Your Path Decision", fields: [
+      { label: "Track Choice", specialField: "trackChoice" },
+      { label: "Philosophy Fit", reflectionIndex: 0 },
+      { label: "OMM Exposure", reflectionIndex: 1 },
+      { label: "Real Reasons vs. Prestige", reflectionIndex: 2 },
+      { label: "Budget Realism", reflectionIndex: 3 },
+      { label: "Residency Reality", reflectionIndex: 4 }
+    ]},
+    exploreMore: [
+      { label: "Browse the Glossary (MD, DO, OMM, and more)", page: "glossary" },
+      { label: "See the full ten-stage roadmap", page: "knowhow" }
+    ],
     why: "Most students default to MD without seriously weighing DO. Both are complete, licensed paths — this stage is an honest first look, not a permanent lock-in.",
     parts: [
       "<b>What actually differs, philosophically:</b> DOs train in osteopathic manipulative treatment (OMM) — a hands-on diagnostic and treatment approach — alongside the same core medical curriculum MDs receive, with a historical emphasis on whole-person, primary-care-oriented practice. In practice today, both MDs and DOs can specialize in any field and practice in any care setting; the philosophical emphasis at the training level doesn't restrict your eventual specialty choice.",
@@ -105,6 +144,16 @@ const STAGE_DATA = [
     competencies: "Quantitative Reasoning · Scientific Inquiry · Commitment to Learning and Growth · Human Behavior · Living Systems",
     sourceStatus: "verified",
     sourceNote: "Verified against AAMC MCAT Essentials, Repeat Policies, and 2025 FACTS matriculant data (2026 cycle). Fees and score bands change yearly. The CARS and science worked examples are original material written to model AAMC's documented question format and reasoning approach — not reproduced official test content, and not a substitute for full content review.",
+    deliverable: { name: "Your Study & Testing Plan", fields: [
+      { label: "Testing Window", specialField: "testingWindowDate" },
+      { label: "Study Rhythm", reflectionIndex: 0 },
+      { label: "Resilience Pattern", reflectionIndex: 1 },
+      { label: "Hardest-Section Plan", reflectionIndex: 2 }
+    ]},
+    exploreMore: [
+      { label: "Browse the Glossary (MCAT, CARS, and more)", page: "glossary" },
+      { label: "See the full ten-stage roadmap", page: "knowhow" }
+    ],
     why: "Most premeds treat the MCAT as a single event to survive. This stage builds a realistic, honest system for both grades and testing — including what a retake actually means.",
     parts: [
       "<b>What the MCAT actually is:</b> four sections — Biological and Biochemical Foundations of Living Systems, Chemical and Physical Foundations of Living Systems, Psychological/Social/Biological Foundations of Behavior, and Critical Analysis and Reasoning Skills (CARS) — scored 472–528. Registration is $355 in 2026 at U.S./Canadian centers; students approved for the AAMC Fee Assistance Program (FAP) pay $145 instead. The first two sections are literally the AAMC's <b>Living Systems</b> science competency under exam conditions; the third is the <b>Human Behavior</b> competency — this is the one stage where those two competencies get tested directly, not just described.",
@@ -129,6 +178,15 @@ const STAGE_DATA = [
     competencies: "Service Orientation · Understanding Others · Empathy and Compassion · Interpersonal Skills",
     sourceStatus: "verified",
     sourceNote: "Verified against AAMC guidance and multiple pre-health advising sources (2025–2026 cycle). Hour targets are planning ranges, not requirements.",
+    deliverable: { name: "Your Clinical Experience Plan", fields: [
+      { label: "Lane Choice", reflectionIndex: 0 },
+      { label: "Connection to Your Why", reflectionIndex: 1 },
+      { label: "Access Plan", reflectionIndex: 2 }
+    ]},
+    exploreMore: [
+      { label: "Browse the Glossary", page: "glossary" },
+      { label: "See the full ten-stage roadmap", page: "knowhow" }
+    ],
     why: "'Get clinical hours' is common advice and also the vaguest. This stage helps you choose a lane deliberately based on your real constraints, not convenience.",
     parts: [
       "<b>Shadowing and clinical experience are not the same thing.</b> Shadowing means observing — standing alongside a physician without direct involvement in patient care. Clinical experience means direct, real interaction with patients — taking vitals, transporting patients, sitting with someone in hospice, having conversations. This is where Service Orientation, Understanding Others, Empathy and Compassion, and Interpersonal Skills actually get tested and built, not just witnessed.",
@@ -151,6 +209,15 @@ const STAGE_DATA = [
     competencies: "Service Orientation · Understanding Others",
     sourceStatus: "verified",
     sourceNote: "Verified against AMCAS's real Work & Activities category structure and current advising sources (2025–2026 cycle). Hour ranges vary by school mission.",
+    deliverable: { name: "Your Service Commitment", fields: [
+      { label: "The Cause", reflectionIndex: 0 },
+      { label: "Why It's Genuine", reflectionIndex: 1 },
+      { label: "Current Evidence", reflectionIndex: 2 }
+    ]},
+    exploreMore: [
+      { label: "Browse the Glossary", page: "glossary" },
+      { label: "See the full ten-stage roadmap", page: "knowhow" }
+    ],
     why: "AMCAS actually splits volunteering into Medical/Clinical and Not Medical/Clinical as two separate categories — this stage builds real substance in the second one.",
     parts: [
       "<b>Why this is separate from Clinical Experience:</b> your eventual AMCAS application actually separates 'Community Service/Volunteer – Medical/Clinical' from 'Community Service/Volunteer – Not Medical/Clinical' as two distinct categories. Committees generally want real substance in both, not just a large number in one — don't assume 300 clinical-volunteering hours covers this requirement too.",
@@ -173,6 +240,15 @@ const STAGE_DATA = [
     competencies: "Scientific Inquiry · Critical Thinking · Written Communication · Commitment to Learning and Growth",
     sourceStatus: "pending_review",
     sourceNote: "Content expanded and fact-checked against publicly documented PI-outreach and research-mentorship norms — but bench-research-culture specifics still benefit from a real, current PI or research advisor's review before this is treated as fully authoritative. Not yet independently verified like the other stages.",
+    deliverable: { name: "Your Research Decision", fields: [
+      { label: "What Success Looks Like", reflectionIndex: 0 },
+      { label: "Connection to Your Why", reflectionIndex: 1 },
+      { label: "Your Path & Constraint", reflectionIndex: 2 }
+    ]},
+    exploreMore: [
+      { label: "Browse the Glossary (PI, SMP, post-bac, and more)", page: "glossary" },
+      { label: "See the full ten-stage roadmap", page: "knowhow" }
+    ],
     why: "Research is not required — but it needs to be legible. This stage helps you decide on purpose, before spending hundreds of hours finding out the hard way.",
     parts: [
       "<b>What admissions committees are actually reading for:</b> not whether you did research, but three things, in order — did you understand what you were doing or just show up; does it connect to something you've said elsewhere in your application; and did you finish something. Notice what's not on this list: prestige of the lab, whether it was 'real' bench science, or hours logged.",
@@ -195,6 +271,15 @@ const STAGE_DATA = [
     competencies: "Teamwork and Collaboration · Interpersonal Skills · Reliability and Dependability",
     sourceStatus: "verified",
     sourceNote: "Verified against current pre-health advising guidance (2025–2026 cycle). No official AAMC requirement exists here — this is a commonly cited heuristic, not a rule.",
+    deliverable: { name: "Your Leadership Story", fields: [
+      { label: "The Problem Noticed", reflectionIndex: 0 },
+      { label: "The Action Taken", reflectionIndex: 1 },
+      { label: "Title-vs-Substance Check", reflectionIndex: 2 }
+    ]},
+    exploreMore: [
+      { label: "See your Evidence Log across all stages", page: "evidencelog" },
+      { label: "See the full ten-stage roadmap", page: "knowhow" }
+    ],
     why: "'Get a leadership title' sends premeds chasing positions without substance. This stage is about finding or building leadership with real initiative behind it.",
     parts: [
       "<b>What 'leadership' actually means here:</b> almost nothing to do with a title, and everything to do with three things — initiative (did you notice a real problem and do something about it, rather than waiting to be assigned a role that already existed), responsibility for others (did people depend on you, and did you follow through), and working through other people (did you motivate or coordinate a group, not just do good individual work).",
@@ -217,6 +302,15 @@ const STAGE_DATA = [
     competencies: "Self-Awareness · Written Communication · Oral Communication",
     sourceStatus: "verified",
     sourceNote: "Verified against AAMC letter-of-evaluation guidance and documented admissions practice (2025–2026 cycle). Social media review varies by school.",
+    deliverable: { name: "Your Throughline & Letters Plan", fields: [
+      { label: "Digital Footprint Status", reflectionIndex: 0 },
+      { label: "Letter-Writer Plan", reflectionIndex: 1 },
+      { label: "Your Real Throughline", reflectionIndex: 2 }
+    ]},
+    exploreMore: [
+      { label: "Review real communities you can join today", page: "community" },
+      { label: "Browse the Glossary", page: "glossary" }
+    ],
     why: "The final Foundations stage: your digital footprint, your letters of recommendation, and why 'being unique' isn't a packaging problem — it's what your evidence log already proves.",
     parts: [
       "<b>Your digital footprint is part of your application, whether you plan for it or not.</b> Admissions committees have openly acknowledged that they do look applicants up online, and that what they find can help or hurt a candidacy. A simple first step: search your own name the way an admissions officer might. LinkedIn is worth taking seriously too — a clean, professional profile can genuinely help, not just something to manage as a liability.",

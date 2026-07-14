@@ -13,6 +13,12 @@ This stage won't force you to choose forever. It'll help you make a real, inform
 
 ---
 
+## Your Deliverable: Your Path Decision
+
+In the live app's Workspace view, an AI coach asks the reflection prompts below one at a time and turns your answers (plus your real MD/DO/Dual selection) into an editable **Path Decision**, with six fields: **Track Choice**, **Philosophy Fit**, **OMM Exposure**, **Real Reasons vs. Prestige**, **Budget Realism**, and **Residency Reality**. It's a scripted, heuristic-guided conversation, not a real model call — the same honesty stance as every other chat surface in this platform.
+
+---
+
 ## Part 1: What actually differs between MD and DO
 
 **Philosophy of care.** DOs are trained in osteopathic manipulative treatment (OMM) — a hands-on diagnostic and treatment approach — alongside the same core medical curriculum MDs receive, with a historical emphasis on whole-person, primary-care-oriented practice. In practice today, both MDs and DOs can specialize in any field and practice in any care setting; the philosophical emphasis at the training level doesn't restrict your eventual specialty choice.

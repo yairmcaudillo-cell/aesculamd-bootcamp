@@ -13,6 +13,12 @@ This stage exists to capture your real "why" now, while it's still close and spe
 
 ---
 
+## Your Deliverable: Your Real Why
+
+In the live app's Workspace view, an AI coach asks the three prompts below one at a time and turns your answers into an editable **Your Real Why**, with three fields: **The Moment**, **The Doubt**, and **The Throughline**. It's a scripted, heuristic-guided conversation, not a real model call — the same honesty stance as every other chat surface in this platform.
+
+---
+
 ## Part 1: The difference between a "why medicine" story and a real one
 
 Admissions officers read thousands of personal statements a year, and the ones that stand out aren't the most dramatic — they're the most specific and honest. A generic version sounds like: *"I've always wanted to help people, and my volunteer experience confirmed my passion for medicine."* A real version names an actual moment, an actual person, an actual feeling — and is willing to sit with complexity rather than resolve everything neatly.

@@ -13,6 +13,12 @@ This stage is not a test you can fail. It's the input that makes every later sta
 
 ---
 
+## Your Deliverable: Your Starting-Point Snapshot
+
+This stage builds toward a real, structured output, not just free-text reflection. In the live app's Workspace view, an AI coach asks the reflection questions below one at a time and turns your answers into an editable **Starting-Point Snapshot** with three fields: **What You Learned Watching Others**, **Your Strongest Evidence**, and **Non-Traditional Evidence**. It's a scripted, heuristic-guided conversation — not a real model call — same honesty stance as every other chat surface in this platform.
+
+---
+
 ## A note on timing, before you rate yourself
 
 If you're a freshman with nothing yet that looks like a "premed activity," you are not behind — you're on the actual average timeline. Most matriculating medical students today aren't fresh out of a straight four-year sprint: 74% of 2024 matriculants took at least one gap year (up from 58% a decade ago), and the average matriculant is now 24–25 years old. The "no gaps, straight through" path is the exception, not the standard. That means the stage order in this roadmap is a recommended sequence, not a countdown clock — there's no penalty for moving through it slower, faster, or out of order as your actual life requires.

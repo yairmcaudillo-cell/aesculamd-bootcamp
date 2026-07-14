@@ -13,6 +13,12 @@ This stage is about the second one: service that has nothing to do with a hospit
 
 ---
 
+## Your Deliverable: Your Service Commitment
+
+In the live app's Workspace view, an AI coach asks the three prompts below one at a time and turns your answers into an editable **Service Commitment**, with three fields: **The Cause**, **Why It's Genuine**, and **Current Evidence**. It's a scripted, heuristic-guided conversation, not a real model call — the same honesty stance as every other chat surface in this platform.
+
+---
+
 ## Part 1: What this is actually testing
 
 **Service Orientation** and **Understanding Others** — two of the AAMC's 17 competencies — are demonstrated more convincingly outside of medical settings than inside them, precisely because there's less obvious incentive. Tutoring underserved students, working at a shelter, organizing a food pantry, coaching a team, supporting a nonprofit serving your community — these show a pattern of service that exists independent of your medical school application, which is exactly why committees weight it as real evidence rather than performance.

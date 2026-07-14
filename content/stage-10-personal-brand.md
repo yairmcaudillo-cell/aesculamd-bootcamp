@@ -11,6 +11,12 @@ By this point in the roadmap, you've built real evidence across narrative, clini
 
 ---
 
+## Your Deliverable: Your Throughline & Letters Plan
+
+In the live app's Workspace view, an AI coach asks the three prompts below one at a time and turns your answers into an editable **Throughline & Letters Plan**, with three fields: **Digital Footprint Status**, **Letter-Writer Plan**, and **Your Real Throughline**. It's a scripted, heuristic-guided conversation, not a real model call — the same honesty stance as every other chat surface in this platform.
+
+---
+
 ## Part 1: Your digital footprint is part of your application, whether you plan for it or not
 
 Admissions committees have openly acknowledged that they do look applicants up online, and that what they find can help or hurt a candidacy. This isn't universal or guaranteed at every school, but it's common enough that treating your online presence as invisible is a real risk, not a safe assumption.

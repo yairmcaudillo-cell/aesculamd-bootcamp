@@ -11,6 +11,12 @@ Most premeds treat the MCAT as a single high-stakes event to survive, and GPA as
 
 ---
 
+## Your Deliverable: Your Study & Testing Plan
+
+In the live app's Workspace view, an AI coach asks the reflection prompts below one at a time and turns your answers (plus your real target testing month) into an editable **Study & Testing Plan**, with four fields: **Testing Window**, **Study Rhythm**, **Resilience Pattern**, and **Hardest-Section Plan**. It's a scripted, heuristic-guided conversation, not a real model call — the same honesty stance as every other chat surface in this platform.
+
+---
+
 ## Part 1: What the MCAT actually is
 
 The MCAT has four sections:

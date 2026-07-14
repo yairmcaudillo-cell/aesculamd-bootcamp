@@ -13,6 +13,12 @@ This isn't a footnote stage. If your family didn't have a doctor, lawyer, or som
 
 ---
 
+## Your Deliverable: Your Cost & Aid Plan
+
+In the live app's Workspace view, an AI coach asks the three prompts below one at a time and turns your answers into an editable **Cost & Aid Plan**, with three fields: **Biggest Cost Concern**, **Funding Conversation Status**, and **FAP Likelihood**. It's a scripted, heuristic-guided conversation, not a real model call — the same honesty stance as every other chat surface in this platform.
+
+---
+
 ## Part 1: What the full cycle actually costs, in real numbers
 
 Laid out honestly, in the order you'll encounter the bills (2026 figures):

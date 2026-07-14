@@ -13,6 +13,12 @@ This stage exists to help you choose a lane deliberately, based on your actual c
 
 ---
 
+## Your Deliverable: Your Clinical Experience Plan
+
+In the live app's Workspace view, an AI coach asks the three prompts below one at a time and turns your answers into an editable **Clinical Experience Plan**, with three fields: **Lane Choice**, **Connection to Your Why**, and **Access Plan**. It's a scripted, heuristic-guided conversation, not a real model call — the same honesty stance as every other chat surface in this platform.
+
+---
+
 ## Part 1: Shadowing and clinical experience are not the same thing
 
 **Shadowing** means observing — standing alongside a physician, watching how they work, without direct involvement in patient care. It's valuable for understanding what a physician's actual day looks like across different specialties, but it's passive by definition.

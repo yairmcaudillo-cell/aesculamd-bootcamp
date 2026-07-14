@@ -86,38 +86,57 @@ function openStagePanel(i){
   </div>` : '';
   document.getElementById('sp-parts').innerHTML = '<div class="side-title" style="margin-bottom:10px;">What This Stage Covers</div><ul style="list-style:none;">' +
     s.parts.map(p => `<li style="font-size:13px; color:#3E4A3F; line-height:1.6; padding:7px 0; border-bottom:1px solid var(--line);">${p}</li>`).join('') + '</ul>';
-  document.getElementById('sp-assessment').innerHTML = '';
-  if (s.title === 'Premed 101') {
-    renderAssessment('sp-assessment');
-  }
-  document.getElementById('sp-track-selector').innerHTML = '';
-  if (s.title === 'Strategy: MD or DO') {
-    renderTrackSelector('sp-track-selector');
-  }
-  document.getElementById('sp-testing-window').innerHTML = '';
-  if (s.title === 'Grades & MCAT') {
-    renderTestingWindow('sp-testing-window');
-  }
-  document.getElementById('sp-recall').innerHTML = '';
-  if (i === 7 || i === 8 || i === 9) {
-    renderRecallCheck('sp-recall');
-  }
-  document.getElementById('sp-reflection').innerHTML = s.reflection.map((r, ri) => {
-    const key = `stage-${i}-${ri}`;
-    const existing = evidenceLog.find(e => e.key === key);
-    return `<li style="font-size:13px; color:#3E4A3F; line-height:1.55; padding:6px 0;">
-      <div>→ ${r}</div>
-      <textarea class="reflection-textarea" onblur="updateStageReflection(${i}, ${ri}, this.value)" placeholder="Your answer...">${existing ? existing.content : ''}</textarea>
-      <div class="specificity-hint" id="hint-stage-${i}-${ri}"></div>
-    </li>`;
-  }).join('');
+  document.getElementById('sp-deliverable-name').textContent = s.deliverable.name;
+
+  coachState = { stageIdx: i, step: 0 };
+  renderCoachPanel();
+  renderDeliverableOutput();
+  renderSupportingTools(i);
+
   document.getElementById('sp-checklist').innerHTML = s.checklist.map(c => `<li style="display:flex; gap:8px; font-size:13px; padding:6px 0;"><span class="box" style="width:14px;height:14px;border:2px solid var(--line-strong);border-radius:4px;flex-shrink:0;margin-top:2px;"></span>${c}</li>`).join('');
   const completable = s.status === 'current' || (s.status === 'locked' && skipModeActive);
   document.getElementById('sp-cta').textContent = s.title === 'Premed 101' && s.status === 'done'
     ? 'Update My Roadmap'
     : (s.status === 'done' ? 'Review Again' : (completable ? 'Mark Stage Complete' : 'Preview Stage'));
+
+  renderExploreMore(i);
+  renderStageBottomNav(i);
   go('stagedetail', null);
-  renderStageAdvisor(i);
+  renderMentorView(i);
+  showStageLessonView();
+  showDeliverableTab('output');
+}
+
+// ---- Stage view toggle (Lesson / Workspace / Mentor) ----
+// Same display-toggle pattern as showChatLiveView()/showChatHistoryView() below.
+function setActiveStageTab(tabId){
+  document.querySelectorAll('.stage-view-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+  document.getElementById(tabId).classList.add('active');
+  document.getElementById(tabId).setAttribute('aria-selected', 'true');
+}
+function showStageLessonView(){
+  document.getElementById('stage-lesson-view').style.display = '';
+  document.getElementById('stage-workspace-view').style.display = 'none';
+  document.getElementById('stage-mentor-view').style.display = 'none';
+  setActiveStageTab('stage-tab-lesson');
+}
+function showStageWorkspaceView(){
+  document.getElementById('stage-lesson-view').style.display = 'none';
+  document.getElementById('stage-workspace-view').style.display = '';
+  document.getElementById('stage-mentor-view').style.display = 'none';
+  setActiveStageTab('stage-tab-workspace');
+}
+function showStageMentorView(){
+  document.getElementById('stage-lesson-view').style.display = 'none';
+  document.getElementById('stage-workspace-view').style.display = 'none';
+  document.getElementById('stage-mentor-view').style.display = '';
+  setActiveStageTab('stage-tab-mentor');
+}
+function showDeliverableTab(which){
+  document.getElementById('dtab-output').classList.toggle('active', which === 'output');
+  document.getElementById('dtab-tools').classList.toggle('active', which === 'tools');
+  document.getElementById('deliverable-output').style.display = which === 'output' ? '' : 'none';
+  document.getElementById('supporting-tools').style.display = which === 'tools' ? '' : 'none';
 }
 
 // ---- Stage 01 self-assessment ----
@@ -238,6 +257,161 @@ function updateStageReflection(stageIdx, promptIdx, text){
     content: text
   });
   if (hintEl) hintEl.textContent = specificityNudge(text, stageIdx) || '';
+}
+
+// ---- Workspace: AI coach (left panel) ----
+// Turn-based, one question at a time, reusing each stage's existing reflection[]
+// array as the script and specificityNudge() as the heuristic evaluator — the
+// HBS-Foundry-paradigm restructure. Still a scripted heuristic, not a real model
+// call, same honesty stance as the rest of this app's chat surfaces.
+let coachState = { stageIdx: null, step: 0, evaluated: false };
+
+function renderCoachPanel(){
+  const { stageIdx, step, evaluated } = coachState;
+  const s = STAGE_DATA[stageIdx];
+  const container = document.getElementById('coach-panel');
+  if (!container) return;
+
+  let transcript = '<div class="chat-messages coach-messages">';
+  for (let ri = 0; ri < step; ri++) {
+    const entry = evidenceLog.find(e => e.key === `stage-${stageIdx}-${ri}`);
+    transcript += `<div class="chat-msg agent"><div class="chat-bubble">${s.reflection[ri]}</div></div>`;
+    transcript += `<div class="chat-msg user"><div class="chat-bubble">${entry ? entry.content : ''}</div></div>`;
+  }
+
+  if (step >= s.reflection.length) {
+    transcript += `</div><p class="fine" style="margin-top:10px;">All ${s.reflection.length} questions answered — fine-tune "${s.deliverable.name}" in the Output tab any time.</p>`;
+    container.innerHTML = transcript;
+    return;
+  }
+
+  const existing = evidenceLog.find(e => e.key === `stage-${stageIdx}-${step}`);
+  transcript += `<div class="chat-msg agent"><div class="chat-bubble">${s.reflection[step]}</div></div>`;
+
+  if (evaluated && existing) {
+    const hint = specificityNudge(existing.content, stageIdx);
+    transcript += `<div class="chat-msg user"><div class="chat-bubble">${existing.content}</div></div></div>`;
+    transcript += hint
+      ? `<div class="specificity-hint" style="margin-bottom:8px;">${hint}</div>
+         <button class="btn outline" onclick="reviseCoachAnswer()">Revise</button>
+         <button class="btn" onclick="advanceCoachStep()">Continue anyway →</button>`
+      : `<div class="specificity-hint" style="margin-bottom:8px; color:var(--teal-text);">That reads specific and clear.</div>
+         <button class="btn" onclick="advanceCoachStep()">Continue →</button>`;
+  } else {
+    transcript += `</div>
+      <div class="chat-input-wrap">
+        <textarea id="coach-answer-input" class="chat-input-real" placeholder="Your answer...">${existing ? existing.content : ''}</textarea>
+        <button class="chat-send-btn" onclick="submitCoachAnswer()" aria-label="Send answer">↑</button>
+      </div>`;
+  }
+  container.innerHTML = transcript;
+}
+
+function submitCoachAnswer(){
+  const input = document.getElementById('coach-answer-input');
+  if (!input) return;
+  const text = input.value.trim();
+  if (!text) return;
+  updateStageReflection(coachState.stageIdx, coachState.step, text);
+  coachState.evaluated = true;
+  renderCoachPanel();
+  renderDeliverableOutput();
+}
+
+function reviseCoachAnswer(){
+  coachState.evaluated = false;
+  renderCoachPanel();
+}
+
+function advanceCoachStep(){
+  coachState.step++;
+  coachState.evaluated = false;
+  renderCoachPanel();
+}
+
+// ---- Workspace: structured deliverable output (right panel) ----
+// An alternate, editable view of the same evidenceLog entries the coach panel
+// writes to — not a second data store. Special fields (trackChoice, testingWindowDate)
+// read from their own existing state and link over to Supporting Tools to change them.
+function renderDeliverableOutput(){
+  const { stageIdx } = coachState;
+  const s = STAGE_DATA[stageIdx];
+  const container = document.getElementById('deliverable-output');
+  if (!container) return;
+  container.innerHTML = `<div class="side-title" style="margin-bottom:10px;">${s.deliverable.name}</div>` +
+    s.deliverable.fields.map(f => {
+      if (f.specialField) {
+        const value = f.specialField === 'trackChoice' ? (trackChoice || 'Not set yet')
+          : f.specialField === 'testingWindowDate' ? (testingWindowDate || 'Not set yet')
+          : '';
+        return `<div class="deliverable-field">
+          <div class="deliverable-field-label">${f.label}</div>
+          <div class="deliverable-field-readonly">${value}</div>
+          <button class="agent-tool-link" onclick="showDeliverableTab('tools')">Set in Supporting Tools →</button>
+        </div>`;
+      }
+      const entry = evidenceLog.find(e => e.key === `stage-${stageIdx}-${f.reflectionIndex}`);
+      return `<div class="deliverable-field">
+        <div class="deliverable-field-label">${f.label}</div>
+        <textarea class="reflection-textarea" onblur="updateDeliverableField(${f.reflectionIndex}, this.value)" placeholder="Not answered yet — use the Coach to build this.">${entry ? entry.content : ''}</textarea>
+      </div>`;
+    }).join('');
+}
+
+function updateDeliverableField(reflectionIndex, text){
+  updateStageReflection(coachState.stageIdx, reflectionIndex, text);
+  renderCoachPanel();
+}
+
+// ---- Workspace: Supporting Tools tab — relocates the stage-specific one-off widgets ----
+function renderSupportingTools(i){
+  const s = STAGE_DATA[i];
+  document.getElementById('sp-assessment').innerHTML = '';
+  document.getElementById('sp-track-selector').innerHTML = '';
+  document.getElementById('sp-testing-window').innerHTML = '';
+  document.getElementById('sp-recall').innerHTML = '';
+  let hasTool = false;
+  if (s.title === 'Premed 101') { renderAssessment('sp-assessment'); hasTool = true; }
+  if (s.title === 'Strategy: MD or DO') { renderTrackSelector('sp-track-selector'); hasTool = true; }
+  if (s.title === 'Grades & MCAT') { renderTestingWindow('sp-testing-window'); hasTool = true; }
+  if (i === 7 || i === 8 || i === 9) { renderRecallCheck('sp-recall'); hasTool = true; }
+  document.getElementById('supporting-tools-empty').style.display = hasTool ? 'none' : '';
+}
+
+// ---- Explore More (contextual, per-stage — links to real existing pages only) ----
+function renderExploreMore(i){
+  const s = STAGE_DATA[i];
+  const container = document.getElementById('stage-explore-more');
+  if (!container) return;
+  if (!s.exploreMore || !s.exploreMore.length) { container.innerHTML = ''; return; }
+  container.innerHTML = `<div class="side-title" style="margin:26px 0 10px;">Explore More</div>
+    <div class="explore-grid">
+      ${s.exploreMore.map(x => `<div class="explore-card" role="button" tabindex="0" onclick="go('${x.page}', navElementFor('${x.page}'))">${x.label} →</div>`).join('')}
+    </div>`;
+}
+
+// ---- Persistent bottom nav (Home / Back / Next / progress) ----
+function renderStageBottomNav(i){
+  const container = document.getElementById('stage-bottom-nav');
+  if (!container) return;
+  const pos = roadmapOrder.indexOf(i);
+  const prevIdx = pos > 0 ? roadmapOrder[pos - 1] : null;
+  const nextIdx = pos < roadmapOrder.length - 1 ? roadmapOrder[pos + 1] : null;
+  const nextLocked = nextIdx !== null && STAGE_DATA[nextIdx].status === 'locked' && !skipModeActive;
+  const backBtn = prevIdx === null
+    ? `<button class="btn outline" disabled>← Back</button>`
+    : `<button class="btn outline" onclick="openStagePanel(${prevIdx})">← Back</button>`;
+  const nextBtn = nextIdx === null
+    ? `<button class="btn outline" disabled>Next →</button>`
+    : nextLocked
+      ? `<button class="btn outline" disabled>Locked</button>`
+      : `<button class="btn outline" onclick="openStagePanel(${nextIdx})">Next →</button>`;
+  container.innerHTML = `
+    <button class="btn outline" onclick="go('bootcamp', navElementFor('bootcamp'))">Home</button>
+    ${backBtn}
+    <div class="stage-bottom-progress">Stage ${pos + 1} of ${roadmapOrder.length}</div>
+    ${nextBtn}
+  `;
 }
 
 // ---- Stage 04 track selector (MD / DO / Dual) ----
@@ -447,32 +621,54 @@ function showToast(msg){
 // handleStageCta() branch already calls it at exactly the right moment.
 function closeStagePanel(){ go('bootcamp', navElementFor('bootcamp')); }
 
-// ---- Stage detail's embedded AI advisor ----
-// Every stage page gets a live, grounded conversation with whichever agent actually owns
-// that stage (AGENT_DATA.stageTitle), not a generic "ask a question" box — reuses the same
-// generateAgentReply()/resolveChatTokens() heuristics as the main Chat page, just scoped to
-// one stage at a time, with a handoff into the full Chat session if the student wants to
-// keep talking.
+// ---- Mentor view: rehearsal before a real stakeholder conversation ----
+// Reuses the exact same per-stage agent, generateAgentReply()/resolveChatTokens() engine,
+// and handoff-to-Chat that the old always-open advisor sidebar used — the only change is
+// framing (a named persona header + a "Start Call" gate + starter buttons pulled straight
+// from that agent's own chatTopics, the same source the main Chat page's Quick Prompts use)
+// rather than a chat box that's simply always open. Still a scripted reply, not a real
+// model call or a real call at all — the practice-conversation framing says so explicitly.
 
 function findAgentForStage(stageIdx){
   const s = STAGE_DATA[stageIdx];
   return AGENT_DATA.find(a => a.stageTitle === s.title) || findAgent('reflection-coach');
 }
 
-let stageAdvisorState = { stageIdx: null, agentId: null, messages: [] };
+let stageAdvisorState = { stageIdx: null, agentId: null, messages: [], started: false };
 
-function renderStageAdvisor(stageIdx){
+function renderMentorView(stageIdx){
   const matched = findAgentForStage(stageIdx);
   const gated = isAgentGated(matched);
   // If the stage's own agent is still locked, Reflection Coach (core, always available)
   // stands in rather than showing a dead end.
   const agent = gated ? findAgent('reflection-coach') : matched;
-  document.getElementById('sd-advisor-name').textContent = agent.name;
+  document.getElementById('mentor-name').textContent = agent.name;
+  document.getElementById('mentor-tip').textContent = gated
+    ? `${matched.name} unlocks once you complete ${matched.stageTitle} — Reflection Coach stands in until then.`
+    : `Before a real conversation: ${agent.desc}`;
   const greeting = gated
     ? `${matched.name} unlocks once you complete ${matched.stageTitle} — I'm Reflection Coach in the meantime, and I can still help you think through this stage.`
     : resolveChatTokens(agent.chatGreeting);
-  stageAdvisorState = { stageIdx, agentId: agent.id, messages: [{ sender: 'agent', text: greeting }] };
+  stageAdvisorState = { stageIdx, agentId: agent.id, messages: [{ sender: 'agent', text: greeting }], started: false };
+
+  document.getElementById('mentor-starters').innerHTML = (agent.chatTopics || []).map(t =>
+    `<div class="skill-tile" role="button" tabindex="0" onclick="askMentorStarter('${t.label.replace(/'/g, "\\'")}')">✎ ${t.label}</div>`
+  ).join('');
+  document.getElementById('mentor-call-area').style.display = 'none';
+  document.getElementById('mentor-start-call-btn').style.display = '';
+}
+
+function startMentorCall(){
+  stageAdvisorState.started = true;
+  document.getElementById('mentor-call-area').style.display = '';
+  document.getElementById('mentor-start-call-btn').style.display = 'none';
   renderStageAdvisorMessages();
+}
+
+function askMentorStarter(label){
+  if (!stageAdvisorState.started) startMentorCall();
+  document.getElementById('sd-advisor-input').value = `Tell me about ${label}`;
+  sendStageAdvisorMessage();
 }
 
 function renderStageAdvisorMessages(){

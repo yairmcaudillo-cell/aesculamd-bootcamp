@@ -156,7 +156,8 @@
   .apply-card{ background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:28px; }
   .apply-card h3{ font-size:17px; margin-bottom:12px; }
   .apply-card p{ font-size:13.5px; color:var(--muted); line-height:1.6; margin-bottom:16px; }
-  .apply-card .fine{ font-size:12px; color:var(--muted-light); margin-bottom:18px; }
+  .fine{ font-size:12px; color:var(--muted-light); }
+  .apply-card .fine{ margin-bottom:18px; }
   .gap-option{ display:flex; align-items:flex-start; gap:10px; border:1px solid var(--line-strong); border-radius:10px; padding:10px 14px; margin-bottom:8px; cursor:pointer; font-size:13px; color:var(--muted); line-height:1.4; }
   .gap-option.selected{ border-color:var(--teal); background:var(--teal-pale); color:var(--ink); }
   .gap-option .check{ width:16px; height:16px; border-radius:4px; border:1.5px solid var(--line-strong); flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; font-size:11px; color:white; background:var(--panel); }
@@ -288,10 +289,34 @@
   .form-input{ flex:1 1 180px; border:1px solid var(--line-strong); border-radius:8px; padding:9px 10px; font-size:13px; font-family:inherit; min-width:0; }
   .form-input-narrow{ flex:0 1 130px; }
 
-  /* Stage Detail (was a slide-in modal panel — now a real page, with an embedded advisor) */
-  .stage-detail-layout{ display:grid; grid-template-columns:1fr 340px; gap:24px; align-items:start; }
-  .stage-advisor-card{ border:1px solid var(--line); border-radius:14px; padding:16px; background:var(--panel); position:sticky; top:20px; }
+  /* Stage Detail — Lesson / Workspace / Mentor paradigm (see HBS-Foundry restructure) */
+  .stage-view-tabs{ display:flex; gap:4px; border-bottom:1px solid var(--line); margin-bottom:22px; }
+  .stage-view-tab{ padding:10px 18px; font-size:13px; font-weight:700; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; }
+  .stage-view-tab.active{ color:var(--teal-text); border-bottom-color:var(--teal); }
+  #page-stagedetail{ padding-bottom:70px; } /* room for the fixed bottom nav */
+
+  .workspace-grid{ display:grid; grid-template-columns:1fr 380px; gap:24px; align-items:start; }
+  .coach-panel-col, .deliverable-panel-col{ border:1px solid var(--line); border-radius:14px; padding:16px; background:var(--panel); }
+  .coach-panel-col{ min-height:380px; display:flex; flex-direction:column; }
+  #coach-panel{ display:flex; flex-direction:column; flex:1; }
+  .coach-messages{ max-height:420px; }
+
+  .deliverable-tabs{ display:flex; gap:4px; margin-bottom:14px; }
+  .deliverable-tab{ padding:6px 12px; font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--muted); border-radius:8px; cursor:pointer; }
+  .deliverable-tab.active{ background:var(--teal-pale); color:var(--teal-text); }
+  .deliverable-field{ margin-bottom:16px; }
+  .deliverable-field-label{ font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:6px; }
+  .deliverable-field-readonly{ font-size:13px; color:var(--ink); padding:8px 10px; border:1px dashed var(--line-strong); border-radius:8px; margin-bottom:6px; }
+
+  .mentor-header{ display:flex; gap:14px; align-items:flex-start; margin-bottom:6px; }
+  .mentor-avatar{ width:44px; height:44px; border-radius:50%; background:var(--teal-pale); flex-shrink:0; }
   .stage-advisor-messages{ max-height:360px; min-height:120px; margin-bottom:12px; }
+
+  .explore-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px; }
+  .explore-card{ border:1px solid var(--line); border-radius:12px; padding:14px 16px; font-size:13px; font-weight:600; color:var(--teal-text); cursor:pointer; background:var(--panel); }
+
+  .stage-bottom-nav{ position:fixed; bottom:0; left:250px; right:0; z-index:150; display:flex; align-items:center; gap:14px; padding:12px 28px; background:var(--panel); border-top:1px solid var(--line); }
+  .stage-bottom-progress{ flex:1; text-align:center; font-size:12px; font-weight:700; color:var(--muted); }
 
   /* Personal Statement Checker */
   .ps-layout{ display:grid; grid-template-columns:1fr 340px; gap:24px; align-items:start; }
@@ -422,10 +447,11 @@
 
     /* Fixed two-column layouts stack on mobile — grids using auto-fill/minmax already
        collapse on their own, these are the ones with a hardcoded second column width. */
-    .bootcamp-layout, .institutes-layout, .ps-layout, .stage-detail-layout{ grid-template-columns:1fr; gap:24px; }
-    .stage-advisor-card{ position:static; }
+    .bootcamp-layout, .institutes-layout, .ps-layout, .workspace-grid{ grid-template-columns:1fr; gap:24px; }
     .chat-layout{ grid-template-columns:1fr; margin:-24px -18px; height:auto; }
     .chat-side{ border-left:none; border-top:1px solid var(--line); }
+    .stage-bottom-nav{ left:0; padding:10px 14px; }
+    .stage-view-tab{ padding:10px 12px; font-size:12px; }
 
     /* Three-column grids reflow to fewer columns instead of forcing a fixed count */
     .sim-grid, .agents-grid, .kh-grid{ grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); }

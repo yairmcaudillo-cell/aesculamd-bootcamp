@@ -13,6 +13,12 @@ This stage exists to help you find or build a real leadership experience — one
 
 ---
 
+## Your Deliverable: Your Leadership Story
+
+In the live app's Workspace view, an AI coach asks the three prompts below one at a time and turns your answers into an editable **Leadership Story**, with three fields: **The Problem Noticed**, **The Action Taken**, and **Title-vs-Substance Check**. It's a scripted, heuristic-guided conversation, not a real model call — the same honesty stance as every other chat surface in this platform.
+
+---
+
 ## Part 1: What "leadership" actually means here
 
 Leadership, in the way admissions committees read it, has almost nothing to do with a title and everything to do with three things:

@@ -303,40 +303,78 @@
 
   <!-- STAGE DETAIL PAGE -->
   <div class="page" id="page-stagedetail">
-    <button class="btn outline" style="margin-bottom:22px;" onclick="go('bootcamp', navElementFor('bootcamp'))">← Back to Bootcamp</button>
-    <div class="stage-detail-layout">
-      <div class="stage-detail-main">
-        <div class="node-stage" id="sp-stage" style="color:var(--teal-text); font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;"></div>
-        <h1 id="sp-title" class="section-heading" style="margin-bottom:16px;"></h1>
-        <p id="sp-why" style="font-size:13.5px; color:var(--muted); line-height:1.6; margin-bottom:18px;"></p>
-        <div id="sp-source"></div>
-        <div id="sp-parts"></div>
-        <div id="sp-assessment"></div>
-        <div id="sp-track-selector"></div>
-        <div id="sp-testing-window"></div>
-        <div id="sp-recall"></div>
-        <div style="margin:18px 0;">
-          <div class="side-title" style="margin-bottom:10px;">Reflection Prompts</div>
-          <ul id="sp-reflection" style="list-style:none;"></ul>
+    <button class="btn outline" style="margin-bottom:18px;" onclick="go('bootcamp', navElementFor('bootcamp'))">← Back to Bootcamp</button>
+
+    <div class="stage-view-tabs" role="tablist" aria-label="Stage view">
+      <div class="stage-view-tab active" id="stage-tab-lesson" role="tab" tabindex="0" aria-selected="true" onclick="showStageLessonView()">Lesson</div>
+      <div class="stage-view-tab" id="stage-tab-workspace" role="tab" tabindex="0" aria-selected="false" onclick="showStageWorkspaceView()">Workspace</div>
+      <div class="stage-view-tab" id="stage-tab-mentor" role="tab" tabindex="0" aria-selected="false" onclick="showStageMentorView()">Mentor</div>
+    </div>
+
+    <!-- LESSON VIEW -->
+    <div id="stage-lesson-view">
+      <div class="node-stage" id="sp-stage" style="color:var(--teal-text); font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;"></div>
+      <h1 id="sp-title" class="section-heading" style="margin-bottom:16px;"></h1>
+      <p id="sp-why" style="font-size:13.5px; color:var(--muted); line-height:1.6; margin-bottom:18px;"></p>
+      <div id="sp-source"></div>
+      <div id="sp-parts"></div>
+      <button class="btn" id="sp-start-workspace-btn" onclick="showStageWorkspaceView()" style="margin-top:10px;">Start Building <span id="sp-deliverable-name"></span> →</button>
+    </div>
+
+    <!-- WORKSPACE VIEW: AI coach (left) + structured deliverable output (right) -->
+    <div id="stage-workspace-view" style="display:none;">
+      <div class="workspace-grid">
+        <div class="coach-panel-col">
+          <div class="side-title" style="margin-bottom:10px;">Coach</div>
+          <div id="coach-panel"></div>
         </div>
-        <div style="margin-bottom:20px;">
-          <div class="side-title" style="margin-bottom:10px;">Checklist to Unlock Next Stage</div>
-          <ul id="sp-checklist" class="checklist" style="list-style:none;"></ul>
-        </div>
-        <button class="btn" id="sp-cta" onclick="handleStageCta()">Continue</button>
-      </div>
-      <div class="stage-detail-side">
-        <div class="stage-advisor-card">
-          <div class="side-title">Ask <span id="sd-advisor-name"></span> about this stage</div>
-          <div id="sd-advisor-messages" class="chat-messages stage-advisor-messages"></div>
-          <div class="chat-input-wrap">
-            <textarea id="sd-advisor-input" class="chat-input-real" placeholder="Ask a question..." aria-label="Ask a question about this stage" onkeydown="handleStageAdvisorKey(event)"></textarea>
-            <button class="chat-send-btn" onclick="sendStageAdvisorMessage()" aria-label="Send question">↑</button>
+        <div class="deliverable-panel-col">
+          <div class="deliverable-tabs">
+            <div class="deliverable-tab active" id="dtab-output" role="tab" tabindex="0" onclick="showDeliverableTab('output')">Output</div>
+            <div class="deliverable-tab" id="dtab-tools" role="tab" tabindex="0" onclick="showDeliverableTab('tools')">Supporting Tools</div>
           </div>
-          <button class="agent-tool-link" onclick="continueStageAdvisorInChat()">Continue in full Chat →</button>
+          <div id="deliverable-output"></div>
+          <div id="supporting-tools" style="display:none;">
+            <div id="sp-assessment"></div>
+            <div id="sp-track-selector"></div>
+            <div id="sp-testing-window"></div>
+            <div id="sp-recall"></div>
+            <p id="supporting-tools-empty" class="fine" style="display:none;">No extra tools for this stage — the Output tab is where your work lives.</p>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- MENTOR VIEW: rehearsal before a real conversation, reusing the existing grounded advisor chat -->
+    <div id="stage-mentor-view" style="display:none;">
+      <div class="mentor-header">
+        <div class="mentor-avatar"></div>
+        <div>
+          <div class="side-title">Mentor: <span id="mentor-name"></span></div>
+          <p id="mentor-tip" style="font-size:12.5px; color:var(--muted); line-height:1.5; margin-top:4px;"></p>
+        </div>
+      </div>
+      <p class="fine" style="margin:10px 0;">This is a private practice conversation, not a real call — rehearse here before you talk to an actual person.</p>
+      <div id="mentor-starters" class="skills-grid" style="margin-bottom:14px;"></div>
+      <button class="btn" id="mentor-start-call-btn" onclick="startMentorCall()">Start Call</button>
+      <div id="mentor-call-area" style="display:none; margin-top:14px;">
+        <div id="sd-advisor-messages" class="chat-messages stage-advisor-messages"></div>
+        <div class="chat-input-wrap">
+          <textarea id="sd-advisor-input" class="chat-input-real" placeholder="Ask a question..." aria-label="Ask a question about this stage" onkeydown="handleStageAdvisorKey(event)"></textarea>
+          <button class="chat-send-btn" onclick="sendStageAdvisorMessage()" aria-label="Send question">↑</button>
+        </div>
+        <button class="agent-tool-link" onclick="continueStageAdvisorInChat()">Continue in full Chat →</button>
+      </div>
+    </div>
+
+    <div style="margin:22px 0 6px;">
+      <div class="side-title" style="margin-bottom:10px;">Checklist to Unlock Next Stage</div>
+      <ul id="sp-checklist" class="checklist" style="list-style:none;"></ul>
+    </div>
+    <button class="btn" id="sp-cta" onclick="handleStageCta()">Continue</button>
+
+    <div id="stage-explore-more"></div>
+    <div id="stage-bottom-nav" class="stage-bottom-nav"></div>
   </div>
 
 </div>
