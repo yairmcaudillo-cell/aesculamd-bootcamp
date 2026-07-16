@@ -1440,10 +1440,11 @@ function renderInstituteForm(){
     const fit = computeInstituteFit();
     el.innerHTML = `${deadlineBanner}
       <h3 style="margin-bottom:10px;">Application Received (Prototype)</h3>
-      <p style="font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:16px;">Nothing was actually sent anywhere — there's no backend yet. In production, this would route to the Institutes team and a formal fit assessment would follow within 5 business days.</p>
+      <p style="font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:16px;">Nothing was actually sent anywhere — there's no backend in this prototype. In production, this would route to AesculaMD's partnerships team, and an approved office gets set up directly inside the real advisor platform — not a separate system built here.</p>
       <div class="pace-read ${fit.level === 'good' ? 'good' : 'warn'}"><b>Instant fit read:</b> ${fit.message}</div>
       <div style="font-size:12px; color:var(--ink); line-height:1.6; margin-bottom:16px;">${instituteApplication.orgName} · ${instituteApplication.studentPopulation || '?'} students · ${instituteApplication.selectedGaps.length} gap(s) selected</div>
-      <button class="btn outline" onclick="editInstituteApplication()">Edit Application</button>`;
+      <a class="btn outline" href="https://aesculamd.com" target="_blank" rel="noopener" style="display:inline-block; text-decoration:none; margin-bottom:10px;">See the real advisor platform at aesculamd.com →</a>
+      <button class="btn outline" style="width:100%;" onclick="editInstituteApplication()">Edit Application</button>`;
     return;
   }
 
@@ -1455,7 +1456,7 @@ function renderInstituteForm(){
     <input type="text" class="form-input" style="margin-bottom:10px;" placeholder="Your role (e.g. Pre-Health Advisor)" aria-label="Your role" value="${instituteApplication.role}" oninput="updateInstituteField('role', this.value)">
     <input type="number" class="form-input form-input-narrow" style="margin-bottom:10px;" placeholder="Student population size" aria-label="Student population size" min="0" value="${instituteApplication.studentPopulation}" oninput="updateInstituteField('studentPopulation', this.value)">
     <textarea class="ps-draft-textarea" style="height:80px; margin-bottom:14px;" placeholder="Current advising resources (be specific — this is what a reviewer weighs most)" aria-label="Current advising resources" oninput="updateInstituteField('currentResources', this.value)">${instituteApplication.currentResources}</textarea>
-    <div class="side-title" style="margin-bottom:8px;">Specific gaps you want Institutes to fill</div>
+    <div class="side-title" style="margin-bottom:8px;">Specific gaps you want addressed</div>
     <div style="margin-bottom:16px;">
       ${INSTITUTE_GAP_OPTIONS.map(g => {
         const selected = instituteApplication.selectedGaps.includes(g);
@@ -1464,7 +1465,7 @@ function renderInstituteForm(){
         </div>`;
       }).join('')}
     </div>
-    <p class="fine" style="margin-bottom:10px;">A note on "tracking": there's no advisor-facing dashboard or per-student progress view built yet, for anyone. Selecting that option tells us it's wanted — it doesn't mean it exists today. If that's your office's main reason to apply, ask us what it would actually look like before you commit staff time to a pilot around it.</p>
+    <p class="fine" style="margin-bottom:10px;">A note on "tracking": that capability is real, but it lives in AesculaMD's advisor platform, not in this free curriculum — roster invites, AI Meeting Briefs, cohort analytics, and at-risk alerts all already exist there today. Selecting this option tells us that's your office's priority, so we route you toward that product directly rather than building a second version of it here.</p>
     <p class="fine" style="margin-bottom:14px;">Pilot cohorts are limited to 3 partner institutions per semester. Late applications roll to the next cohort.</p>
     <button class="btn" style="width:100%;" onclick="submitInstituteApplication()">Submit Pilot Application</button>`;
 }

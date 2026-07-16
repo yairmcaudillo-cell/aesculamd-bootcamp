@@ -79,7 +79,9 @@ Worth knowing the shape of now, even years before you'll actually do one. Most s
 
 ## What this Foundations Track was actually for, now that you've finished it
 
-Building a real, evidenced case — competency by competency, year by year — before you're under application-cycle pressure to invent one from memory. It ends here on purpose. Phase 2 is a different kind of work: building your real school list against your actual GPA/MCAT, tracking and writing secondary essays under real deadlines, structured practice for the interview formats above, and everything else that happens mid-cycle — LOR submission, waitlist decisions, comparing offers. None of that is part of this bootcamp, on purpose — it needs tools built for an active cycle, not a self-paced one. When you're ready for it, that's what AesculaMD's full platform is built for. This isn't a dead end; it's a deliberate handoff to the part of the process that needs you to already have what you just spent years building.
+Building a real, evidenced case — competency by competency, year by year — before you're under application-cycle pressure to invent one from memory. It ends here on purpose. Phase 2 is a different kind of work: building your real school list against your actual GPA/MCAT, tracking and writing secondary essays under real deadlines, structured practice for the interview formats above, and everything else that happens mid-cycle — LOR submission, waitlist decisions, comparing offers. None of that is part of this bootcamp, on purpose — it needs tools built for an active cycle, not a self-paced one. That's what AesculaMD's full platform is built for, and your competency self-assessment from Stage 01 is the actual seed for its Story Bank — you won't be starting that part over from a blank page. This isn't a dead end; it's a deliberate handoff to the part of the process that needs you to already have what you just spent years building.
+
+**[Continue to AesculaMD →](https://aesculamd.com)**
 
 ---
 

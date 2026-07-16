@@ -96,6 +96,7 @@ Your ratings and reflections don't just sit here — they directly shape the res
 - Competencies you rate **Planning** get prioritized — the stages most relevant to building them get sequenced earlier, not left to chance.
 - Everything you write here becomes the first entries in your **evidence log** — the same log you'll keep adding to through every stage, and the one your Narrative Thread agent will eventually help you organize into an application, years from now, in your own words.
 - Your **Reflection Coach** — available from today, the moment you finish this assessment — reads across your evidence log as it grows and points out patterns you might not notice yourself: the same strength showing up in unrelated settings, or the same hesitation recurring across stages. It's the one agent with you for the entire journey, not just one part of it.
+- It's also the seed for something further out: when you're ready for AesculaMD's full application-cycle platform, this same self-assessment is the starting point for its Story Bank, not a separate thing you'll redo from scratch.
 
 ---
 
