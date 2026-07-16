@@ -21,20 +21,20 @@ This stage builds toward a real, structured output, not just free-text reflectio
 
 ## A note on timing, before you rate yourself
 
-If you're a freshman with nothing yet that looks like a "premed activity," you are not behind — you're on the actual average timeline. Most matriculating medical students today aren't fresh out of a straight four-year sprint: 74% of 2024 matriculants took at least one gap year (up from 58% a decade ago), and the average matriculant is now 24–25 years old. The "no gaps, straight through" path is the exception, not the standard. That means the stage order in this roadmap is a recommended sequence, not a countdown clock — there's no penalty for moving through it slower, faster, or out of order as your actual life requires.
+If you're a freshman with nothing yet that looks like a "premed activity," you are not behind — and it's worth understanding *why* that's true, not just taking it on faith. Medical school admissions moved away from a pure "straight-through, no gaps" model over the last decade, and the numbers show it plainly: 74% of 2024 matriculants took at least one gap year (up from 58% a decade ago), and the average matriculant is now 24–25 years old, not 22. That shift wasn't an accident in the data — it reflects a real change in what admissions committees believe predicts a good physician. A committee reviewing 800+ applications a cycle has learned, the hard way, that a 21-year-old with a perfectly sequenced resume and zero lived complexity often struggles more in clinical years than a 25-year-old who took two years to work, travel, or figure things out first. The "no gaps, straight through" path is now the statistical exception, not the standard — which means this roadmap's ten-stage sequence is a recommended order to work through the material, not a countdown clock you're already behind on.
 
 ---
 
 ## Part 1: What admissions committees are actually built to notice (grounding, not myth)
 
-Medical schools jointly built a framework of **17 Premed Competencies** — not to give you 17 new things to go do, but to describe, in plain language, the traits that predict whether someone will thrive as a medical student and physician. Every part of your eventual application — your activities, your essays, your letters, your interview — gets read by admissions officers through this lens, whether or not they say so out loud.
+Medical schools jointly built a framework of **17 Premed Competencies**, published and maintained by the AAMC — not to give you 17 new things to go do, but to describe, in plain language, the traits that predict whether someone will thrive as a medical student and physician. It's worth understanding the problem this framework was built to solve, because it explains almost everything else in this bootcamp. For decades, admissions leaned heavily on GPA and MCAT score as the primary filter — easy to rank, easy to compare, and badly incomplete: those two numbers predict whether someone can pass their coursework, but say almost nothing about whether someone will be a trustworthy, resilient, ethical physician who can sit with a frightened patient at 2 a.m. and say the right thing. The 17 Competencies exist to name, explicitly, the traits that predict the second thing.
 
-The competencies fall into three groups:
+The competencies fall into three groups, and the split itself is informative:
 - **Professional** (11): things like Commitment to Learning and Growth, Empathy and Compassion, Resilience and Adaptability, Self-Awareness, Service Orientation
 - **Thinking & Reasoning** (4): Critical Thinking, Quantitative Reasoning, Scientific Inquiry, Written Communication
 - **Science** (2): Human Behavior, Living Systems
 
-No applicant is expected to be strong in all 17. Admissions officers explicitly do not expect mastery across the board — they're looking for real, specific evidence in the ones that matter for how you'll show up as a physician.
+Notice the imbalance: 11 of 17 are about character and judgment, not intellect. That's not a rounding error in the framework — it reflects a documented reality in medical education, where the leading cause of a student being dismissed or disciplined in medical school is a professionalism failure, not an academic one. Academic competence gets you in the door; it was never the thing this framework is actually trying to protect against losing. No applicant is expected to be strong in all 17 — a committee is looking for real, specific evidence in the ones that matter for how you'll show up as a physician, not uniform mastery across the board.
 
 ---
 
@@ -45,6 +45,8 @@ For each of the 17 competencies below, rate yourself using the same three-level 
 - **Planning** — you understand what this competency means, but don't yet have a clear experience that demonstrates it
 - **Progressing** — you have some experience, but it's early or you're still developing real fluency with it
 - **Demonstrating** — you have a specific, real experience you could describe in detail that shows this competency clearly
+
+This is deliberately not a letter grade or a 1-10 score, because a grade implies you're being judged — you're not. This is a diagnostic tool, and a diagnostic only works if you're honest with it, the same way a doctor can't treat a symptom you didn't report accurately. Rate something Planning when it's Planning; there's no penalty anywhere in this roadmap for an honest low rating, and an inflated one only hides work you actually still need to do.
 
 **What this bootcamp is, and isn't, in one honest sentence:** these ten stages are Phase 1 — building a real, evidenced case while you still have years of runway. Phase 2 — your actual school list, secondaries, interview prep, managing a live application cycle — is different work, with different tools, and lives elsewhere; you'll hear exactly where at the end of Stage 10. For now, just know that finishing this track is a real, complete milestone on its own, not half of one.
 
@@ -66,13 +68,19 @@ The three levels only work if they're calibrated the same way for everyone, so h
 
 **Reliability and Dependability** — *Planning* is "I think I'm a reliable person." *Progressing* is "I've mostly shown up on time for my part-time job." *Demonstrating* is "I never missed a shift in two years, including the week my car broke down, because I found my own coverage before telling my manager there was a problem."
 
-Notice the difference isn't how impressive the story is — it's how specific and self-directed it is.
+**Service Orientation** — *Planning* is "I want to help underserved communities someday." *Progressing* is "I volunteered at a food bank a handful of times when my schedule allowed." *Demonstrating* is "I've shown up at the same shelter every Sunday for a year, and I know the regular guests' names and what they actually need help with this week, not just generically."
 
-**One honest check before you lock in your ratings:** for every competency you're about to rate Demonstrating, ask yourself — if a stranger read only your written reflection, would they independently land on "Demonstrating," too, or are you being generous with yourself because the word sounds better than Progressing? There's no penalty anywhere in this roadmap for rating something Progressing instead. This gets more useful the more honestly it's calibrated, not less — a roadmap built on an inflated self-assessment just re-teaches you things you don't actually need.
+Look across all three pairs for the actual pattern: the difference was never how impressive or dramatic the story sounds — every Demonstrating example above is a fairly ordinary situation. The real difference is specificity (a real, nameable moment, not a vague period of time) and self-direction (you noticed something and acted, rather than being told to).
+
+**One honest check before you lock in your ratings:** for every competency you're about to rate Demonstrating, ask yourself — if a stranger read only your written reflection, would they independently land on "Demonstrating," too, or are you being generous with yourself because the word sounds better than Progressing? This matters for a reason beyond honesty as a virtue in the abstract: an inflated self-assessment actively hurts the usefulness of everything downstream. This roadmap prioritizes stages based on where your ratings say you're weak — rate something Demonstrating that's actually Progressing, and the stage that would have helped you build real evidence there gets deprioritized, and you find out the gap was real months later, with less runway left to close it. There's no penalty anywhere in this roadmap for rating something Progressing instead of Demonstrating. The only thing an inflated rating costs you is time you didn't need to lose.
 
 ### What this looks like in practice (a composite, not a real student)
 
 Priya, a sophomore, rated herself **Demonstrating** on Reliability and Dependability — she'd worked a part-time job through high school and never missed a shift, even during finals week. She rated **Scientific Inquiry** as **Planning** — she understood the idea of a testable question but had never designed or run one herself. Because of that, her roadmap surfaced the Research stage earlier than the default sequence, while Leadership — where she already had real evidence from coordinating coworkers' shift swaps — got referenced rather than re-taught.
+
+### A second, different profile (also a composite, not a real student)
+
+Diego, a first-generation college freshman with no "premed activities" yet at all, almost rated himself Planning across the board out of genuine uncertainty — until the non-traditional-evidence prompt below made him reconsider. He'd been the one translating for his grandmother at every doctor's appointment since he was twelve, and managing his family's grocery budget for two years after his father's hours got cut. Once he actually described those moments specifically, he rated **Demonstrating** on Understanding Others and **Progressing** on Ethical Responsibility to Self and Others — not because his life looked like a typical premed resume, but because it genuinely was strong evidence, just evidence he'd never been taught to recognize as such.
 
 ### Try it yourself first
 

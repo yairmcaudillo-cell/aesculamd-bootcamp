@@ -74,6 +74,20 @@ function renderStageList(){
 
 let openStageIndex = null;
 
+// Renders one stage "part" as a real chapter section — a heading pulled from its
+// leading <b>...</b> lead-in, then flowing paragraph prose, not a bulleted summary
+// fragment. Any embedded <details> practice block (block-level) is split out as its
+// own sibling element rather than nested inside the <p>, which would be invalid HTML.
+function renderLessonPart(p){
+  const headingMatch = p.match(/^<b>(.*?)<\/b>\s*/);
+  const heading = headingMatch ? headingMatch[1] : '';
+  const rest = headingMatch ? p.slice(headingMatch[0].length) : p;
+  const detailsIdx = rest.indexOf('<details>');
+  const body = detailsIdx === -1 ? rest : rest.slice(0, detailsIdx).trim();
+  const details = detailsIdx === -1 ? '' : rest.slice(detailsIdx);
+  return `<section class="lesson-section">${heading ? `<h3>${heading}</h3>` : ''}<p>${body}</p>${details}</section>`;
+}
+
 function openStagePanel(i){
   openStageIndex = i;
   const s = STAGE_DATA[i];
@@ -84,8 +98,7 @@ function openStagePanel(i){
     <span class="source-icon">${s.sourceStatus === 'pending_review' ? '⚠' : '📎'}</span>
     <span><span class="source-label">${s.sourceStatus === 'pending_review' ? 'Pending expert review' : 'Sourced'}</span>${s.sourceNote}</span>
   </div>` : '';
-  document.getElementById('sp-parts').innerHTML = '<div class="side-title" style="margin-bottom:10px;">What This Stage Covers</div><ul style="list-style:none;">' +
-    s.parts.map(p => `<li style="font-size:13px; color:#3E4A3F; line-height:1.6; padding:7px 0; border-bottom:1px solid var(--line);">${p}</li>`).join('') + '</ul>';
+  document.getElementById('sp-parts').innerHTML = s.parts.map(renderLessonPart).join('');
   document.getElementById('sp-deliverable-name').textContent = s.deliverable.name;
 
   coachState = { stageIdx: i, step: 0 };

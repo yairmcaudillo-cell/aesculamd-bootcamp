@@ -29,6 +29,8 @@ Leadership, in the way admissions committees read it, has almost nothing to do w
 
 None of this requires a medical context. A founding role in a campus organization, informal peer tutoring you took the initiative to organize, training new volunteers at your clinic, coordinating a team project, coaching — all of it counts, as long as you can point to something specific you actually did, not just a position you held.
 
+**Why the title itself matters so little.** A title is something an organization gives you, but initiative, responsibility, and working through others are things you actually did. A committee reading your file is trying to predict how you'll behave in situations nobody assigned you to — as a resident, as an attending, in a hospital hierarchy with real stakes. A title tells them nothing about that; a specific story of initiative tells them everything.
+
 **The honest trap to avoid:** joining multiple organizations specifically to angle for a title, then holding that title without real substance behind it. Admissions committees read hundreds of applications a year and can usually tell the difference between someone who led and someone who merely occupied a position. A smaller role done with real initiative reads as stronger evidence than a big title held passively.
 
 ---

@@ -25,7 +25,7 @@ In the live app's Workspace view, an AI coach asks the three prompts below one a
 
 **Clinical experience** means direct, real interaction with patients — you're in the room, you're doing something (taking vitals, transporting patients, sitting with someone in hospice, updating charts, having conversations), not just observing someone else do it. This is the category where the competencies that matter most — Service Orientation, Understanding Others, Empathy and Compassion, Interpersonal Skills — actually get tested and built, not just witnessed.
 
-Both matter, but they're not interchangeable, and a student who has 300 hours of shadowing and zero real clinical interaction is missing something a committee will notice.
+Both matter, but they're not interchangeable, and a student who has 300 hours of shadowing and zero real clinical interaction is missing something a committee will notice. Here's why the two get read so differently: shadowing answers a narrow question — do you actually understand what the daily texture of practicing medicine looks like, or are you drawn to an idea of the profession that doesn't match the reality? Direct clinical experience answers a more important one — how do you actually behave around a vulnerable person who needs something from you, when there's no script? That's why committees weight direct clinical experience more heavily than shadowing, even though both matter.
 
 ---
 

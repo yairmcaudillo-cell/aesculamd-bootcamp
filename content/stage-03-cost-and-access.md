@@ -11,6 +11,8 @@ Almost no one tells you the price tag until you're already in it. By the time mo
 
 This isn't a footnote stage. If your family didn't have a doctor, lawyer, or someone who'd been through a long professional program before, you probably don't have a mental model for what this actually costs or how long the bill runs. That's not a gap in you — it's a gap in what gets talked about. This stage closes it.
 
+**Why almost nobody hears these numbers until it's too late.** There's no conspiracy here — it's simpler and more structural than that. Application costs are scattered across a dozen different organizations (AAMC, AACOMAS, TMDSAS, individual schools), each publishing its own fee schedule on its own page, and none of them exist to give you the combined total up front. A student who's never been through this, and doesn't have a parent, older sibling, or family friend who has, has no natural way to encounter the full number until they're already a semester from applying — at which point it's a shock instead of a plan.
+
 ---
 
 ## Your Deliverable: Your Cost & Aid Plan

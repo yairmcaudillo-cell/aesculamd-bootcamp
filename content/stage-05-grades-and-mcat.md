@@ -27,6 +27,8 @@ The MCAT has four sections:
 
 Scores range from 472–528. There's no "passing" score in a formal sense, but competitiveness varies significantly by target school — current MD matriculant averages sit around 512, DO matriculant averages around 505, though individual schools vary widely and some accept meaningfully lower scores with a strong overall profile.
 
+**Why these specific four sections, not a random assortment.** The first two test whether you have the scientific foundation medical school coursework assumes you already have, so professors can teach medicine itself rather than remedial chemistry. The third section exists because the AAMC recognized that patient care is fundamentally about understanding human behavior under stress, culture, and social context — a purely biological-science exam would miss that entirely. CARS exists for a different reason still: it has no content to study at all, and that's the point — it's a direct test of reading comprehension and reasoning under time pressure, skills no amount of memorized biology can substitute for.
+
 **A connection worth naming explicitly:** the first two sections above are the AAMC's **Living Systems** science competency, tested under exam conditions rather than just described in an application. The third section is the **Human Behavior** competency. Every other stage in this bootcamp builds competencies through experience and reflection — this is the one place those two specific competencies get demonstrated directly, through performance, which is worth knowing so you don't undervalue what a strong MCAT section score is actually evidence of.
 
 **Registration costs $355 for U.S. and Canadian test centers in 2026; students approved for the AAMC Fee Assistance Program (FAP) pay $145 instead.** You should already know your likely FAP eligibility from Cost & Access — if you haven't checked yet, do that before you register, since FAP approval isn't retroactive.
@@ -49,8 +51,8 @@ This is the part most premed advice gets muddled on, so here are the actual rule
 
 The method matters more than the hours. Two habits do most of the work:
 
-- **Spaced repetition** — reviewing material at increasing intervals instead of cramming it once — beats re-reading a passage five times in one sitting, because retention tracks how many times you've successfully *retrieved* something, not how many times you've looked at it.
-- **Active recall** — closing the book and reconstructing an answer from memory, then checking — builds the same muscle an exam question actually requires; passively highlighting a textbook doesn't.
+- **Spaced repetition** — reviewing material at increasing intervals instead of cramming it once — beats re-reading a passage five times in one sitting, because retention tracks how many times you've successfully *retrieved* something from memory, not how many times you've looked at it. Each successful retrieval after a gap strengthens the memory more than the last review did; re-reading something you already recognize barely strengthens it at all, because recognition and recall are different mental operations.
+- **Active recall** — closing the book and reconstructing an answer from memory, then checking — builds the same muscle an exam question actually requires; passively highlighting a textbook doesn't, because highlighting is a recognition task ("I've seen this before") while the exam demands a recall task (produce the answer with nothing in front of you).
 
 Build toward a real full-length practice-exam cadence well before test day, reviewing every wrong answer for the reasoning gap behind it, not just the correct answer. None of this requires a paid course — a self-study plan built around these two habits, started early, consistently outperforms a last-minute course with neither.
 
