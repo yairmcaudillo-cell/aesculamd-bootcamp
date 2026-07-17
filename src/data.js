@@ -3,7 +3,7 @@
 
 const STAGE_DATA = [
   {
-    num: "01", year: "Year 1", title: "Premed 101", status: "done",
+    num: "01", year: "Year 1", title: "Premed 101", status: "current",
     competencies: "Self-Awareness · Commitment to Learning and Growth",
     sourceStatus: "verified",
     sourceNote: "Verified against AAMC's Core Competencies for Entering Medical Students framework and AAMC's Matriculating Student Questionnaire (2024 data — the gap-year and average-age figures). Both are the most recent AAMC-published cycle available; re-check the MSQ figures against each new year's release.",
@@ -40,7 +40,7 @@ const STAGE_DATA = [
     checklist: ["Complete the 17-competency self-assessment", "Answer the three-part reflection for every Progressing/Demonstrating rating", "Continue to Stage 02"]
   },
   {
-    num: "02", year: "", title: "Be Yourself: Narrative", status: "done",
+    num: "02", year: "", title: "Be Yourself: Narrative", status: "locked",
     competencies: "Self-Awareness · Ethical Responsibility to Self and Others",
     sourceStatus: "verified",
     sourceNote: "Grounded in AAMC guidance on personal statement writing and widely-documented admissions-reader practice on narrative specificity — there's no single verifiable statistic in this stage the way other stages have one; the underlying claim (specific, honest narratives read stronger than generic ones) reflects broad admissions-reader consensus, not an official AAMC rule.",
@@ -78,7 +78,7 @@ const STAGE_DATA = [
   // active cost tracking — AesculaMD_1's ApplicationCosts.tsx already owns real per-school,
   // live-cycle cost tracking. Adding real-time cost tools here would duplicate it.
   {
-    num: "03", year: "", title: "Cost & Access", status: "current", unlocks: "Logistics & Pacing (cost-planning mode)",
+    num: "03", year: "", title: "Cost & Access", status: "locked", unlocks: "Logistics & Pacing (cost-planning mode)",
     competencies: "Reliability and Dependability · Ethical Responsibility to Self and Others",
     sourceStatus: "verified",
     sourceNote: "Verified against AAMC's official Fee Assistance Program pages and AACOM's fee-waiver guidance (2026 cycle). Figures change annually — re-check before each new cycle.",
