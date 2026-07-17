@@ -127,29 +127,45 @@ function setActiveStageTab(tabId){
   document.getElementById(tabId).classList.add('active');
   document.getElementById(tabId).setAttribute('aria-selected', 'true');
 }
+// Switching views doesn't change page, so nothing else resets scroll — without this, a
+// student who scrolled down reading a long Lesson lands mid-page in the new view instead
+// of at its top (confirmed directly: cold-playthrough found this stranding the Coach panel
+// off-screen above an empty Output panel on mobile).
+function scrollStageViewToTop(){
+  const main = document.querySelector('.main');
+  if (main) main.scrollTop = 0;
+  window.scrollTo(0, 0);
+}
 function showStageLessonView(){
   document.getElementById('stage-lesson-view').style.display = '';
   document.getElementById('stage-workspace-view').style.display = 'none';
   document.getElementById('stage-mentor-view').style.display = 'none';
   setActiveStageTab('stage-tab-lesson');
+  scrollStageViewToTop();
 }
 function showStageWorkspaceView(){
   document.getElementById('stage-lesson-view').style.display = 'none';
   document.getElementById('stage-workspace-view').style.display = '';
   document.getElementById('stage-mentor-view').style.display = 'none';
   setActiveStageTab('stage-tab-workspace');
+  scrollStageViewToTop();
 }
 function showStageMentorView(){
   document.getElementById('stage-lesson-view').style.display = 'none';
   document.getElementById('stage-workspace-view').style.display = 'none';
   document.getElementById('stage-mentor-view').style.display = '';
   setActiveStageTab('stage-tab-mentor');
+  scrollStageViewToTop();
 }
 function showDeliverableTab(which){
   document.getElementById('dtab-output').classList.toggle('active', which === 'output');
   document.getElementById('dtab-tools').classList.toggle('active', which === 'tools');
   document.getElementById('deliverable-output').style.display = which === 'output' ? '' : 'none';
   document.getElementById('supporting-tools').style.display = which === 'tools' ? '' : 'none';
+  // Re-render on the way back to Output so requiredToolBanner() reflects whatever just
+  // changed in Supporting Tools (a rating, a track choice) instead of a stale count.
+  if (which === 'output') renderDeliverableOutput();
+  scrollStageViewToTop();
 }
 
 // ---- Stage 01 self-assessment ----
@@ -346,12 +362,30 @@ function advanceCoachStep(){
 // An alternate, editable view of the same evidenceLog entries the coach panel
 // writes to — not a second data store. Special fields (trackChoice, testingWindowDate)
 // read from their own existing state and link over to Supporting Tools to change them.
+// Stage 01's competency ratings and Stage 04's track choice both block completion
+// (handleStageCta()) but aren't modeled as deliverable fields, so nothing in the default
+// Output tab used to mention them — a student could answer every Coach question, see
+// everything look finished, and only find out they're blocked after clicking the CTA
+// (confirmed directly in the cold playthrough). This surfaces the requirement up front.
+function requiredToolBanner(s){
+  if (s.title === 'Premed 101') {
+    const rated = COMPETENCIES.filter(c => selfAssessment[c.name] && selfAssessment[c.name].level).length;
+    if (rated < COMPETENCIES.length) {
+      return `<div class="required-tool-note">This stage also requires rating all 17 competencies (${rated}/17 so far) — <button class="agent-tool-link" onclick="showDeliverableTab('tools')">open Supporting Tools →</button></div>`;
+    }
+  }
+  if (s.title === 'Strategy: MD or DO' && !trackChoice) {
+    return `<div class="required-tool-note">This stage also requires selecting your track (MD / DO / Dual) — <button class="agent-tool-link" onclick="showDeliverableTab('tools')">open Supporting Tools →</button></div>`;
+  }
+  return '';
+}
+
 function renderDeliverableOutput(){
   const { stageIdx } = coachState;
   const s = STAGE_DATA[stageIdx];
   const container = document.getElementById('deliverable-output');
   if (!container) return;
-  container.innerHTML = `<div class="side-title" style="margin-bottom:10px;">${s.deliverable.name}</div>` +
+  container.innerHTML = requiredToolBanner(s) + `<div class="side-title" style="margin-bottom:10px;">${s.deliverable.name}</div>` +
     s.deliverable.fields.map(f => {
       if (f.specialField) {
         const value = f.specialField === 'trackChoice' ? (trackChoice || 'Not set yet')
@@ -658,7 +692,7 @@ function renderMentorView(stageIdx){
   document.getElementById('mentor-name').textContent = agent.name;
   document.getElementById('mentor-tip').textContent = gated
     ? `${matched.name} unlocks once you complete ${matched.stageTitle} — Reflection Coach stands in until then.`
-    : `Before a real conversation: ${agent.desc}`;
+    : `What this mentor actually does: ${agent.desc}`;
   const greeting = gated
     ? `${matched.name} unlocks once you complete ${matched.stageTitle} — I'm Reflection Coach in the meantime, and I can still help you think through this stage.`
     : resolveChatTokens(agent.chatGreeting);

@@ -315,6 +315,8 @@
   .deliverable-field{ margin-bottom:16px; }
   .deliverable-field-label{ font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:6px; }
   .deliverable-field-readonly{ font-size:13px; color:var(--ink); padding:8px 10px; border:1px dashed var(--line-strong); border-radius:8px; margin-bottom:6px; }
+  .required-tool-note{ background:#FEF3C7; color:#78350F; font-size:12.5px; line-height:1.5; padding:10px 12px; border-radius:8px; margin-bottom:16px; }
+  .required-tool-note .agent-tool-link{ display:inline; width:auto; margin-top:0; background:none; border:none; padding:0; font:inherit; font-weight:700; text-decoration:underline; cursor:pointer; color:#78350F; }
 
   .mentor-header{ display:flex; gap:14px; align-items:flex-start; margin-bottom:6px; }
   .mentor-avatar{ width:44px; height:44px; border-radius:50%; background:var(--teal-pale); flex-shrink:0; }
