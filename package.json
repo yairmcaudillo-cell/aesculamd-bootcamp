@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vite": "^5.4.0"
+  },
+  "dependencies": {
+    "openai": "^4.68.0"
   }
 }

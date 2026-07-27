@@ -101,7 +101,7 @@ function openStagePanel(i){
   document.getElementById('sp-parts').innerHTML = s.parts.map(renderLessonPart).join('');
   document.getElementById('sp-deliverable-name').textContent = s.deliverable.name;
 
-  coachState = { stageIdx: i, step: 0 };
+  coachState = { stageIdx: i, step: 0, evaluated: false, aiHint: null, aiHintLoading: false };
   renderCoachPanel();
   renderDeliverableOutput();
   renderSupportingTools(i);
@@ -289,11 +289,30 @@ function updateStageReflection(stageIdx, promptIdx, text){
 }
 
 // ---- Workspace: AI coach (left panel) ----
-// Turn-based, one question at a time, reusing each stage's existing reflection[]
-// array as the script and specificityNudge() as the heuristic evaluator — the
-// HBS-Foundry-paradigm restructure. Still a scripted heuristic, not a real model
-// call, same honesty stance as the rest of this app's chat surfaces.
-let coachState = { stageIdx: null, step: 0, evaluated: false };
+// Turn-based, one question at a time, reusing each stage's existing reflection[] array
+// as the script. Evaluation is a real model call (api/ai-reply.js, mode: "coach-eval")
+// with specificityNudge() kept as the graceful-degradation fallback if that call fails
+// or gets rate-limited — see callAiReply() below.
+let coachState = { stageIdx: null, step: 0, evaluated: false, aiHint: null, aiHintLoading: false };
+
+// Shared real-AI call for Coach eval + agent chat, with a graceful fallback to the
+// existing heuristic if the request fails, times out, or hits the server's rate limit —
+// a real API call can fail in ways a local function never does, and the UX shouldn't
+// just break when that happens.
+async function callAiReply(payload, fallbackFn){
+  try {
+    const res = await fetch('/api/ai-reply', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (!res.ok || !data.reply) throw new Error(data.error || 'AI request failed');
+    return data.reply;
+  } catch (err) {
+    return fallbackFn();
+  }
+}
 
 function renderCoachPanel(){
   const { stageIdx, step, evaluated } = coachState;
@@ -318,13 +337,11 @@ function renderCoachPanel(){
   transcript += `<div class="chat-msg agent"><div class="chat-bubble">${s.reflection[step]}</div></div>`;
 
   if (evaluated && existing) {
-    const hint = specificityNudge(existing.content, stageIdx);
     transcript += `<div class="chat-msg user"><div class="chat-bubble">${existing.content}</div></div></div>`;
-    transcript += hint
-      ? `<div class="specificity-hint" style="margin-bottom:8px;">${hint}</div>
+    transcript += coachState.aiHintLoading
+      ? `<div class="specificity-hint typing-hint">Thinking…</div>`
+      : `<div class="specificity-hint" style="margin-bottom:8px;">${coachState.aiHint || ''}</div>
          <button class="btn outline" onclick="reviseCoachAnswer()">Revise</button>
-         <button class="btn" onclick="advanceCoachStep()">Continue anyway →</button>`
-      : `<div class="specificity-hint" style="margin-bottom:8px; color:var(--teal-text);">That reads specific and clear.</div>
          <button class="btn" onclick="advanceCoachStep()">Continue →</button>`;
   } else {
     transcript += `</div>
@@ -341,20 +358,40 @@ function submitCoachAnswer(){
   if (!input) return;
   const text = input.value.trim();
   if (!text) return;
-  updateStageReflection(coachState.stageIdx, coachState.step, text);
+  const { stageIdx, step } = coachState;
+  const s = STAGE_DATA[stageIdx];
+  updateStageReflection(stageIdx, step, text);
   coachState.evaluated = true;
+  coachState.aiHint = null;
+  coachState.aiHintLoading = true;
   renderCoachPanel();
   renderDeliverableOutput();
+
+  callAiReply(
+    { mode: 'coach-eval', question: s.reflection[step], answer: text, stageTitle: s.title },
+    () => specificityNudge(text, stageIdx) || 'That reads specific and clear.'
+  ).then(hint => {
+    // Guard against a stale response landing after the student already moved on
+    // (revised, advanced, or opened a different stage) while the request was in flight.
+    if (coachState.stageIdx !== stageIdx || coachState.step !== step || !coachState.aiHintLoading) return;
+    coachState.aiHint = hint;
+    coachState.aiHintLoading = false;
+    renderCoachPanel();
+  });
 }
 
 function reviseCoachAnswer(){
   coachState.evaluated = false;
+  coachState.aiHint = null;
+  coachState.aiHintLoading = false;
   renderCoachPanel();
 }
 
 function advanceCoachStep(){
   coachState.step++;
   coachState.evaluated = false;
+  coachState.aiHint = null;
+  coachState.aiHintLoading = false;
   renderCoachPanel();
 }
 
@@ -681,7 +718,7 @@ function findAgentForStage(stageIdx){
   return AGENT_DATA.find(a => a.stageTitle === s.title) || findAgent('reflection-coach');
 }
 
-let stageAdvisorState = { stageIdx: null, agentId: null, messages: [], started: false };
+let stageAdvisorState = { stageIdx: null, agentId: null, messages: [], started: false, typing: false };
 
 function renderMentorView(stageIdx){
   const matched = findAgentForStage(stageIdx);
@@ -696,7 +733,7 @@ function renderMentorView(stageIdx){
   const greeting = gated
     ? `${matched.name} unlocks once you complete ${matched.stageTitle} — I'm Reflection Coach in the meantime, and I can still help you think through this stage.`
     : resolveChatTokens(agent.chatGreeting);
-  stageAdvisorState = { stageIdx, agentId: agent.id, messages: [{ sender: 'agent', text: greeting }], started: false };
+  stageAdvisorState = { stageIdx, agentId: agent.id, messages: [{ sender: 'agent', text: greeting }], started: false, typing: false };
 
   document.getElementById('mentor-starters').innerHTML = (agent.chatTopics || []).map(t =>
     `<div class="skill-tile" role="button" tabindex="0" onclick="askMentorStarter('${t.label.replace(/'/g, "\\'")}')">✎ ${t.label}</div>`
@@ -723,7 +760,7 @@ function renderStageAdvisorMessages(){
   if (!el) return;
   el.innerHTML = stageAdvisorState.messages.map(m =>
     `<div class="chat-msg ${m.sender}"><div class="chat-bubble">${m.text}</div></div>`
-  ).join('');
+  ).join('') + (stageAdvisorState.typing ? `<div class="chat-msg agent"><div class="chat-bubble typing-hint">Thinking…</div></div>` : '');
   el.scrollTop = el.scrollHeight;
 }
 
@@ -732,10 +769,22 @@ function sendStageAdvisorMessage(){
   const text = input.value.trim();
   if (!text) return;
   const agent = findAgent(stageAdvisorState.agentId);
+  const stageIdx = stageAdvisorState.stageIdx;
   stageAdvisorState.messages.push({ sender: 'user', text });
-  stageAdvisorState.messages.push({ sender: 'agent', text: generateAgentReply(agent, text) });
   input.value = '';
+  stageAdvisorState.typing = true;
   renderStageAdvisorMessages();
+
+  const history = stageAdvisorState.messages.slice();
+  callAiReply(
+    { mode: 'agent-chat', agentName: agent.name, agentDesc: agent.desc, stageTitle: agent.stageTitle, grounding: buildGroundingContext(), history },
+    () => generateAgentReply(agent, text)
+  ).then(reply => {
+    if (stageAdvisorState.stageIdx !== stageIdx || !stageAdvisorState.typing) return;
+    stageAdvisorState.typing = false;
+    stageAdvisorState.messages.push({ sender: 'agent', text: reply });
+    renderStageAdvisorMessages();
+  });
 }
 
 function handleStageAdvisorKey(e){
@@ -746,7 +795,7 @@ function handleStageAdvisorKey(e){
 // agents there and losing what was already said.
 function continueStageAdvisorInChat(){
   archiveChatSession();
-  chatState = { activeAgentId: stageAdvisorState.agentId, messages: stageAdvisorState.messages.slice() };
+  chatState = { activeAgentId: stageAdvisorState.agentId, messages: stageAdvisorState.messages.slice(), typing: false };
   go('chat', document.getElementById('nav-new-chat'));
   showChatLiveView();
   renderChat();
@@ -1203,7 +1252,7 @@ function renderDoctorQuiz(){
 // ---- Chat (single active agent, keyword-matched heuristic replies grounded in real
 // app state — not a real model call, same honesty stance as Committee/Interview Sim) ----
 
-let chatState = { activeAgentId: null, messages: [] };
+let chatState = { activeAgentId: null, messages: [], typing: false };
 let chatSessions = [];
 let chatSessionCounter = 0;
 
@@ -1239,6 +1288,19 @@ function resolveChatTokens(text){
   return text.replace(/\{(\w+)\}/g, (m, key) => (key in tokens) ? tokens[key] : m);
 }
 
+// Same real values resolveChatTokens() interpolates into scripted strings, handed to
+// the real model as plain context instead — this is what makes its replies grounded
+// in this student's actual state rather than generic chat.
+function buildGroundingContext(){
+  const currentStage = STAGE_DATA.find(s => s.status === 'current');
+  const withEvidence = COMPETENCIES.filter(c => evidenceLog.some(e => e.competency_tags.includes(c.name))).length;
+  const narrativeCount = evidenceLog.filter(e => e.source_reference === 'Be Yourself: Narrative').length;
+  const cycleLine = studentProfile.targetCycleYear
+    ? `targeting the ${studentProfile.targetCycleYear} application cycle`
+    : 'no target application cycle set yet';
+  return `Current stage: ${currentStage ? currentStage.title : 'none in progress'}. Evidence log entries: ${evidenceLog.length}. Competencies with at least one evidence entry: ${withEvidence} of ${COMPETENCIES.length}. Narrative-sourced entries: ${narrativeCount}. Student is ${cycleLine}.`;
+}
+
 function generateAgentReply(agent, userText){
   const lower = userText.toLowerCase();
   const lifeContext = LIFE_CONTEXT_SIGNALS.find(s => s.keywords.some(k => lower.includes(k)));
@@ -1257,7 +1319,7 @@ function archiveChatSession(){
 function startNewChat(agentId){
   archiveChatSession();
   const agent = findAgent(agentId) || findAgent(chatState.activeAgentId) || AGENT_DATA.find(a => !isAgentGated(a));
-  chatState = { activeAgentId: agent.id, messages: [{ sender: 'agent', text: resolveChatTokens(agent.chatGreeting) }] };
+  chatState = { activeAgentId: agent.id, messages: [{ sender: 'agent', text: resolveChatTokens(agent.chatGreeting) }], typing: false };
   showChatLiveView();
   renderChat();
 }
@@ -1274,10 +1336,22 @@ function sendChatMessage(){
   const text = input.value.trim();
   if (!text) return;
   const agent = findAgent(chatState.activeAgentId);
+  const agentId = chatState.activeAgentId;
   chatState.messages.push({ sender: 'user', text });
-  chatState.messages.push({ sender: 'agent', text: generateAgentReply(agent, text) });
   input.value = '';
+  chatState.typing = true;
   renderChat();
+
+  const history = chatState.messages.slice();
+  callAiReply(
+    { mode: 'agent-chat', agentName: agent.name, agentDesc: agent.desc, stageTitle: agent.stageTitle, grounding: buildGroundingContext(), history },
+    () => generateAgentReply(agent, text)
+  ).then(reply => {
+    if (chatState.activeAgentId !== agentId || !chatState.typing) return;
+    chatState.typing = false;
+    chatState.messages.push({ sender: 'agent', text: reply });
+    renderChat();
+  });
 }
 
 function askQuickPrompt(label){
@@ -1306,7 +1380,7 @@ function showChatLiveView(){
 
 function showChatHistoryView(){
   archiveChatSession();
-  chatState = { activeAgentId: chatState.activeAgentId, messages: [] };
+  chatState = { activeAgentId: chatState.activeAgentId, messages: [], typing: false };
   document.getElementById('chat-live-view').style.display = 'none';
   document.getElementById('chat-history-view').style.display = '';
   setActiveChatNavItem('nav-chat-history');
@@ -1317,7 +1391,7 @@ function reopenChatSession(sessionId){
   const session = chatSessions.find(s => s.id === sessionId);
   if (!session) return;
   chatSessions = chatSessions.filter(s => s.id !== sessionId);
-  chatState = { activeAgentId: session.agentId, messages: session.messages.slice() };
+  chatState = { activeAgentId: session.agentId, messages: session.messages.slice(), typing: false };
   showChatLiveView();
   renderChat();
 }
@@ -1351,7 +1425,7 @@ function renderChat(){
   if (threadEl) {
     threadEl.innerHTML = chatState.messages.map(m =>
       `<div class="chat-msg ${m.sender}"><div class="chat-bubble">${m.text}</div></div>`
-    ).join('');
+    ).join('') + (chatState.typing ? `<div class="chat-msg agent"><div class="chat-bubble typing-hint">Thinking…</div></div>` : '');
     threadEl.scrollTop = threadEl.scrollHeight;
   }
 
@@ -1660,7 +1734,7 @@ const TUTORIAL_STEPS = [
   { title: "Ten stages, in order, personalized to you", body: "Narrative, Cost &amp; Access, MD/DO Strategy, Grades &amp; MCAT, Clinical Experience, Volunteering, Research, Leadership, and Personal Brand — each stage unlocks the next. Your Stage 01 self-assessment actually reorders the roadmap around what you need first, not a generic checklist everyone gets." },
   { title: "Every stage has three modes", body: "<b>Lesson</b> is real, deep teaching content — not a bulleted summary. <b>Workspace</b> is a real coach: it asks one question at a time, evaluates your answer, and turns your answers into a structured deliverable you can edit directly. <b>Mentor</b> lets you rehearse a conversation with a stage-specific persona before you talk to an actual person." },
   { title: "Everything you write becomes real, searchable evidence", body: "Your <b>Evidence Log</b> collects every reflection, tagged to the actual AAMC competency it demonstrates. <b>Timeline</b> turns your roadmap into a real semester-by-semester plan. <b>My Profile</b> pulls all of it into one snapshot." },
-  { title: "What this is, and isn't", body: "This is a prototype: no accounts, no backend, nothing saved past a refresh — and the \"AI\" here is scripted and grounded in your real answers, not a live model call. When you're ready for a real application cycle, this hands off to AesculaMD's full platform. Nothing here will ever write your personal statement for you — that has to stay yours." }
+  { title: "What this is, and isn't", body: "This is a prototype: no accounts, nothing saved past a refresh. Workspace Coach, Mentor, and Chat are now backed by a real model, grounded in your real answers — but PS Checker stays a scripted heuristic on purpose, since AMCAS requires that writing to be entirely your own words. Nothing here will ever draft your personal statement for you — that has to stay yours. When you're ready for a real application cycle, this hands off to AesculaMD's full platform." }
 ];
 let tutorialStepIndex = 0;
 

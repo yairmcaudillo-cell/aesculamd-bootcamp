@@ -209,6 +209,9 @@
   .chat-msg .chat-bubble{ padding:12px 16px; border-radius:14px; }
   .chat-msg.agent .chat-bubble{ background:var(--teal-pale); color:var(--ink); border-radius:14px 14px 14px 2px; }
   .chat-msg.user .chat-bubble{ background:var(--teal); color:white; border-radius:14px 14px 2px 14px; }
+  .typing-hint{ font-style:italic; opacity:0.75; animation:typing-pulse 1.3s ease-in-out infinite; }
+  @keyframes typing-pulse{ 0%,100%{ opacity:0.45; } 50%{ opacity:0.9; } }
+  @media (prefers-reduced-motion: reduce){ .typing-hint{ animation:none; } }
   .chat-input-wrap{ margin-top:auto; display:flex; gap:10px; align-items:flex-end; }
   .chat-input-real{
     flex:1; border:1px solid var(--line-strong); border-radius:14px; padding:14px 18px;
