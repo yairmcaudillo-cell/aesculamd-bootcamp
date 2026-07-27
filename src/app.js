@@ -339,8 +339,8 @@ function renderCoachPanel(){
   if (evaluated && existing) {
     transcript += `<div class="chat-msg user"><div class="chat-bubble">${existing.content}</div></div></div>`;
     transcript += coachState.aiHintLoading
-      ? `<div class="specificity-hint typing-hint">Thinking…</div>`
-      : `<div class="specificity-hint" style="margin-bottom:8px;">${coachState.aiHint || ''}</div>
+      ? `<div class="ai-coach-hint typing-hint">Thinking…</div>`
+      : `<div class="ai-coach-hint">${coachState.aiHint || ''}</div>
          <button class="btn outline" onclick="reviseCoachAnswer()">Revise</button>
          <button class="btn" onclick="advanceCoachStep()">Continue →</button>`;
   } else {
