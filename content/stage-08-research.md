@@ -15,7 +15,7 @@ The actual answer is more useful and less anxious than the myth: **research is n
 
 ## Your Deliverable: Your Research Decision
 
-In the live app's Workspace view, an AI coach asks the three prompts below one at a time and turns your answers into an editable **Research Decision**, with three fields: **What Success Looks Like**, **Connection to Your Why**, and **Your Path & Constraint**. It's a scripted, heuristic-guided conversation, not a real model call — the same honesty stance as every other chat surface in this platform.
+In the live app's Workspace view, an AI coach asks the three prompts below one at a time and turns your answers into an editable **Research Decision**, with three fields: **What Success Looks Like**, **Connection to Your Why**, and **Your Path & Constraint**. Coach evaluation is a real model call (README gap #38), with the original scripted heuristic kept as an automatic fallback if that call fails or is rate-limited.
 
 ---
 
@@ -23,7 +23,7 @@ In the live app's Workspace view, an AI coach asks the three prompts below one a
 
 When a committee looks at your research line, they are not checking a box. They are asking three questions, in this order:
 
-1. **Did you understand what you were doing, or just show up?** A student who can explain *why* their PI's question mattered — not just what pipette they used — reads completely differently than one who lists "conducted Western blots" with no context.
+1. **Did you understand what you were doing, or just show up?** A student who can explain *why* their PI's (Principal Investigator — the professor or scientist running the lab) question mattered — not just what pipette they used — reads completely differently than one who lists "conducted Western blots" with no context.
 2. **Does it connect to something you've said elsewhere in your application?** Research that's disconnected from your stated interests looks like resume-building. Research that clearly traces back to a "why" you've articulated (see Stage 02) reads as intellectual follow-through.
 3. **Did you finish something?** Half-completed research lines are common and mostly forgiven — but full projects, especially ones with a poster, presentation, or (rarer) publication, signal follow-through in a way few other activities can.
 

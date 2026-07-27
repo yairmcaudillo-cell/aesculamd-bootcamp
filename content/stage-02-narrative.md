@@ -15,7 +15,7 @@ This stage exists to capture your real "why" now, while it's still close and spe
 
 ## Your Deliverable: Your Real Why
 
-In the live app's Workspace view, an AI coach asks the three prompts below one at a time and turns your answers into an editable **Your Real Why**, with three fields: **The Moment**, **The Doubt**, and **The Throughline**. It's a scripted, heuristic-guided conversation, not a real model call — the same honesty stance as every other chat surface in this platform.
+In the live app's Workspace view, an AI coach asks the five prompts below one at a time and turns your answers into an editable **Your Real Why**, with five fields: **The Moment**, **A Person Who Stayed With You**, **Navigating For Others**, **The Doubt**, and **The Throughline**. Coach evaluation is a real model call (README gap #38), with the original scripted heuristic kept as an automatic fallback if that call fails or is rate-limited.
 
 ---
 

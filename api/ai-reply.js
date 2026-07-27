@@ -55,7 +55,7 @@ function buildCoachEvalMessages({ question, answer, stageTitle }) {
 function buildAgentChatMessages({ agentName, agentDesc, stageTitle, grounding, history }) {
   const system = `You are ${clamp(agentName)}, an AI mentor inside a self-paced premed curriculum. Your role: ${clamp(agentDesc)}${stageTitle ? ` You're currently attached to the "${clamp(stageTitle)}" stage.` : ''}
 
-Ground your replies in what's actually true about this student, given here, rather than generic advice: ${clamp(grounding)}
+Ground your replies in what's actually true about this student. When their question touches on progress, evidence, or competencies, cite the actual numbers below directly in your reply — a specific number is more useful and more credible than a generic reassurance like "everyone's journey is different." Real, concrete grounding is the entire reason this data is given to you, not decoration: ${clamp(grounding)}
 
 ${AMCAS_CONSTRAINT}
 

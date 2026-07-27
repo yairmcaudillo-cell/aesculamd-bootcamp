@@ -15,7 +15,7 @@ This stage exists to help you find or build a real leadership experience — one
 
 ## Your Deliverable: Your Leadership Story
 
-In the live app's Workspace view, an AI coach asks the three prompts below one at a time and turns your answers into an editable **Leadership Story**, with three fields: **The Problem Noticed**, **The Action Taken**, and **Title-vs-Substance Check**. It's a scripted, heuristic-guided conversation, not a real model call — the same honesty stance as every other chat surface in this platform.
+In the live app's Workspace view, an AI coach asks the four prompts below one at a time and turns your answers into an editable **Leadership Story**, with four fields: **The Problem Noticed**, **The Action Taken**, **Title-vs-Substance Check**, and **Mentoring Others**. Coach evaluation is a real model call (README gap #38), with the original scripted heuristic kept as an automatic fallback if that call fails or is rate-limited.
 
 ---
 

@@ -46,8 +46,10 @@ const STAGE_DATA = [
     sourceNote: "Grounded in AAMC guidance on personal statement writing and widely-documented admissions-reader practice on narrative specificity — there's no single verifiable statistic in this stage the way other stages have one; the underlying claim (specific, honest narratives read stronger than generic ones) reflects broad admissions-reader consensus, not an official AAMC rule.",
     deliverable: { name: "Your Real Why", fields: [
       { label: "The Moment", reflectionIndex: 0 },
-      { label: "The Doubt", reflectionIndex: 1 },
-      { label: "The Throughline", reflectionIndex: 2 }
+      { label: "A Person Who Stayed With You", reflectionIndex: 1 },
+      { label: "Navigating For Others", reflectionIndex: 2 },
+      { label: "The Doubt", reflectionIndex: 3 },
+      { label: "The Throughline", reflectionIndex: 4 }
     ]},
     exploreMore: [
       { label: "Talk through explaining this to family who haven't been through it", page: "community" },
@@ -69,6 +71,8 @@ const STAGE_DATA = [
     ],
     reflection: [
       "A specific moment near illness, caregiving, or a healthcare setting — what actually happened, and what did you notice about yourself?",
+      "Who is one real person — family member, patient, community member, or yourself — whose experience with health or illness has stayed with you? What specifically do you remember?",
+      "If you're a first-generation student, or the first in your family pursuing this path: what has that role — translating, explaining, navigating systems for others — actually required of you? (If this doesn't apply to you, is there a different unfamiliar system you've had to navigate for someone else?)",
       "A moment where your interest in medicine felt uncertain or complicated — doubt matters as much as clarity.",
       "In one honest sentence, why this and not something else — not what would sound impressive."
     ],
@@ -226,7 +230,8 @@ const STAGE_DATA = [
     deliverable: { name: "Your Service Commitment", fields: [
       { label: "The Cause", reflectionIndex: 0 },
       { label: "Why It's Genuine", reflectionIndex: 1 },
-      { label: "Current Evidence", reflectionIndex: 2 }
+      { label: "Connection to Your Why", reflectionIndex: 2 },
+      { label: "Current Evidence", reflectionIndex: 3 }
     ]},
     exploreMore: [
       { label: "Browse the Glossary", page: "glossary" },
@@ -245,6 +250,7 @@ const STAGE_DATA = [
     reflection: [
       "What form of service would you do even with zero connection to your application?",
       "Is there a population you feel a specific pull toward serving, and where does that come from?",
+      "Look back at what you wrote in Stage 02 about your 'why.' Is there a genuine connection between it and this non-clinical form of service, or does this feel like a separate, equally real part of who you are?",
       "What's one specific moment from current service worth logging as evidence right now?"
     ],
     checklist: ["Read Parts 1–2", "Answer all four reflection prompts", "Log a current or planned non-clinical commitment", "Continue to Stage 08"]
@@ -268,7 +274,7 @@ const STAGE_DATA = [
       "<b>What admissions committees are actually reading for, and why those three things specifically</b> Not whether you did research, but three things, in order — did you understand what you were doing or just show up; does it connect to something you've said elsewhere in your application; and did you finish something. Each of those maps to a real concern a committee has: the first is checking for Scientific Inquiry and Critical Thinking actually present, not just proximity to a lab; the second is checking that your file reads as one coherent person rather than a list of disconnected activities; the third is checking for a pattern of actually finishing what you start, which predicts how you'll handle a long, sometimes tedious medical curriculum. Notice what's deliberately not on this list: prestige of the lab, whether it was 'real' bench science, or raw hours logged. None of those predict the things committees are actually trying to assess.",
       "<b>Three real paths, not just yes or no</b> Wet-lab/bench research — best if you're curious about mechanism-level questions and don't mind slow, often frustrating timelines where an experiment can fail for reasons outside your control for weeks at a time. Clinical or public health research — best if you're drawn to questions about patients or populations directly, often more schedule-flexible and faster to a tangible output, since you're usually working with existing data or a shorter study cycle rather than waiting on a biological process. No formal research at all — a legitimate, complete answer, not a lesser one: a committee would rather see 400 excellent, reflective clinical hours from a student who knew research wasn't their interest than a research line from someone who was clearly just checking a box the whole time.",
       "<b>A decision isn't binding, but drift should be visible</b> You can start one path and switch — what matters is that the decision itself is deliberate and dated, so later, when building your roadmap or personal statement, you can see the actual reasoning rather than reconstructing a story after the fact. An undated, unexplained switch reads as drifting; a dated, reasoned one reads as a real decision — the difference in how those two get written up is entirely about whether you captured the reasoning at the time, which is exactly what this stage is for.",
-      "<b>The PI outreach email that actually gets answered, and why each rule exists</b> Keep it under 150 words, because a busy PI skims, and a long email signals it wasn't written specifically for them. Name one specific paper or project of theirs — not 'I'm interested in your research' generically — since that one detail is the actual proof you didn't mass-email fifteen labs with the same template; PIs can tell instantly, because they get the generic version constantly. Ask for 15 minutes to talk, not a position outright — a position is a conversation's outcome, not its opening line, and asking for it upfront skips a step that makes you look presumptuous rather than serious. Don't attach a resume or transcript unless they ask for one; it front-loads a formality before any real interest has been established on either side. No reply after about a week is normal, not a rejection — PIs are genuinely busy and email is genuinely easy to lose — one polite follow-up is expected, not pushy.",
+      "<b>The PI (Principal Investigator — the professor or scientist who runs a research lab) outreach email that actually gets answered, and why each rule exists</b> Keep it under 150 words, because a busy PI skims, and a long email signals it wasn't written specifically for them. Name one specific paper or project of theirs — not 'I'm interested in your research' generically — since that one detail is the actual proof you didn't mass-email fifteen labs with the same template; PIs can tell instantly, because they get the generic version constantly. Ask for 15 minutes to talk, not a position outright — a position is a conversation's outcome, not its opening line, and asking for it upfront skips a step that makes you look presumptuous rather than serious. Don't attach a resume or transcript unless they ask for one; it front-loads a formality before any real interest has been established on either side. No reply after about a week is normal, not a rejection — PIs are genuinely busy and email is genuinely easy to lose — one polite follow-up is expected, not pushy.",
       "<b>What the Research Navigator agent is for, once unlocked</b> Not to make the decision for you — that already happened here. It's for the next layer of specific questions: what to do if a lab isn't working out, how to talk about an unfinished project honestly on AMCAS, and troubleshooting your own outreach if the template above isn't landing for your specific situation.",
       "<b>What this looks like in practice (a composite, not a real student)</b> Owen joined a wet lab sophomore year because everyone said research was mandatory, spent a semester washing glassware and running gels he didn't understand the point of, and then honestly logged a decision to leave — not because research failed him, but because he'd never actually wanted mechanism-level questions in the first place. He switched to a health-disparities survey project the next semester and found he could explain, unprompted, why the research question mattered. The AMCAS line looks like two shorter entries instead of one long one — but the dated log of why he switched is what makes both of them legible instead of looking like he just quit.",
       "<b>Try it yourself first</b> A student emails a PI: 'Dear Professor, I am very interested in your research and would love to gain some experience in a lab. I have attached my resume and transcript. Please let me know if you have any openings. Thank you!' Before rereading the guidance above — what's wrong with this email?<details><summary>See how this gets reasoned through</summary>It fails on nearly every point this stage's outreach guidance names: it's generic ('your research' — no specific paper or project named, the single biggest tell of a mass-email), it asks for a position outright instead of 15 minutes to talk, and it attaches a resume and transcript unsolicited. A PI reading this has no way to tell it apart from fifteen identical emails sent to fifteen other labs that same week — which is exactly why it's likely to go unanswered, not because the student isn't qualified, but because the email gave the PI nothing specific to respond to.</details>"
@@ -288,7 +294,8 @@ const STAGE_DATA = [
     deliverable: { name: "Your Leadership Story", fields: [
       { label: "The Problem Noticed", reflectionIndex: 0 },
       { label: "The Action Taken", reflectionIndex: 1 },
-      { label: "Title-vs-Substance Check", reflectionIndex: 2 }
+      { label: "Title-vs-Substance Check", reflectionIndex: 2 },
+      { label: "Mentoring Others", reflectionIndex: 3 }
     ]},
     exploreMore: [
       { label: "See your Evidence Log across all stages", page: "evidencelog" },
@@ -307,7 +314,8 @@ const STAGE_DATA = [
     reflection: [
       "A specific moment you took initiative because you noticed something needed doing, not because you were assigned to.",
       "Is there a real gap nobody's solving that you'd actually want to solve?",
-      "If you hold a titled position now — are you doing something with it, or holding it passively?"
+      "If you hold a titled position now — are you doing something with it, or holding it passively?",
+      "Have you ever been responsible for training, mentoring, or coordinating other people? What did you learn about yourself in that role?"
     ],
     checklist: ["Read Parts 1–2", "Answer all four reflection prompts", "Identify one leadership commitment with real substance", "Continue to Stage 10"]
   },

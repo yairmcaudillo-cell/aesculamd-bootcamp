@@ -15,7 +15,7 @@ This stage is about the second one: service that has nothing to do with a hospit
 
 ## Your Deliverable: Your Service Commitment
 
-In the live app's Workspace view, an AI coach asks the three prompts below one at a time and turns your answers into an editable **Service Commitment**, with three fields: **The Cause**, **Why It's Genuine**, and **Current Evidence**. It's a scripted, heuristic-guided conversation, not a real model call — the same honesty stance as every other chat surface in this platform.
+In the live app's Workspace view, an AI coach asks the four prompts below one at a time and turns your answers into an editable **Service Commitment**, with four fields: **The Cause**, **Why It's Genuine**, **Connection to Your Why**, and **Current Evidence**. Coach evaluation is a real model call (README gap #38), with the original scripted heuristic kept as an automatic fallback if that call fails or is rate-limited.
 
 ---
 
