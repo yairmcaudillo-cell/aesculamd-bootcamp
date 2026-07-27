@@ -1558,6 +1558,99 @@ function renderProfileSnapshot(){
   `).join('');
 }
 
+// ---- Presentation Tools: an explicitly opt-in demo-data loader ----
+// Exists to fix a real problem the full-playthrough persona test found: once Stage 01/02
+// stopped shipping pre-marked "done" (an honesty fix — a completion was reachable around
+// them, not through them), there was no way to show a populated app in front of an audience
+// without literally typing through all 10 stages live. This is never on by default, never
+// something a real student sees, and always reversible via resetToFreshStart() below — same
+// one-coherent-persona content throughout so it reads as a real journey, not lorem ipsum.
+function loadSampleJourney(){
+  const ratings = [
+    { name: "Commitment to Learning and Growth", level: "Demonstrating", reflection: "After a rough gen chem midterm, I completely rebuilt how I study using spaced practice problems instead of rereading notes, and my final exam score jumped two letter grades." },
+    { name: "Empathy and Compassion", level: "Demonstrating", reflection: "I noticed a coworker at the pharmacy quietly struggling with a family emergency for weeks and started covering small tasks for her without being asked, which changed how she opened up to me." },
+    { name: "Ethical Responsibility to Self and Others", level: "Progressing", reflection: "Translating medical information for my grandmother, I've had to be careful to explain exactly what the doctor said, not soften it, even when it was hard news." },
+    { name: "Interpersonal Skills", level: "Progressing", reflection: "Working the pharmacy counter taught me how to de-escalate a frustrated customer by naming the actual problem instead of just apologizing." },
+    { name: "Oral Communication", level: "Progressing", reflection: "I still get nervous presenting in class, but I've gotten better at slowing down instead of rushing through the nerves." },
+    { name: "Reliability and Dependability", level: "Demonstrating", reflection: "I haven't missed a shift in two years at the pharmacy, including the week my car broke down, because I found my own coverage first." },
+    { name: "Resilience and Adaptability", level: "Progressing", reflection: "After a bad MCAT diagnostic score, I took three weeks to actually diagnose why before jumping back into studying the same way." },
+    { name: "Self-Awareness", level: "Demonstrating", reflection: "I realized I was rating myself generously on things I hadn't actually been tested on yet, which changed how I approached this whole self-assessment." },
+    { name: "Service Orientation", level: "Demonstrating", reflection: "I've tutored the same two students at the public library every Saturday for a year, not because it looks good, but because I actually care whether they're reading at grade level." },
+    { name: "Teamwork and Collaboration", level: "Progressing", reflection: "When two people in my study group stopped showing up, I texted them individually instead of assuming they didn't care, and we fixed the meeting time together." },
+    { name: "Understanding Others", level: "Demonstrating", reflection: "Being the one who explains what the doctor actually meant to my grandmother taught me that people don't need reassurance, they need the real information stated plainly." },
+    { name: "Human Behavior", level: "Planning", reflection: "" },
+    { name: "Living Systems", level: "Progressing", reflection: "My cell bio coursework is where this actually clicked for me, especially enzyme kinetics." },
+    { name: "Critical Thinking", level: "Progressing", reflection: "I catch myself now asking what evidence actually supports a claim before I believe it, especially in my research methods class." },
+    { name: "Quantitative Reasoning", level: "Planning", reflection: "" },
+    { name: "Scientific Inquiry", level: "Planning", reflection: "" },
+    { name: "Written Communication", level: "Progressing", reflection: "Writing lab reports has taught me how much clearer my writing gets when I cut every sentence that isn't doing real work." }
+  ];
+  ratings.forEach(r => {
+    setAssessmentLevel(r.name, r.level);
+    if (r.reflection) updateReflection(r.name, r.reflection);
+  });
+
+  const stageReflections = [
+    ["The night my grandmother's biopsy results came back, I was the one who explained what 'atypical cells, needs follow-up' actually meant, standing in our kitchen at 11pm.",
+     "Sophomore year I seriously considered switching to nursing because I was scared I didn't have the stomach for what happens after a hard diagnosis, not just the moment of delivering news.",
+     "I keep coming back to being the translator, not just of language but of what's actually happening, for people who are scared and need someone to be plain with them."],
+    ["Interview travel is what actually worries me, since I hadn't budgeted for flying to multiple cities in the same month.",
+     "I still haven't had the real conversation with my parents about how this gets paid for, mostly because I'm scared of the number.",
+     "Based on our household income, I think we'd actually qualify for FAP, which honestly surprised me once I ran the real numbers instead of assuming."],
+    ["The whole-person, hands-on philosophy resonates with me more than a purely specialized track.",
+     "I haven't had real OMM exposure yet, so shadowing a DO before I lock in this decision is on my actual list, not just an idea.",
+     "Honestly some of both — real interest in primary care, but I want to be careful I'm not leaning DO partly out of prestige assumptions about MD.",
+     "Dual-applying feels realistic only if I budget for two application fees a year ahead, not if I decide the summer before.",
+     "My home state's public school admits very few out-of-state students, which changed how seriously I'm treating it as a real option."],
+    ["Studying in short, spaced sessions four nights a week is realistic with my work schedule — one long weekend cram is not.",
+     "The last time a big exam went badly, my first instinct was to study harder the same way, not differently, which I now know doesn't work.",
+     "CARS will be hardest for me, so I want a full year of timed passage practice before I ever sit for the real thing."],
+    ["I need paid work, not unpaid time, so I'm leaning toward CNA certification over cold-emailing physicians for shadowing.",
+     "This connects directly to my Stage 02 why — it's still about being the person who explains what's actually happening to someone scared.",
+     "My real barrier is not having a car, so I'm targeting clinics that are actually reachable by the bus line."],
+    ["I'd keep tutoring even with zero connection to my application, since I actually like watching a kid get something they were stuck on.",
+     "I feel a specific pull toward first-generation students, since that was my own experience growing up.",
+     "Last week one of my regular students read a full paragraph out loud without stopping for the first time, and I actually got emotional about it."],
+    ["Success looks like being able to explain why the research question actually mattered, not just finishing the project on paper.",
+     "It connects to my Stage 02 why — it's still about being the bridge for people who are confused by something complicated.",
+     "My real constraint is a part-time job, so a public health survey project fits my schedule better than a wet lab right now."],
+    ["New volunteers at my tutoring program kept making the same sign-in mistakes, so I wrote a one-page guide and started walking people through it myself.",
+     "There's a real gap in how our program tracks which students actually need extra sessions, and nobody has fixed it yet.",
+     "I do hold an informal lead-tutor role now, and I've been mostly passive about it — this is pushing me to actually do something with it."],
+    ["I searched my own name and found nothing concerning, just old sports photos and a middle school blog I'd forgotten existed.",
+     "My pharmacy manager has watched me handle real pressure for two years — I haven't asked her yet, but she's on my real list.",
+     "I can point to something real and specific: translating keeps showing up, unprompted, across three different stages of this whole roadmap."]
+  ];
+  stageReflections.forEach((answers, stageIdx) => {
+    answers.forEach((text, promptIdx) => updateStageReflection(stageIdx + 1, promptIdx, text));
+  });
+
+  trackChoice = 'Dual';
+  testingWindowDate = '2027-04';
+  STAGE_DATA.forEach(s => { s.status = 'done'; });
+  roadmapPersonalized = true;
+  computeRoadmapOrder();
+
+  renderStageList(); renderAgents(); renderKnowHow(); renderProgressRing();
+  renderProfileSnapshot(); renderEvidenceLog(); renderTimeline(); renderDoctorQuiz();
+  showToast('Sample journey loaded — every stage now has realistic demo data. Use "Reset to Fresh Start" when you\'re done.');
+}
+
+function resetToFreshStart(){
+  selfAssessment = {};
+  evidenceLog = [];
+  entryCounter = 0;
+  trackChoice = null;
+  testingWindowDate = null;
+  roadmapPersonalized = false;
+  STAGE_DATA.forEach((s, i) => { s.status = i === 0 ? 'current' : 'locked'; });
+  roadmapOrder = STAGE_DATA.map((_, i) => i);
+
+  renderStageList(); renderAgents(); renderKnowHow(); renderProgressRing();
+  renderProfileSnapshot(); renderEvidenceLog(); renderTimeline(); renderDoctorQuiz();
+  showToast('Reset to a fresh start — all sample data cleared.');
+}
+
 // Initial render on page load
 renderStageList();
 renderAgents();

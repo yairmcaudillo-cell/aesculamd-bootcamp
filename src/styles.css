@@ -63,6 +63,15 @@
   .sub-item:hover{ background:#F0F1EE; }
   .sub-item.active{ background:var(--teal-pale); color:var(--teal); font-weight:600; }
 
+  /* Presentation Tools — a deliberately distinct, opt-in demo-data loader for showing the
+     app to staff/partners, never active by default and never something a real student sees
+     populated for them. See README gap on the full-playthrough finding this exists to fix. */
+  .presentation-tools{ margin:16px 4px 0; padding:10px 10px 12px; border:1px dashed var(--line-strong); border-radius:10px; }
+  .pt-label{ font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-bottom:8px; }
+  .pt-btn{ display:block; width:100%; text-align:left; background:none; border:1px solid var(--line); border-radius:8px; padding:7px 9px; font-size:12px; font-weight:600; color:var(--ink); cursor:pointer; margin-bottom:6px; }
+  .pt-btn:hover{ background:var(--teal-pale); border-color:var(--teal); color:var(--teal-text); }
+  .pt-note{ font-size:10.5px; color:var(--muted-light); line-height:1.4; margin:6px 0 0; }
+
   .sidebar-footer{ margin-top:auto; display:flex; align-items:center; gap:10px; padding:10px 8px; border-top:1px solid var(--line); }
   .sf-avatar{ width:28px; height:28px; border-radius:8px; background:var(--accent2); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; }
   .sf-name{ font-size:13.5px; font-weight:600; }
