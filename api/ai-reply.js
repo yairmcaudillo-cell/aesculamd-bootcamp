@@ -12,7 +12,15 @@
 
 import OpenAI from 'openai';
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// Constructed lazily, only after the handler's own missing-key check below has
+// already run — the SDK's constructor throws immediately if the key is missing or
+// empty, which would otherwise crash the whole module on cold start (surfacing as a
+// raw platform error page) before our own friendlier "not configured" response could.
+let openai = null;
+function getClient() {
+  if (!openai) openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  return openai;
+}
 
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 const RATE_LIMIT_MAX_REQUESTS = 20;
@@ -89,7 +97,7 @@ export default async function handler(req, res) {
       return;
     }
 
-    const completion = await openai.chat.completions.create({
+    const completion = await getClient().chat.completions.create({
       model: 'gpt-4o-mini',
       messages,
       max_tokens: 300,
