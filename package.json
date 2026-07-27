@@ -2,6 +2,7 @@
   "name": "aesculamd-bootcamp",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "description": "AesculaMD Bootcamp — stage-gated pre-med curriculum prototype (Roadmap / Agents / Community).",
   "scripts": {
     "dev": "vite",
