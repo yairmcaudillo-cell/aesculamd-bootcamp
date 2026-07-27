@@ -1651,6 +1651,50 @@ function resetToFreshStart(){
   showToast('Reset to a fresh start — all sample data cleared.');
 }
 
+// ---- Platform tutorial ----
+// A short, honest explainer, not a marketing tour — the last step names what's scripted vs.
+// real for the same reason every other page in this app does. Reuses the existing modal
+// system (same .modal-overlay Escape-to-close behavior in nav.js applies here for free).
+const TUTORIAL_STEPS = [
+  { title: "Welcome to AesculaMD Bootcamp", body: "A free, self-paced curriculum that takes a premed student from having no real idea how this works to genuine confidence at every stage — built for freshmen and sophomores who don't have an advisor doing this for them yet. This tour takes about a minute." },
+  { title: "Ten stages, in order, personalized to you", body: "Narrative, Cost &amp; Access, MD/DO Strategy, Grades &amp; MCAT, Clinical Experience, Volunteering, Research, Leadership, and Personal Brand — each stage unlocks the next. Your Stage 01 self-assessment actually reorders the roadmap around what you need first, not a generic checklist everyone gets." },
+  { title: "Every stage has three modes", body: "<b>Lesson</b> is real, deep teaching content — not a bulleted summary. <b>Workspace</b> is a real coach: it asks one question at a time, evaluates your answer, and turns your answers into a structured deliverable you can edit directly. <b>Mentor</b> lets you rehearse a conversation with a stage-specific persona before you talk to an actual person." },
+  { title: "Everything you write becomes real, searchable evidence", body: "Your <b>Evidence Log</b> collects every reflection, tagged to the actual AAMC competency it demonstrates. <b>Timeline</b> turns your roadmap into a real semester-by-semester plan. <b>My Profile</b> pulls all of it into one snapshot." },
+  { title: "What this is, and isn't", body: "This is a prototype: no accounts, no backend, nothing saved past a refresh — and the \"AI\" here is scripted and grounded in your real answers, not a live model call. When you're ready for a real application cycle, this hands off to AesculaMD's full platform. Nothing here will ever write your personal statement for you — that has to stay yours." }
+];
+let tutorialStepIndex = 0;
+
+function openTutorial(){
+  tutorialStepIndex = 0;
+  renderTutorialStep();
+  document.getElementById('tutorial-modal').classList.add('open');
+}
+function closeTutorial(){
+  document.getElementById('tutorial-modal').classList.remove('open');
+}
+function closeIfTutorialOverlay(e){ if (e.target.id === 'tutorial-modal') closeTutorial(); }
+function renderTutorialStep(){
+  const step = TUTORIAL_STEPS[tutorialStepIndex];
+  document.getElementById('tutorial-step-content').innerHTML = `
+    <div class="tutorial-eyebrow">Step ${tutorialStepIndex + 1} of ${TUTORIAL_STEPS.length}</div>
+    <h2 class="tutorial-title">${step.title}</h2>
+    <p class="tutorial-body">${step.body}</p>`;
+  document.getElementById('tutorial-dots').innerHTML = TUTORIAL_STEPS.map((_, i) =>
+    `<span class="tutorial-dot ${i === tutorialStepIndex ? 'active' : ''}"></span>`).join('');
+  document.getElementById('tutorial-back-btn').style.visibility = tutorialStepIndex === 0 ? 'hidden' : 'visible';
+  document.getElementById('tutorial-next-btn').textContent = tutorialStepIndex === TUTORIAL_STEPS.length - 1 ? 'Start Exploring →' : 'Next →';
+}
+function tutorialNext(){
+  if (tutorialStepIndex === TUTORIAL_STEPS.length - 1) { closeTutorial(); return; }
+  tutorialStepIndex++;
+  renderTutorialStep();
+}
+function tutorialBack(){
+  if (tutorialStepIndex === 0) return;
+  tutorialStepIndex--;
+  renderTutorialStep();
+}
+
 // Initial render on page load
 renderStageList();
 renderAgents();

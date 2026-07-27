@@ -40,6 +40,25 @@
     display:flex; flex-direction:column; padding:20px 14px; height:100vh;
   }
   .brand{ display:flex; align-items:center; gap:9px; padding:6px 8px 22px; }
+  .tutorial-trigger{ margin-left:auto; width:24px; height:24px; border-radius:50%; border:1.5px solid var(--line-strong); background:none; color:var(--muted); font-size:12px; font-weight:700; cursor:pointer; flex-shrink:0; }
+  .tutorial-trigger:hover{ border-color:var(--teal); color:var(--teal); }
+
+  /* Tutorial modal — centered welcome-tour card, not the side-drawer other modals use.
+     Compound selectors (not just .tutorial-*) needed so specificity beats .modal-overlay/
+     .modal below regardless of source order. */
+  .modal-overlay.tutorial-overlay{ justify-content:center; align-items:center; }
+  .modal.tutorial-modal{ position:relative; width:480px; max-width:90vw; height:auto; border-radius:20px; padding:36px 34px 28px; animation:none; box-shadow:0 30px 60px -20px rgba(14,30,54,0.35); }
+  .tutorial-modal-close{ position:absolute; top:18px; right:18px; }
+  .tutorial-eyebrow{ font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--teal-text); font-weight:700; margin-bottom:10px; }
+  .tutorial-title{ font-size:22px; margin:0 0 14px; line-height:1.3; }
+  .tutorial-body{ font-size:14.5px; color:var(--muted); line-height:1.65; min-height:96px; }
+  .tutorial-footer{ margin-top:20px; }
+  .tutorial-dots{ display:flex; justify-content:center; gap:6px; margin-bottom:18px; }
+  .tutorial-dot{ width:7px; height:7px; border-radius:50%; background:var(--line-strong); }
+  .tutorial-dot.active{ background:var(--teal); width:18px; border-radius:4px; }
+  .tutorial-nav{ display:flex; justify-content:space-between; gap:10px; }
+  .tutorial-nav .btn{ flex:1; }
+  #tutorial-back-btn{ flex:0 0 auto; }
   .brand-mark{ width:30px; height:30px; object-fit:contain; }
   .brand-text{ font-size:14px; font-weight:700; line-height:1.15; }
   .brand-text span{ color:var(--teal-text); display:block; font-size:10px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; }

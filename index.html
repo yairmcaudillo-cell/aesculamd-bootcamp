@@ -22,6 +22,7 @@
   <div class="brand">
     <img class="brand-mark" src="assets/logo-icon.png" alt="AesculaMD">
     <div class="brand-text">AesculaMD<span>The Path</span></div>
+    <button class="tutorial-trigger" onclick="openTutorial()" aria-label="Show platform tutorial" title="How this works">?</button>
   </div>
 
   <div class="nav-item active" data-page="home" role="button" tabindex="0" onclick="go('home', this)"><span class="icon">⌂</span> Home</div>
@@ -75,6 +76,7 @@
     <img src="assets/logo-full.png" alt="AesculaMD" style="display:block; height:56px; margin:0 auto 22px;">
     <h1 class="big">Bootcamp</h1>
     <p class="sub">A self-paced path from your first pre-med decision to a competitive AMCAS application — built for freshmen and sophomores who don't have an advisor doing this for them.</p>
+    <button class="btn outline" style="display:block; margin:0 auto 28px;" onclick="openTutorial()">Take the 60-Second Tour →</button>
 
     <div class="path-canvas">
       <svg viewBox="0 0 1100 340" preserveAspectRatio="none">
@@ -420,6 +422,21 @@
     </div>
     <div class="modal-footer">
       <button class="modal-start-btn" id="qs-cta" onclick="submitQuickSetup()">Generate My Roadmap</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TUTORIAL MODAL ===== -->
+<div class="modal-overlay tutorial-overlay" id="tutorial-modal" onclick="closeIfTutorialOverlay(event)">
+  <div class="modal tutorial-modal">
+    <button class="modal-close tutorial-modal-close" onclick="closeTutorial()" aria-label="Close tutorial">✕</button>
+    <div id="tutorial-step-content"></div>
+    <div class="tutorial-footer">
+      <div class="tutorial-dots" id="tutorial-dots"></div>
+      <div class="tutorial-nav">
+        <button class="btn outline" id="tutorial-back-btn" onclick="tutorialBack()">← Back</button>
+        <button class="btn" id="tutorial-next-btn" onclick="tutorialNext()">Next →</button>
+      </div>
     </div>
   </div>
 </div>
