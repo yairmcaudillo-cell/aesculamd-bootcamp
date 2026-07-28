@@ -271,6 +271,7 @@ function updateReflection(name, text){
   const ci = COMPETENCIES.findIndex(c => c.name === name);
   const hintEl = document.getElementById(`hint-self-${ci}`);
   if (hintEl) hintEl.textContent = specificityNudge(text) || '';
+  saveState();
 }
 
 // Stage reflection prompts (all stages) auto-tag to whatever competencies that stage
@@ -282,6 +283,7 @@ function updateStageReflection(stageIdx, promptIdx, text){
   if (text.trim() === '') {
     removeEntry(key);
     if (hintEl) hintEl.textContent = '';
+    saveState();
     return;
   }
   upsertEntry(key, {
@@ -292,6 +294,7 @@ function updateStageReflection(stageIdx, promptIdx, text){
     content: text
   });
   if (hintEl) hintEl.textContent = specificityNudge(text, stageIdx) || '';
+  saveState();
 }
 
 // ---- Workspace: AI coach (left panel) ----
@@ -522,6 +525,7 @@ function renderTrackSelector(containerId){
 function setTrackChoice(choice){
   trackChoice = choice;
   renderTrackSelector();
+  saveState();
 }
 
 // ---- Timeline: program-ambition selector, feeds the personalized plan ----
@@ -547,6 +551,7 @@ function renderAmbitionSelector(){
 function setProgramAmbition(choice){
   programAmbition = programAmbition === choice ? null : choice;
   computeRoadmapOrder();
+  saveState();
 }
 
 // ---- Stage 05 testing-window date ----
@@ -564,6 +569,7 @@ function renderTestingWindow(containerId){
 
 function updateTestingWindow(value){
   testingWindowDate = value || null;
+  saveState();
 }
 
 // ---- Recall check (Stages 08/09/10) ----
@@ -671,6 +677,7 @@ function handleStageCta(){
     renderKnowHow();
     renderProgressRing();
     closeStagePanel();
+    saveState();
     showToast(wasCurrent
       ? `Premed 101 marked complete. Your roadmap has been reordered based on your self-assessment.`
       : `Your roadmap has been updated based on your latest self-assessment.`);
@@ -701,6 +708,7 @@ function handleStageCta(){
     renderKnowHow();
     renderProgressRing();
     closeStagePanel();
+    saveState();
     showToast(`${s.title} marked complete.${reprioritized ? ' Roadmap re-prioritized based on your choice.' : ''} ${nextLocked !== undefined ? STAGE_DATA[nextLocked].title + ' is now unlocked.' : 'All stages complete!'}`);
   } else if (s.status === 'locked') {
     if (skipModeActive) {
@@ -713,6 +721,7 @@ function handleStageCta(){
       renderKnowHow();
       renderProgressRing();
       closeStagePanel();
+      saveState();
       showToast(`${s.title} marked complete.`);
       return;
     }
@@ -1014,6 +1023,7 @@ function submitQuickSetup(){
   renderProgressRing();
   closeQuickSetup();
   go('timeline', document.querySelector('.nav-item[data-page="timeline"]'));
+  saveState();
   showToast(`Your personalized timeline is ready. Every stage is unlocked — tackle them in whatever order actually works for you.`);
 }
 
@@ -1170,6 +1180,7 @@ async function generatePersonalizedPlan(){
   planState.text = reply;
   planState.loading = false;
   renderPlanSection();
+  saveState();
 }
 
 function renderPlanSection(){
@@ -1833,6 +1844,7 @@ function loadSampleJourney(){
 
   renderStageList(); renderAgents(); renderKnowHow(); renderProgressRing();
   renderProfileSnapshot(); renderEvidenceLog(); renderTimeline(); renderDoctorQuiz();
+  saveState();
   showToast('Sample journey loaded — every stage now has realistic demo data. Use "Reset to Fresh Start" when you\'re done.');
 }
 
@@ -1851,7 +1863,8 @@ function resetToFreshStart(){
 
   renderStageList(); renderAgents(); renderKnowHow(); renderProgressRing();
   renderProfileSnapshot(); renderEvidenceLog(); renderTimeline(); renderDoctorQuiz();
-  showToast('Reset to a fresh start — all sample data cleared.');
+  saveState();
+  showToast('Reset to a fresh start — all progress cleared.');
 }
 
 // ---- Platform tutorial ----
@@ -1863,7 +1876,7 @@ const TUTORIAL_STEPS = [
   { title: "Ten stages, in order, personalized to you", body: "Narrative, Cost &amp; Access, MD/DO Strategy, Grades &amp; MCAT, Clinical Experience, Volunteering, Research, Leadership, and Personal Brand — each stage unlocks the next. Your Stage 01 self-assessment actually reorders the roadmap around what you need first, not a generic checklist everyone gets." },
   { title: "Every stage has three modes", body: "<b>Lesson</b> is real, deep teaching content — not a bulleted summary. <b>Workspace</b> is a real coach: it asks one question at a time, evaluates your answer, and turns your answers into a structured deliverable you can edit directly. <b>Mentor</b> lets you rehearse a conversation with a stage-specific persona before you talk to an actual person." },
   { title: "Everything you write becomes real, searchable evidence", body: "Your <b>Evidence Log</b> collects every reflection, tagged to the actual AAMC competency it demonstrates. <b>Timeline</b> turns your roadmap into a real semester-by-semester plan. <b>My Profile</b> pulls all of it into one snapshot." },
-  { title: "What this is, and isn't", body: "This is a prototype: no accounts, nothing saved past a refresh. Workspace Coach, Mentor, and Chat are now backed by a real model, grounded in your real answers — but PS Checker stays a scripted heuristic on purpose, since AMCAS requires that writing to be entirely your own words. Nothing here will ever draft your personal statement for you — that has to stay yours. When you're ready for a real application cycle, this hands off to AesculaMD's full platform." }
+  { title: "What this is, and isn't", body: "This is a prototype: no accounts, but your progress is now saved to this browser on this device, so it survives a refresh — nothing is ever transmitted to a server, and a new device or browser still starts fresh. Workspace Coach, Mentor, and Chat are now backed by a real model, grounded in your real answers — but PS Checker stays a scripted heuristic on purpose, since AMCAS requires that writing to be entirely your own words. Nothing here will ever draft your personal statement for you — that has to stay yours. When you're ready for a real application cycle, this hands off to AesculaMD's full platform." }
 ];
 let tutorialStepIndex = 0;
 
@@ -1897,6 +1910,57 @@ function tutorialBack(){
   tutorialStepIndex--;
   renderTutorialStep();
 }
+
+// ---- Persistence: browser localStorage, not a real account/database ----
+// This is still a no-backend static site — nothing is ever transmitted anywhere. This
+// layer only makes real progress survive a refresh and later visits on the SAME browser/
+// device, which the app previously couldn't do at all. See README gap #41 and the Privacy
+// page for the honest limits (new device, cleared browser data, or a different browser
+// all start fresh — there's no account to recover from).
+
+const STORAGE_KEY = 'aesculamd-bootcamp-state-v1';
+
+function saveState(){
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      selfAssessment, evidenceLog, entryCounter, trackChoice, testingWindowDate,
+      programAmbition, studentProfile, roadmapOrder, roadmapPersonalized, skipModeActive,
+      stageStatuses: STAGE_DATA.map(s => s.status),
+      planText: planState.text
+    }));
+  } catch (e) {
+    // Private-browsing mode or a full storage quota can throw here — losing persistence
+    // silently is far better than breaking the app over it.
+  }
+}
+
+function loadState(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const saved = JSON.parse(raw);
+    // A future content update could change STAGE_DATA's shape — validate before applying
+    // rather than risk restoring a blob that no longer matches, which could crash render.
+    if (!saved || !Array.isArray(saved.stageStatuses) || saved.stageStatuses.length !== STAGE_DATA.length) return;
+
+    selfAssessment = saved.selfAssessment || {};
+    evidenceLog = Array.isArray(saved.evidenceLog) ? saved.evidenceLog : [];
+    entryCounter = saved.entryCounter || 0;
+    trackChoice = saved.trackChoice || null;
+    testingWindowDate = saved.testingWindowDate || null;
+    programAmbition = saved.programAmbition || null;
+    studentProfile = saved.studentProfile || { yearInSchool: null, targetCycleYear: null };
+    roadmapOrder = Array.isArray(saved.roadmapOrder) ? saved.roadmapOrder : STAGE_DATA.map((_, i) => i);
+    roadmapPersonalized = !!saved.roadmapPersonalized;
+    skipModeActive = !!saved.skipModeActive;
+    saved.stageStatuses.forEach((status, i) => { STAGE_DATA[i].status = status; });
+    planState = { text: saved.planText || null, loading: false };
+  } catch (e) {
+    // Corrupted or incompatible saved data — start fresh rather than crash on boot.
+  }
+}
+
+loadState();
 
 // Initial render on page load
 renderStageList();

@@ -37,6 +37,14 @@ What matters more than the number: **consistency over a single burst.** A studen
 
 ---
 
+## If you don't know where to start, or don't have an existing connection
+
+Almost every campus has a service-learning or volunteer center, usually run out of student affairs or a career center, whose entire job is placing students with real local organizations — one of the most underused resources in premed advising, since students assume they have to find something on their own. Beyond campus, VolunteerMatch.org and Idealist.org both aggregate real, currently-open positions searchable by cause and location. Hospice organizations (the same access point named in Stage 06) almost always run their own volunteer-training pipeline and are chronically understaffed, which means a cold call gets answered. Public libraries run literacy and homework-help programs year-round and are one of the easiest places to start consistently, since they run on a fixed weekly schedule rather than needing you to build one from scratch.
+
+The concrete first move: search "[your city] volunteer [cause]" or call your campus's service-learning office directly and ask what's currently looking for help — don't wait for a perfect-sounding opportunity to appear before starting.
+
+---
+
 ### What this looks like in practice (a composite, not a real student)
 
 Wei almost picked an environmental nonprofit because it sounded distinctive on paper, before catching herself and admitting she didn't actually care about it. She chose weekend tutoring at a youth literacy program instead — less unusual-sounding, but something she kept showing up to for two full years. What she could eventually say about it wasn't "I tutored 200 hours"; it was a specific account of watching one student go from refusing to read aloud to volunteering to read first, and what that taught her about patience she hadn't expected to need.

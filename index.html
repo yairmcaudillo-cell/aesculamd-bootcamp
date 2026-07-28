@@ -260,7 +260,8 @@
 
     <div class="apply-card" style="max-width:680px; margin-bottom:20px;">
       <h3>What actually happens to your reflections right now</h3>
-      <p>This is a front-end prototype with no backend and no accounts. Everything you type — self-assessment ratings, reflection answers, Chat messages, your Institutes application — lives only in this browser tab's memory. Nothing is transmitted to a server, because there is no server. Refreshing the page erases all of it. That's a real limitation, not a privacy feature deliberately built in, but it does mean nothing you write here currently leaves your device.</p>
+      <p>This is a front-end prototype with no backend and no accounts. Your real progress — self-assessment ratings, every stage's reflections, your track/testing/ambition choices, and your generated plan — is saved to this browser's local storage, so it survives a refresh and later visits, on this same browser and device. It is never transmitted to a server, because there is no server — local storage lives only on your device. Switching devices, switching browsers, or clearing your browser data all start you over, since there's no account to recover from. Chat messages and the Institutes application still only live in this tab's memory and are lost on refresh. You can clear everything saved here yourself, anytime, with the button below.</p>
+      <button class="btn outline" style="margin-top:10px;" onclick="if(confirm('Clear everything saved on this device? This cannot be undone.')) resetToFreshStart();">Clear everything saved on this device</button>
     </div>
 
     <div class="apply-card" style="max-width:680px; margin-bottom:20px;">

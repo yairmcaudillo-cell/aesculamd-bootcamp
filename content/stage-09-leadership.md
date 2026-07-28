@@ -43,6 +43,14 @@ There's no official requirement, but a reasonable planning target is **three or 
 
 ---
 
+## How initiative is actually found
+
+Leadership doesn't come from joining a new organization with "leadership" in its name — it comes from noticing a real, specific friction inside something you're already part of: a club, a job, a lab, a volunteer shift, a class project. The signal to listen for is a complaint that keeps repeating — something people mention offhand more than once ("ugh, the sign-up sheet always gets confusing," "nobody explains this to new people the same way twice") is usually the actual gap, hiding in plain sight because everyone's gotten used to working around it.
+
+The concrete first move is small on purpose: don't ask for a title or permission first — build the smallest real fix (a one-page guide, a shared calendar, a better sign-up system) and offer it. Asking "can I be in charge of onboarding" before you've done anything is a much harder sell than showing up with the onboarding guide already written.
+
+---
+
 ### What this looks like in practice (a composite, not a real student)
 
 Fatima noticed new volunteers at her free clinic kept making the same intake-paperwork mistakes because no one trained them consistently — so she wrote up a one-page onboarding guide and started walking new volunteers through it herself, without being asked or given a title for it. A year later the clinic coordinator formalized it as an official role. The strength of the story isn't the eventual title; it's that she solved a real, specific problem before anyone gave her permission to.

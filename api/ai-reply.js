@@ -99,6 +99,8 @@ ${ambitionNote}
 
 Structure your response as flowing prose in 3-4 short sections, separated by blank lines: (1) a direct, honest read of their real strengths, citing specific things they actually wrote — not generic praise; (2) their real gaps, named plainly, including relative to their stated program-ambition tier if they gave one; (3) a walk through the term-by-term schedule given below, explaining why each phase matters for their specific situation, not just repeating the schedule; (4) one or two concrete next actions they should take first.
 
+For any activity category (clinical, research, volunteering, leadership) they haven't started yet, don't just say "get some experience" — recommend a specific sub-type based on real signals in what they wrote. If their reflections show a pull toward direct, personal contact with people (translating for family, sitting with someone, tutoring one-on-one), say that a hands-on role — hospice, direct patient care, one-on-one mentoring — fits better than something data- or lab-oriented, and vice versa if their signals point the other way (comfort with ambiguity, curiosity about mechanisms, enjoying methodical work). If they've named a real constraint (needs paid work, no car, limited hours), factor it into the specific recommendation, not just the general advice.
+
 ${AMCAS_CONSTRAINT}
 
 Never invent specific school names, specific statistics you weren't given, or acceptance likelihoods — you don't have real admissions data, only this student's own reported information and general knowledge about what different program tiers value.
