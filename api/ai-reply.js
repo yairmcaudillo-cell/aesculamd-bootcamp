@@ -68,6 +68,69 @@ Keep replies conversational and concise — a few sentences, not an essay.`;
   return [{ role: 'system', content: system }, ...historyMessages];
 }
 
+function summarizeSelfAssessment(selfAssessment) {
+  if (!selfAssessment || typeof selfAssessment !== 'object') return 'No self-assessment data provided.';
+  const lines = Object.entries(selfAssessment)
+    .filter(([, v]) => v && v.level)
+    .slice(0, 20)
+    .map(([name, v]) => `- ${clamp(name)}: ${clamp(v.level)}${v.reflection ? ` — "${clamp(v.reflection)}"` : ''}`);
+  return lines.length ? lines.join('\n') : 'No competencies rated yet.';
+}
+
+function summarizeEvidenceLog(evidenceLog) {
+  if (!Array.isArray(evidenceLog) || evidenceLog.length === 0) return 'No evidence log entries yet.';
+  return evidenceLog.slice(0, 100).map(e =>
+    `- [${clamp(e.source_reference || '')}] ${clamp((e.competency_tags || []).join(', '))}: "${clamp(e.content || '')}"`
+  ).join('\n');
+}
+
+const AMBITION_NOTES = {
+  'research-intensive': "The student is aiming for highly-selective, research-intensive programs. These generally expect sustained, substantive research involvement (not just a summer of exposure) and the most competitive GPA/MCAT range. If their evidence log doesn't yet reflect that level, say so plainly — do not reassure them it's fine if it isn't.",
+  'strong-academic': "The student is aiming for strong, broadly competitive academic programs. Solid, consistent evidence across the competencies matters more here than any single standout credential.",
+  'community-focused': "The student is aiming for community- and primary-care-focused programs. Service and relationship-building evidence often weighs as heavily here as research."
+};
+
+function buildGeneratePlanMessages({ selfAssessment, evidenceLog, trackChoice, testingWindowDate, studentProfile, programAmbition, scheduleSummary }) {
+  const ambitionNote = AMBITION_NOTES[programAmbition] || "The student hasn't specified a program-ambition tier yet — write generally, without assuming a specific selectivity level.";
+
+  const system = `You are writing a real, personalized medical-school-application plan for a premed student, synthesized from everything they've actually told this platform — not generic advice. This is the capstone deliverable of the whole curriculum: read their real self-assessment, their real reflections, and their real choices, and tell them the truth about where they stand and what to actually do next.
+
+${ambitionNote}
+
+Structure your response as flowing prose in 3-4 short sections, separated by blank lines: (1) a direct, honest read of their real strengths, citing specific things they actually wrote — not generic praise; (2) their real gaps, named plainly, including relative to their stated program-ambition tier if they gave one; (3) a walk through the term-by-term schedule given below, explaining why each phase matters for their specific situation, not just repeating the schedule; (4) one or two concrete next actions they should take first.
+
+${AMCAS_CONSTRAINT}
+
+Never invent specific school names, specific statistics you weren't given, or acceptance likelihoods — you don't have real admissions data, only this student's own reported information and general knowledge about what different program tiers value.
+
+Keep the whole thing to roughly 300-450 words. Talk directly to the student ("you"), not about them.`;
+
+  const userContent = `MD/DO/Dual track: ${clamp(trackChoice) || 'not yet chosen'}
+Target MCAT testing window: ${clamp(testingWindowDate) || 'not yet set'}
+Year in school: ${clamp(studentProfile && studentProfile.yearInSchool) || 'not set'}
+Target application cycle: ${(studentProfile && studentProfile.targetCycleYear) || 'not set'}
+
+Self-assessment (competency: level — reflection):
+${summarizeSelfAssessment(selfAssessment)}
+
+Evidence log (every stage reflection and rating, tagged by competency):
+${summarizeEvidenceLog(evidenceLog)}
+
+Their real term-by-term schedule (already computed — write around this, don't invent your own dates):
+${clamp(scheduleSummary) || 'No schedule available yet.'}`;
+
+  return [
+    { role: 'system', content: system },
+    { role: 'user', content: userContent }
+  ];
+}
+
+const MODE_MAX_TOKENS = {
+  'coach-eval': 300,
+  'agent-chat': 300,
+  'generate-plan': 900
+};
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
@@ -92,6 +155,8 @@ export default async function handler(req, res) {
       messages = buildCoachEvalMessages(req.body);
     } else if (mode === 'agent-chat') {
       messages = buildAgentChatMessages(req.body);
+    } else if (mode === 'generate-plan') {
+      messages = buildGeneratePlanMessages(req.body);
     } else {
       res.status(400).json({ error: 'Unknown mode.' });
       return;
@@ -100,7 +165,7 @@ export default async function handler(req, res) {
     const completion = await getClient().chat.completions.create({
       model: 'gpt-4o-mini',
       messages,
-      max_tokens: 300,
+      max_tokens: MODE_MAX_TOKENS[mode] || 300,
       temperature: 0.7
     });
 

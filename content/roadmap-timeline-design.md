@@ -61,6 +61,16 @@ The Timeline page states plainly that this is a planning estimate, not a guarant
 
 ---
 
+## 3.5. The personalized plan (the platform's actual capstone)
+
+The Timeline's schedule answers *when*. It doesn't answer the thing the whole bootcamp is actually building toward: a synthesized, personalized read of where a student stands and what to do about it, grounded in everything they've actually said — not just a stage list with dates on it.
+
+**Your Personalized Plan**, on the same Timeline page, is a real model call (`api/ai-reply.js`, `mode: "generate-plan"`) reading the student's full real state: every self-assessment rating and reflection, every stage's evidence-log entries, `trackChoice`, `testingWindowDate`, `studentProfile`, and the `computeTimeline()` schedule itself (handed in as plain-text context so the model writes around real dates rather than inventing its own). It writes a real strengths/gaps/next-actions synthesis, not generic advice — and it's honest about gaps rather than reassuring, the same stance the rest of this app already takes (the Committee tool, the pace read).
+
+**Program-ambition tier**, set right above the Generate button, is the honest substitute for a real school list this prototype doesn't have (School List was removed — see `README.md` gap #23): `research-intensive`, `strong-academic`, or `community-focused`, not a specific school. It does two things: (1) it's handed to the AI as calibration — a student aiming research-intensive gets told plainly if their evidence log doesn't yet reflect that level; (2) it adds one more weight term to `computeRoadmapOrder()`'s existing priority scoring (same shape as `track_weight`), pulling "Research or No Research?" earlier when the tier is research-intensive.
+
+Same resilience pattern as every other real-AI surface in this app: if the call fails or hits the rate limit, a deterministic fallback (`buildFallbackPlan()`) stitches together the pace read, the term schedule, and any competencies still rated Planning — genuinely less rich than a real synthesis, but never a broken UI.
+
 ## 4. What this doesn't solve
 
 - **No persistence.** Same limitation as the rest of this prototype — a refresh loses `studentProfile` and recomputes nothing until Quick Setup or a stage is redone.

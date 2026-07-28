@@ -19,6 +19,12 @@ let selfAssessment = {};
 // Stage 04's MD/DO/dual choice — feeds track_weight in computeRoadmapOrder().
 let trackChoice = null; // 'MD' | 'DO' | 'Dual'
 
+// Set on the Timeline page, right before generating a personalized plan — a program-type
+// tier, not a specific school (this app has no real school database; School List was
+// removed, see README gap #23). Feeds ambition_weight in computeRoadmapOrder() and the
+// honesty calibration in the AI-generated plan's system prompt.
+let programAmbition = null; // 'research-intensive' | 'strong-academic' | 'community-focused'
+
 // Stage 05's self-reported testing window ("YYYY-MM") — feeds urgency_weight.
 let testingWindowDate = null;
 
@@ -518,6 +524,31 @@ function setTrackChoice(choice){
   renderTrackSelector();
 }
 
+// ---- Timeline: program-ambition selector, feeds the personalized plan ----
+// A tier, not a specific school — this app has no real school database (School List was
+// removed, see README gap #23), so this stays honestly calibratable without fabricating
+// per-school stats.
+
+function renderAmbitionSelector(){
+  const container = document.getElementById('timeline-ambition-selector');
+  if (!container) return;
+  const options = ['research-intensive', 'strong-academic', 'community-focused'];
+  const labels = {
+    'research-intensive': 'Highly-selective, research-intensive',
+    'strong-academic': 'Strong academic, broad fit',
+    'community-focused': 'Community & primary-care focused'
+  };
+  container.innerHTML = `<div class="side-title" style="margin-bottom:8px;">What kind of program are you aiming for?</div>
+    <div class="track-pills" role="group" aria-label="What kind of program are you aiming for">
+      ${options.map(o => `<div class="track-pill ${programAmbition === o ? 'selected' : ''}" role="button" tabindex="0" aria-pressed="${programAmbition === o}" onclick="setProgramAmbition('${o}')">${labels[o]}</div>`).join('')}
+    </div>`;
+}
+
+function setProgramAmbition(choice){
+  programAmbition = programAmbition === choice ? null : choice;
+  computeRoadmapOrder();
+}
+
 // ---- Stage 05 testing-window date ----
 
 let activeTestingWindowContainer = 'sp-testing-window';
@@ -599,7 +630,15 @@ function computeRoadmapOrder(){
     return (title === 'Clinical Experience' || title === 'Personal Brand') ? 1.5 : 0;
   };
 
-  const priority = (idx) => gapWeight(idx) + urgencyWeight(idx) + trackWeight(idx);
+  // Set on the Timeline page — highly-selective, research-intensive programs generally
+  // expect sustained research depth, so that stage earns real priority rather than sitting
+  // wherever gap/urgency/track weight happens to leave it.
+  const ambitionWeight = (idx) => {
+    if (programAmbition !== 'research-intensive') return 0;
+    return STAGE_DATA[idx].title === 'Research or No Research?' ? 2 : 0;
+  };
+
+  const priority = (idx) => gapWeight(idx) + urgencyWeight(idx) + trackWeight(idx) + ambitionWeight(idx);
 
   reorderable.sort((a, b) => priority(b) - priority(a));
   roadmapOrder = fixed.concat(reorderable);
@@ -1047,6 +1086,10 @@ function renderTimeline(){
     grid.innerHTML = '';
     if (sub) sub.textContent = 'Complete Quick Setup or Stage 01 (with a target cycle year) to generate your personalized timeline to application day.';
     if (paceEl) paceEl.innerHTML = '';
+    const ambitionEl = document.getElementById('timeline-ambition-selector');
+    const planBodyEl = document.getElementById('timeline-plan-body');
+    if (ambitionEl) ambitionEl.innerHTML = '';
+    if (planBodyEl) planBodyEl.innerHTML = '';
     return;
   }
   if (sub) sub.textContent = `A planning estimate from now through your ${studentProfile.targetCycleYear} application cycle — not a guarantee, and it reorders automatically as your self-assessment, track, and testing date change.`;
@@ -1066,6 +1109,83 @@ function renderTimeline(){
       </div>
     </div>
   `).join('');
+
+  renderPlanSection();
+}
+
+// ---- Timeline: AI-generated personalized plan (the bootcamp's actual capstone) ----
+// Reads across everything the student has actually said — self-assessment, every stage's
+// reflections, track/testing/ambition choices — and turns it into one synthesized,
+// personalized plan, not just the term-by-term schedule computeTimeline() already gives.
+
+let planState = { text: null, loading: false };
+
+function buildScheduleSummary(){
+  const timeline = computeTimeline();
+  if (!timeline) return '';
+  return timeline.map(term => {
+    const parts = [];
+    if (term.stages.length) parts.push(`stages: ${term.stages.join(', ')}`);
+    if (term.milestones.length) parts.push(`milestones: ${term.milestones.join(', ')}`);
+    return `${term.label} — ${parts.length ? parts.join('; ') : 'nothing scheduled'}`;
+  }).join('\n');
+}
+
+const AMBITION_FALLBACK_LINES = {
+  'research-intensive': "You've indicated interest in highly-selective, research-intensive programs — these typically expect sustained, substantive research experience and the most competitive academic profile, so weigh that as you prioritize.",
+  'strong-academic': "You've indicated interest in strong, broadly competitive academic programs — consistent evidence across the competencies matters most here.",
+  'community-focused': "You've indicated interest in community- and primary-care-focused programs — service and relationship-building evidence carries real weight here."
+};
+
+// Graceful-degradation fallback if the real AI call fails or is rate-limited — deterministic,
+// reusing already-computed values, same pattern as specificityNudge()/generateAgentReply().
+function buildFallbackPlan(){
+  const pace = computePaceRead();
+  const schedule = buildScheduleSummary();
+  const weakCompetencies = Object.entries(selfAssessment)
+    .filter(([, v]) => v && v.level === 'Planning')
+    .map(([name]) => name);
+
+  const parts = [];
+  if (pace) parts.push(pace.message);
+  if (weakCompetencies.length) parts.push(`Still rated "Planning" (worth prioritizing): ${weakCompetencies.join(', ')}.`);
+  if (AMBITION_FALLBACK_LINES[programAmbition]) parts.push(AMBITION_FALLBACK_LINES[programAmbition]);
+  if (schedule) parts.push(`Your current term-by-term schedule:\n${schedule}`);
+  return parts.join('\n\n') || 'Complete more of your self-assessment and stage reflections to generate a real plan.';
+}
+
+async function generatePersonalizedPlan(){
+  planState.loading = true;
+  renderPlanSection();
+
+  const reply = await callAiReply(
+    {
+      mode: 'generate-plan',
+      selfAssessment, evidenceLog, trackChoice, testingWindowDate, studentProfile, programAmbition,
+      scheduleSummary: buildScheduleSummary()
+    },
+    buildFallbackPlan
+  );
+
+  planState.text = reply;
+  planState.loading = false;
+  renderPlanSection();
+}
+
+function renderPlanSection(){
+  renderAmbitionSelector();
+  const bodyEl = document.getElementById('timeline-plan-body');
+  if (!bodyEl) return;
+
+  if (planState.loading) {
+    bodyEl.innerHTML = `<div class="typing-hint">Thinking…</div>`;
+  } else if (planState.text) {
+    const paragraphs = planState.text.split(/\n\s*\n/).map(p => `<p>${p.trim()}</p>`).join('');
+    bodyEl.innerHTML = `<div class="personalized-plan-text">${paragraphs}</div>
+      <button class="btn outline" style="margin-top:12px;" onclick="generatePersonalizedPlan()">Regenerate</button>`;
+  } else {
+    bodyEl.innerHTML = `<button class="btn" onclick="generatePersonalizedPlan()">Generate My Personalized Plan</button>`;
+  }
 }
 
 // ---- Personal Statement Checker (content/personal-statement-checker-design.md) ----
@@ -1666,6 +1786,8 @@ function loadSampleJourney(){
 
   const stageReflections = [
     ["The night my grandmother's biopsy results came back, I was the one who explained what 'atypical cells, needs follow-up' actually meant, standing in our kitchen at 11pm.",
+     "My grandmother is the person — watching her try to nod along at appointments when I could tell she didn't actually follow what the doctor said, then asking me in the car what he really meant.",
+     "Being the one who reads every letter from the insurance company out loud and explains what it actually means has been a normal part of my life since middle school, not something I sought out.",
      "Sophomore year I seriously considered switching to nursing because I was scared I didn't have the stomach for what happens after a hard diagnosis, not just the moment of delivering news.",
      "I keep coming back to being the translator, not just of language but of what's actually happening, for people who are scared and need someone to be plain with them."],
     ["Interview travel is what actually worries me, since I hadn't budgeted for flying to multiple cities in the same month.",
@@ -1684,13 +1806,15 @@ function loadSampleJourney(){
      "My real barrier is not having a car, so I'm targeting clinics that are actually reachable by the bus line."],
     ["I'd keep tutoring even with zero connection to my application, since I actually like watching a kid get something they were stuck on.",
      "I feel a specific pull toward first-generation students, since that was my own experience growing up.",
+     "It connects directly — the tutoring is still about being the person who explains the thing clearly when someone else is stuck and confused, the same thread as translating for my grandmother.",
      "Last week one of my regular students read a full paragraph out loud without stopping for the first time, and I actually got emotional about it."],
     ["Success looks like being able to explain why the research question actually mattered, not just finishing the project on paper.",
      "It connects to my Stage 02 why — it's still about being the bridge for people who are confused by something complicated.",
      "My real constraint is a part-time job, so a public health survey project fits my schedule better than a wet lab right now."],
     ["New volunteers at my tutoring program kept making the same sign-in mistakes, so I wrote a one-page guide and started walking people through it myself.",
      "There's a real gap in how our program tracks which students actually need extra sessions, and nobody has fixed it yet.",
-     "I do hold an informal lead-tutor role now, and I've been mostly passive about it — this is pushing me to actually do something with it."],
+     "I do hold an informal lead-tutor role now, and I've been mostly passive about it — this is pushing me to actually do something with it.",
+     "I've informally shown two newer tutors how I handle a session that's going badly, mostly just by having them sit in — I learned I actually like this part more than I expected."],
     ["I searched my own name and found nothing concerning, just old sports photos and a middle school blog I'd forgotten existed.",
      "My pharmacy manager has watched me handle real pressure for two years — I haven't asked her yet, but she's on my real list.",
      "I can point to something real and specific: translating keeps showing up, unprompted, across three different stages of this whole roadmap."]
@@ -1701,6 +1825,8 @@ function loadSampleJourney(){
 
   trackChoice = 'Dual';
   testingWindowDate = '2027-04';
+  studentProfile.yearInSchool = 'Sophomore';
+  studentProfile.targetCycleYear = new Date().getFullYear() + 2;
   STAGE_DATA.forEach(s => { s.status = 'done'; });
   roadmapPersonalized = true;
   computeRoadmapOrder();
@@ -1716,6 +1842,9 @@ function resetToFreshStart(){
   entryCounter = 0;
   trackChoice = null;
   testingWindowDate = null;
+  programAmbition = null;
+  planState = { text: null, loading: false };
+  studentProfile = { yearInSchool: null, targetCycleYear: null };
   roadmapPersonalized = false;
   STAGE_DATA.forEach((s, i) => { s.status = i === 0 ? 'current' : 'locked'; });
   roadmapOrder = STAGE_DATA.map((_, i) => i);

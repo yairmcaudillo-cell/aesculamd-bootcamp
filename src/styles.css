@@ -327,6 +327,10 @@
   .pace-read.good{ background:var(--teal-pale); color:var(--teal); }
   .pace-read.warn{ background:#FEF3C7; color:#78350F; }
   .pace-read.bad{ background:#FCEBEB; color:#7F1D1D; }
+  .timeline-plan-panel{ border:1px solid var(--line); border-radius:14px; padding:22px 24px; background:var(--panel); margin-top:24px; }
+  .personalized-plan-text{ font-size:14px; line-height:1.7; color:var(--ink); max-width:680px; }
+  .personalized-plan-text p{ margin:0 0 14px; }
+  .personalized-plan-text p:last-child{ margin-bottom:0; }
 
   /* Generic form inputs (used by Institutes) */
   .form-input{ flex:1 1 180px; border:1px solid var(--line-strong); border-radius:8px; padding:9px 10px; font-size:13px; font-family:inherit; min-width:0; }
