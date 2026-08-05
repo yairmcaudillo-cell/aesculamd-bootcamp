@@ -2023,6 +2023,7 @@ function tutorialBack(){
 // all start fresh — there's no account to recover from).
 
 const STORAGE_KEY = 'aesculamd-bootcamp-state-v1';
+const REFERRAL_KEY = 'aesculamd-bootcamp-referral-v1';
 
 function saveState(){
   try {
@@ -2066,6 +2067,65 @@ function loadState(){
 
 loadState();
 
+// ---- Where the student came from ----
+// AesculaMD_1 links here with ?from=aesculamd&diagId=..&stage=.. so we can (a) say
+// something useful to someone who arrived mid-journey rather than greeting them as a
+// brand-new freshman, and (b) hand the diagnostic id back on export, which lets that
+// side reconnect this progress to the diagnostic that started it.
+//
+// Captured once and persisted: the params only exist on the first URL, and every
+// in-app navigation replaces the hash and would otherwise drop them.
+var referral = null;
+
+function captureReferral(){
+  try {
+    var params = new URLSearchParams(location.search || '');
+    var from = params.get('from');
+    if (from) {
+      referral = {
+        from: from.slice(0, 40),
+        diagId: (params.get('diagId') || '').slice(0, 40) || null,
+        stage: (params.get('stage') || '').slice(0, 40) || null,
+        arrivedAt: new Date().toISOString()
+      };
+      try { localStorage.setItem(REFERRAL_KEY, JSON.stringify(referral)); } catch (e) {}
+      return;
+    }
+    var saved = localStorage.getItem(REFERRAL_KEY);
+    if (saved) referral = JSON.parse(saved);
+  } catch (e) {
+    // A malformed URL or unavailable storage must never stop the app loading.
+  }
+}
+
+// Only these four are recognised; anything else gets the neutral default. Keep in step
+// with JOURNEY_STAGES in AesculaMD_1's shared/journey.ts.
+function referralGreeting(){
+  if (!referral || referral.from !== 'aesculamd') return null;
+  switch (referral.stage) {
+    case 'starting_out':
+      return "You're early, which is the best time to be here. Work through the stages in order — there's no rush.";
+    case 'getting_serious':
+      return "You already have real experience behind you. Quick Setup will skip you past what you've covered.";
+    case 'applying_this_cycle':
+    case 'already_applied':
+      return "You're applying soon, so use this for the gaps — your application work lives back in AesculaMD.";
+    default:
+      return "Picking up from AesculaMD. Your progress here is saved to this browser.";
+  }
+}
+
+
+function renderReferralNote(){
+  var el = document.getElementById('referral-note');
+  if (!el) return;
+  var msg = referralGreeting();
+  // No banner at all for an ordinary visitor — an empty bar would just be noise.
+  el.innerHTML = msg
+    ? '<p class="sub" style="max-width:640px; margin:0 auto 20px; padding:10px 16px; border:1px solid rgba(255,255,255,0.14); border-radius:10px;">' + msg + '</p>'
+    : '';
+}
+
 // ---- Inbound deep links ----
 // Every "page" here is a div toggled by go(), which means the app had no way to be
 // linked INTO — a fine trade while this was the only product, but AesculaMD_1 now
@@ -2090,6 +2150,10 @@ function applyInboundLink(){
 }
 
 // Initial render on page load
+// Referral is read before the first render: renderReferralNote() depends on it,
+// and every in-app navigation rewrites the hash, so the params are gone after this.
+captureReferral();
+renderReferralNote();
 renderStageList();
 renderAgents();
 renderKnowHow();
