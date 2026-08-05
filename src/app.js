@@ -1761,6 +1761,110 @@ function renderProfileSnapshot(){
       <button class="agent-tool-link" onclick="go('${c.link}', navElementFor('${c.link}'))">${c.linkLabel} →</button>
     </div>
   `).join('');
+
+  renderExportPanel();
+}
+
+// ---- Export My Progress: the handoff into AesculaMD's full platform ----
+// Bootcamp has no accounts — progress lives in THIS browser's localStorage (see
+// saveState()). That's fine for a self-paced curriculum, but it means everything a
+// student builds here is one cleared-cache away from gone, and there's no way for
+// the full platform to see it. This export is the bridge both ways: a file they
+// can keep, and the thing AesculaMD_1's "Import from Bootcamp" reads so their
+// years of reflections land there as real Story Bank evidence instead of a blank
+// page. Contract shape + version must stay in step with AesculaMD_1's
+// shared/bootcampHandoff.ts — it validates the contract id and refuses a version
+// it doesn't understand rather than half-importing.
+
+const HANDOFF_CONTRACT = 'aesculamd.bootcamp.export';
+const HANDOFF_VERSION = 1;
+
+function buildHandoffExport(){
+  return {
+    contract: HANDOFF_CONTRACT,
+    version: HANDOFF_VERSION,
+    exportedAt: new Date().toISOString(),
+    studentProfile: {
+      yearInSchool: studentProfile.yearInSchool,
+      targetCycleYear: studentProfile.targetCycleYear
+    },
+    programAmbition: programAmbition,
+    trackChoice: trackChoice,
+    testingWindowDate: testingWindowDate,
+    selfAssessment: selfAssessment,
+    evidenceLog: evidenceLog,
+    stageStatuses: STAGE_DATA.map(s => s.status),
+    planText: planState.text
+  };
+}
+
+function handoffCounts(){
+  const data = buildHandoffExport();
+  const rated = Object.values(data.selfAssessment).filter(a => a && a.level).length;
+  const written = Object.values(data.selfAssessment).filter(a => a && a.reflection && a.reflection.trim().length > 20).length
+    + data.evidenceLog.filter(e => e.source_type !== 'self_assessment' && e.content && e.content.trim().length > 20).length;
+  return { rated, written };
+}
+
+function renderExportPanel(){
+  const el = document.getElementById('profile-export');
+  if (!el) return;
+  const { rated, written } = handoffCounts();
+  const hasSomething = rated > 0 || written > 0;
+  el.innerHTML = `
+    <div class="profile-card">
+      <div class="profile-card-title">Export My Progress</div>
+      <div class="profile-card-stat">${rated} / ${COMPETENCIES.length}</div>
+      <div class="profile-card-label">competencies rated · ${written} written reflection${written === 1 ? '' : 's'}</div>
+      <div class="profile-card-detail">
+        ${hasSomething
+          ? 'Everything above lives in this browser only. Download it to keep a copy, or import it into AesculaMD to turn your reflections into real Story Bank evidence.'
+          : 'Nothing to export yet — rate your competencies in Stage 01 and write a few reflections first.'}
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;">
+        <button class="agent-tool-link" ${hasSomething ? '' : 'disabled'} onclick="downloadHandoffExport()">Download file</button>
+        <button class="agent-tool-link" ${hasSomething ? '' : 'disabled'} onclick="copyHandoffExport(this)">Copy code</button>
+      </div>
+      <div id="export-status" style="font-size:12px; color:var(--muted); margin-top:8px;"></div>
+    </div>
+  `;
+}
+
+function downloadHandoffExport(){
+  try {
+    const blob = new Blob([JSON.stringify(buildHandoffExport(), null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'aesculamd-bootcamp-export.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    setExportStatus('Downloaded. In AesculaMD, go to Settings → Import and choose this file.');
+  } catch (e) {
+    setExportStatus('Download failed in this browser — try "Copy code" instead.');
+  }
+}
+
+function copyHandoffExport(btn){
+  // Base64 so a student can paste it into a single text field without a stray
+  // newline breaking the JSON.
+  try {
+    const json = JSON.stringify(buildHandoffExport());
+    const code = btoa(unescape(encodeURIComponent(json)));
+    navigator.clipboard.writeText(code).then(() => {
+      if (btn) { btn.textContent = 'Copied'; setTimeout(() => { btn.textContent = 'Copy code'; }, 2000); }
+      setExportStatus('Copied. Paste it into AesculaMD under Settings → Import.');
+    }).catch(() => setExportStatus('Clipboard blocked by this browser — use "Download file" instead.'));
+  } catch (e) {
+    setExportStatus('Copy failed in this browser — use "Download file" instead.');
+  }
+}
+
+function setExportStatus(msg){
+  const s = document.getElementById('export-status');
+  if (s) s.textContent = msg;
 }
 
 // ---- Presentation Tools: an explicitly opt-in demo-data loader ----
@@ -1962,6 +2066,29 @@ function loadState(){
 
 loadState();
 
+// ---- Inbound deep links ----
+// Every "page" here is a div toggled by go(), which means the app had no way to be
+// linked INTO — a fine trade while this was the only product, but AesculaMD_1 now
+// routes students here from their Diagnostic result, and a student who already has
+// real experience should land on Quick Setup rather than on stage one of a
+// curriculum they don't need to start from scratch. Supports `#quick-setup` and
+// `#<pageId>`; anything unrecognized just falls through to the normal home page.
+function applyInboundLink(){
+  const hash = (location.hash || '').replace(/^#/, '').trim();
+  if (!hash) return;
+
+  if (hash === 'quick-setup' || hash === 'quicksetup') {
+    go('timeline', navElementFor('timeline'));
+    // Let the Timeline render before layering the modal over it.
+    setTimeout(openQuickSetup, 0);
+    return;
+  }
+
+  if (document.getElementById('page-' + hash)) {
+    go(hash, navElementFor(hash));
+  }
+}
+
 // Initial render on page load
 renderStageList();
 renderAgents();
@@ -1975,3 +2102,12 @@ renderProfileSnapshot();
 renderPsChecker();
 startNewChat('reflection-coach');
 renderInstituteForm();
+
+// go() lives in nav.js, which index.html loads AFTER this file — so the inbound
+// link can only be applied once every script has run, not inline here.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', applyInboundLink);
+} else {
+  applyInboundLink();
+}
+window.addEventListener('hashchange', applyInboundLink);
