@@ -17,7 +17,7 @@ export default defineConfig({
       closeBundle() {
         const destDir = path.resolve(__dirname, 'dist/src');
         mkdirSync(destDir, { recursive: true });
-        for (const file of ['data.js', 'app.js', 'nav.js']) {
+        for (const file of ['data.js', 'app.js', 'nav.js', 'studio-data.js', 'studio.js']) {
           copyFileSync(path.resolve(__dirname, 'src', file), path.resolve(destDir, file));
         }
       }

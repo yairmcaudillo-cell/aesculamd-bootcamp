@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="src/styles.css">
+<link rel="stylesheet" href="src/studio.css">
+<meta name="description" content="Build your path to medicine through practical lessons, AI coaching, and a personalized action plan.">
 </head>
 <body>
 <!-- ===== MOBILE TOPBAR (visible below 880px) ===== -->
@@ -127,8 +129,8 @@
 
   <!-- BOOTCAMP -->
   <div class="page" id="page-bootcamp">
-    <h1 class="section-heading">Welcome to the Bootcamp!</h1>
-    <p class="section-sub">Select a stage and dive in.</p>
+    <h1 class="section-heading">The full curriculum</h1>
+    <p class="section-sub">Ten deep dives to support your learning sessions. Explore a chapter, use its workspace, and discuss what you learn.</p>
 
     <div class="bootcamp-layout">
       <div class="stage-list" id="stage-list">
@@ -265,13 +267,13 @@
 
     <div class="apply-card" style="max-width:680px; margin-bottom:20px;">
       <h3>What actually happens to your reflections right now</h3>
-      <p>This is a front-end prototype with no backend and no accounts. Your real progress — self-assessment ratings, every stage's reflections, your track/testing/ambition choices, and your generated plan — is saved to this browser's local storage, so it survives a refresh and later visits, on this same browser and device. It is never transmitted to a server, because there is no server — local storage lives only on your device. Switching devices, switching browsers, or clearing your browser data all start you over, since there's no account to recover from. Chat messages and the Institutes application still only live in this tab's memory and are lost on refresh. You can clear everything saved here yourself, anytime, with the button below.</p>
-      <button class="btn outline" style="margin-top:10px;" onclick="if(confirm('Clear everything saved on this device? This cannot be undone.')) resetToFreshStart();">Clear everything saved on this device</button>
+      <p>This platform has no accounts. Its AI features use a server endpoint. Your real progress — self-assessment ratings, every stage's reflections, your track/testing/ambition choices, and your generated plan — is saved to this browser's local storage, so it survives a refresh and later visits, on this same browser and device. Local storage stays on your device. When you use an AI feature, your question and relevant profile, reflection, or plan context are sent to the server and its AI provider to generate a reply. Do not include identifying patient information. Switching devices, switching browsers, or clearing your browser data all start you over, since there's no account to recover from. Chat messages and the Institutes application still only live in this tab's memory and are lost on refresh. You can clear everything saved here yourself, anytime, with the button below.</p>
+      <button class="btn outline" style="margin-top:10px;" onclick="studioReset()">Clear everything saved on this device</button>
     </div>
 
     <div class="apply-card" style="max-width:680px; margin-bottom:20px;">
       <h3>Why this page exists before that changes</h3>
-      <p>Several stages ask for genuinely personal material — family financial or immigration circumstances, health history, caregiving responsibilities, moments of real doubt. Before any of that is ever stored on a real server, tied to a real account, or shared with a real institution (including through an Institutes pilot), a real privacy policy needs to exist and needs to be linked here — covering who can see it, how long it's kept, and whether an advising office that licenses Institutes content can see individual students' reflections or only aggregate, anonymized patterns. None of those decisions have been made yet, which is exactly why this page doesn't claim to have already made them.</p>
+      <p>Several stages ask for genuinely personal material — family financial or immigration circumstances, health history, caregiving responsibilities, moments of real doubt. AI requests already transmit the relevant context described above. Before adding cloud accounts or institutional sharing, the platform needs a published policy — covering who can see it, how long it's kept, and whether an advising office that licenses Institutes content can see individual students' reflections or only aggregate, anonymized patterns. None of those decisions have been made yet, which is exactly why this page doesn't claim to have already made them.</p>
     </div>
 
     <div class="apply-card" style="max-width:680px;">
@@ -457,5 +459,7 @@
 <script src="src/data.js"></script>
 <script src="src/app.js"></script>
 <script src="src/nav.js"></script>
+<script src="src/studio-data.js"></script>
+<script src="src/studio.js"></script>
 </body>
 </html>

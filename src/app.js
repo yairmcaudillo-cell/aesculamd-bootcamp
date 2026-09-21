@@ -1,3 +1,4 @@
+function escapeUserText(value){ return String(value ?? '').replace(/[&<>\"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c])); }
 // Rendering and interaction logic. Reads from data.js (STAGE_DATA, AGENT_DATA, COMPETENCIES).
 
 // Some pages (Bootcamp, Timeline) are top-level .nav-item elements; others (Evidence Log,
@@ -212,7 +213,7 @@ function renderAssessment(containerId){
       </div>
       ${showReflection ? `<div class="assess-reflection">
         <div class="assess-reflection-label">One specific moment where you demonstrated this — specific enough someone else could picture it:</div>
-        <textarea onblur="updateReflection('${safeName}', this.value)" placeholder="Describe a real moment...">${entry.reflection || ''}</textarea>
+        <textarea onblur="updateReflection('${safeName}', this.value)" placeholder="Describe a real moment...">${escapeUserText(entry.reflection || '')}</textarea>
         <div class="specificity-hint" id="hint-self-${ci}"></div>
       </div>` : ''}
     </div>`;
@@ -309,8 +310,11 @@ let coachState = { stageIdx: null, step: 0, evaluated: false, aiHint: null, aiHi
 // a real API call can fail in ways a local function never does, and the UX shouldn't
 // just break when that happens.
 async function callAiReply(payload, fallbackFn){
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 25000);
   try {
     const res = await fetch('/api/ai-reply', {
+      signal: controller.signal,
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -319,8 +323,8 @@ async function callAiReply(payload, fallbackFn){
     if (!res.ok || !data.reply) throw new Error(data.error || 'AI request failed');
     return data.reply;
   } catch (err) {
-    return fallbackFn();
-  }
+    return 'Offline guidance (AI unavailable): ' + fallbackFn();
+  } finally { clearTimeout(timer); }
 }
 
 function renderCoachPanel(){
@@ -333,7 +337,7 @@ function renderCoachPanel(){
   for (let ri = 0; ri < step; ri++) {
     const entry = evidenceLog.find(e => e.key === `stage-${stageIdx}-${ri}`);
     transcript += `<div class="chat-msg agent"><div class="chat-bubble">${s.reflection[ri]}</div></div>`;
-    transcript += `<div class="chat-msg user"><div class="chat-bubble">${entry ? entry.content : ''}</div></div>`;
+    transcript += `<div class="chat-msg user"><div class="chat-bubble">${escapeUserText(entry ? entry.content : '')}</div></div>`;
   }
 
   if (step >= s.reflection.length) {
@@ -346,16 +350,16 @@ function renderCoachPanel(){
   transcript += `<div class="chat-msg agent"><div class="chat-bubble">${s.reflection[step]}</div></div>`;
 
   if (evaluated && existing) {
-    transcript += `<div class="chat-msg user"><div class="chat-bubble">${existing.content}</div></div></div>`;
+    transcript += `<div class="chat-msg user"><div class="chat-bubble">${escapeUserText(existing.content)}</div></div></div>`;
     transcript += coachState.aiHintLoading
       ? `<div class="ai-coach-hint typing-hint">Thinking…</div>`
-      : `<div class="ai-coach-hint">${coachState.aiHint || ''}</div>
+      : `<div class="ai-coach-hint">${escapeUserText(coachState.aiHint || '')}</div>
          <button class="btn outline" onclick="reviseCoachAnswer()">Revise</button>
          <button class="btn" onclick="advanceCoachStep()">Continue →</button>`;
   } else {
     transcript += `</div>
       <div class="chat-input-wrap">
-        <textarea id="coach-answer-input" class="chat-input-real" placeholder="Your answer...">${existing ? existing.content : ''}</textarea>
+        <textarea id="coach-answer-input" class="chat-input-real" placeholder="Your answer...">${escapeUserText(existing ? existing.content : '')}</textarea>
         <button class="chat-send-btn" onclick="submitCoachAnswer()" aria-label="Send answer">↑</button>
       </div>`;
   }
@@ -446,7 +450,7 @@ function renderDeliverableOutput(){
       const entry = evidenceLog.find(e => e.key === `stage-${stageIdx}-${f.reflectionIndex}`);
       return `<div class="deliverable-field">
         <div class="deliverable-field-label">${f.label}</div>
-        <textarea class="reflection-textarea" onblur="updateDeliverableField(${f.reflectionIndex}, this.value)" placeholder="Not answered yet — use the Coach to build this.">${entry ? entry.content : ''}</textarea>
+        <textarea class="reflection-textarea" onblur="updateDeliverableField(${f.reflectionIndex}, this.value)" placeholder="Not answered yet — use the Coach to build this.">${escapeUserText(entry ? entry.content : '')}</textarea>
       </div>`;
     }).join('');
 }
@@ -595,7 +599,7 @@ function revealRecallAnswer(){
     el.innerHTML = `<div style="font-size:12.5px; color:var(--muted); font-style:italic;">You haven't completed Stage 02 yet — nothing to compare against.</div>`;
     return;
   }
-  el.innerHTML = entries.map(e => `<div style="font-size:13px; color:#3E4A3F; line-height:1.55; padding:8px 0; border-top:1px dashed var(--line);">${e.content}</div>`).join('');
+  el.innerHTML = entries.map(e => `<div style="font-size:13px; color:#3E4A3F; line-height:1.55; padding:8px 0; border-top:1px dashed var(--line);">${escapeUserText(e.content)}</div>`).join('');
 }
 
 function monthsUntil(dateStr){
@@ -807,7 +811,7 @@ function renderStageAdvisorMessages(){
   const el = document.getElementById('sd-advisor-messages');
   if (!el) return;
   el.innerHTML = stageAdvisorState.messages.map(m =>
-    `<div class="chat-msg ${m.sender}"><div class="chat-bubble">${m.text}</div></div>`
+    `<div class="chat-msg ${m.sender}"><div class="chat-bubble">${escapeUserText(m.text)}</div></div>`
   ).join('') + (stageAdvisorState.typing ? `<div class="chat-msg agent"><div class="chat-bubble typing-hint">Thinking…</div></div>` : '');
   el.scrollTop = el.scrollHeight;
 }
@@ -932,10 +936,10 @@ function renderEvidenceLog(){
         ? `<div class="evidence-competency-empty">No entries yet</div>`
         : entries.map(e => `<div class="evidence-entry">
             <div class="evidence-entry-meta">
-              <span>${e.source_reference}</span>
-              ${e.maturity_at_entry ? `<span class="evidence-entry-level">${e.maturity_at_entry}</span>` : ''}
+              <span>${escapeUserText(e.source_reference)}</span>
+              ${e.maturity_at_entry ? `<span class="evidence-entry-level">${escapeUserText(e.maturity_at_entry)}</span>` : ''}
             </div>
-            <div class="evidence-entry-content">${e.content ? e.content : '<span style="font-style:italic;color:var(--muted);">(rated, no reflection written yet)</span>'}</div>
+            <div class="evidence-entry-content">${e.content ? escapeUserText(e.content) : '<span style="font-style:italic;color:var(--muted);">(rated, no reflection written yet)</span>'}</div>
           </div>`).join('')}
     </div>`;
   });
@@ -1555,7 +1559,7 @@ function renderChat(){
   const threadEl = document.getElementById('chat-messages');
   if (threadEl) {
     threadEl.innerHTML = chatState.messages.map(m =>
-      `<div class="chat-msg ${m.sender}"><div class="chat-bubble">${m.text}</div></div>`
+      `<div class="chat-msg ${m.sender}"><div class="chat-bubble">${escapeUserText(m.text)}</div></div>`
     ).join('') + (chatState.typing ? `<div class="chat-msg agent"><div class="chat-bubble typing-hint">Thinking…</div></div>` : '');
     threadEl.scrollTop = threadEl.scrollHeight;
   }
@@ -1598,7 +1602,7 @@ function renderChatHistory(){
       <div class="p-avatar"></div>
       <div class="info">
         <h4>${agent ? agent.name : 'Unknown agent'}</h4>
-        <p>${preview ? preview.text : '(no messages yet)'}</p>
+        <p>${preview ? escapeUserText(preview.text) : '(no messages yet)'}</p>
       </div>
       <span class="lor-freshness good">${s.messages.length} messages</span>
     </div>`;
@@ -1980,7 +1984,7 @@ const TUTORIAL_STEPS = [
   { title: "Ten stages, in order, personalized to you", body: "Narrative, Cost &amp; Access, MD/DO Strategy, Grades &amp; MCAT, Clinical Experience, Volunteering, Research, Leadership, and Personal Brand — each stage unlocks the next. Your Stage 01 self-assessment actually reorders the roadmap around what you need first, not a generic checklist everyone gets." },
   { title: "Every stage has three modes", body: "<b>Lesson</b> is real, deep teaching content — not a bulleted summary. <b>Workspace</b> is a real coach: it asks one question at a time, evaluates your answer, and turns your answers into a structured deliverable you can edit directly. <b>Mentor</b> lets you rehearse a conversation with a stage-specific persona before you talk to an actual person." },
   { title: "Everything you write becomes real, searchable evidence", body: "Your <b>Evidence Log</b> collects every reflection, tagged to the actual AAMC competency it demonstrates. <b>Timeline</b> turns your roadmap into a real semester-by-semester plan. <b>My Profile</b> pulls all of it into one snapshot." },
-  { title: "What this is, and isn't", body: "This is a prototype: no accounts, but your progress is now saved to this browser on this device, so it survives a refresh — nothing is ever transmitted to a server, and a new device or browser still starts fresh. Workspace Coach, Mentor, and Chat are now backed by a real model, grounded in your real answers — but PS Checker stays a scripted heuristic on purpose, since AMCAS requires that writing to be entirely your own words. Nothing here will ever draft your personal statement for you — that has to stay yours. When you're ready for a real application cycle, this hands off to AesculaMD's full platform." }
+  { title: "What this is, and isn't", body: "This is a prototype: no accounts, but your progress is now saved to this browser on this device, so it survives a refresh — AI actions send your question and relevant context to the server and AI provider, and a new device or browser still starts fresh. Workspace Coach, Mentor, and Chat are now backed by a real model, grounded in your real answers — but PS Checker stays a scripted heuristic on purpose, since AMCAS requires that writing to be entirely your own words. Nothing here will ever draft your personal statement for you — that has to stay yours. When you're ready for a real application cycle, this hands off to AesculaMD's full platform." }
 ];
 let tutorialStepIndex = 0;
 
@@ -2016,7 +2020,7 @@ function tutorialBack(){
 }
 
 // ---- Persistence: browser localStorage, not a real account/database ----
-// This is still a no-backend static site — nothing is ever transmitted anywhere. This
+// Progress is local; AI requests send relevant context to the server and provider. This
 // layer only makes real progress survive a refresh and later visits on the SAME browser/
 // device, which the app previously couldn't do at all. See README gap #41 and the Privacy
 // page for the honest limits (new device, cleared browser data, or a different browser
