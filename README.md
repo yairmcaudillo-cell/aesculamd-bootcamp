@@ -1,3 +1,47 @@
+# AesculaMD Bootcamp — guided learning release
+
+A practical learning loop for premedical students: **learn → apply → reflect → act → revisit**.
+
+This release adds a new student dashboard, a ten-session Learning Studio, a capacity-aware action plan, and an optional AI Pathway coach while retaining the existing ten-chapter curriculum, competency assessment, evidence log, and semester timeline. The visual system uses warm neutral surfaces, green navigation, editorial headings, and responsive layouts.
+
+### Student flow
+
+1. Set a priority, application year, weekly learning capacity, and access constraints.
+2. Practice with a fictional decision case and receive explanatory feedback.
+3. Write a personal reflection; save it to the existing evidence log.
+4. Take an observable next action, mark it done, or reschedule it.
+5. Return for a spaced review and revise the plan as circumstances change.
+
+The initial action plan is transparently rules-based. The optional Pathway coach uses an actual server-side model call with explicit consent, bounded student context, a timeout, and a clearly labeled offline fallback. Existing AI tools also label fallback output. Learning completion is not an admissions readiness score or an acceptance prediction.
+
+### Run and verify
+
+- Install: npm ci
+- Development: npm run dev
+- Production: npm run build
+- API checks: npm test
+- Browser checks: npx playwright install chromium; start the dev server; npm run test:e2e
+- TEST_URL can target a production build or preview. CHROMIUM_EXECUTABLE_PATH can select an existing browser.
+
+Vite serves the UI only. Vercel serves /api/ai-reply. Configure OPENAI_API_KEY only on the server; OPENAI_MODEL is optional and defaults to the existing gpt-4o-mini model. No key belongs in frontend files.
+
+### Persistence and limitations
+
+Existing curriculum storage is preserved. Studio state uses a separate versioned key. Progress & privacy provides a full JSON backup and validated restore; clearing progress clears both stores. There are still no accounts or cross-device cloud sync. AI actions transmit the relevant context to the server/provider; the prior “nothing is transmitted” statements were corrected.
+
+The public AI endpoint still uses the existing best-effort, per-instance memory rate limit. It does not provide durable distributed abuse protection. Before a broad public launch, add a persistent rate limiter and usage monitoring. No admissions outcomes or learning efficacy have been validated. The cases are original instructional examples; see content/learning-studio.md for source provenance. Legacy detailed curriculum figures retain their existing verification caveats.
+
+### New files
+
+- src/studio-data.js: practice cases aligned to the original chapters.
+- src/studio.js: onboarding, dashboard, reflection/action loop, review scheduling, coaching, backups.
+- src/studio.css: responsive design system.
+- tests/: API contract and student-journey regression checks.
+
+The historical implementation notes below describe the earlier prototype and may refer to superseded interfaces.
+
+---
+
 # AesculaMD Bootcamp
 
 A stage-gated, competency-based pre-med curriculum for freshmen and sophomores — the "Roadmap → Agents → Community" product, prototyped here as a static, client-side mockup before any real backend work begins.
